@@ -1,15 +1,25 @@
-# 版本记录
+# Changelog
+
+**English** | [简体中文](CHANGELOG.zh-CN.md) | [Standards index](references/translations.md)
+
+## 1.1.0 — 2026-11-13
+
+- Provide full English/Chinese versions of the skill entry, reference standards, and maintenance documents
+- Use English default paths and a Chinese reference tree with reciprocal links and a bilingual index
+- Add English default and Chinese alternative agent metadata with documented activation
+- Add translation completeness/navigation checks and CI regression coverage
+- Document checker usage and diagnostics in both languages while retaining Chinese code comments and verbatim legal texts
 
 ## 1.0.1 — 2026-11-12
 
-- 增加未知语言后缀分组，使目录计数与行数规则可扩展，不允许覆盖内置分组绕过限制
-- 增加严格 YAML、重复键与元数据类型验证，并接入 CI
-- 补充设计模式选型、开源工程、AI 工具安全与逐项需求验收
-- 明确 Skill 安装后的工具路径与业务检查根目录
-- 增加对应失败路径和跨平台复验，具体实测结果以交付复验报告为准
+- Add extensible unknown-language suffix groups for directory/line limits without overriding built-in groups
+- Add strict YAML, duplicate-key, metadata-type validation in CI
+- Extend patterns, open-source engineering, AI-tool security, requirements acceptance
+- Clarify installed tool paths and business check roots
+- Add failure-path/cross-platform verification; actual results are recorded in delivery reviews
 
 ## 1.0.0 — 2026-11-12
 
-- 建立个人习惯、通用工程、语言、产品与硬件的分层规范
-- 整理公开 GitHub Skill 来源、官方资料与许可记录
-- 提供文本格式、源文件规模、同类目录计数和本地链接检查
+- Establish layered personal, engineering, language, product, hardware standards
+- Record public GitHub skills, official sources, licenses
+- Provide text/source-size/directory-family/local-link checks

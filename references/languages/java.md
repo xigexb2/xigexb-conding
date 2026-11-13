@@ -1,63 +1,65 @@
 # Java
 
-所有包/目录直接同类源码最多 20 个，测试、声明与第一方生成文件合并计数；设计时按职责划分子包，遵守 [统一目录规范](../directory-structure.md)
+**English** | [简体中文](../zh-CN/languages/java.md) | [Standards index](../translations.md)
 
-适用于实际目标 JDK，默认新项目评估 Java 25；先读 `pom.xml`、Gradle toolchain、框架 BOM 和部署镜像。
+Each package/directory directly owns at most 20 same-family source files, including tests, declarations, and first-party generated files. Design cohesive subpackages according to the [shared directory standards](../directory-structure.md).
 
-## J01 类型、接口与格式
+Applies to the actual target JDK; evaluate Java 25 for new projects. Inspect pom.xml, Gradle toolchains, framework BOMs, deployment images first.
 
-- 使用项目 IDEA、Checkstyle 或其他已配置格式；四空格，目标 100 列、上限 120 列，源文件最多 360 行
-- 普通与静态导入分组；类型在导入区引用，简单名称冲突时才局部使用全限定名
-- 标识符遵循 Java 命名惯例；包名小写，常量与枚举值使用清晰语义
-- 使用泛型，禁止原始类型和以未经校验的强转掩盖类型错误
-- Record 适合值载体，但其字段可能仍指向可变对象；构造和访问边界说明复制策略
-- `equals` 与 `hashCode` 一致，比较器满足契约；禁止可变键修改后继续作为哈希键使用
-- 公共接口定义可空性；`Optional` 主要用于可缺失返回值，不机械扩散到实体字段和入参
-- `BigDecimal` 明确精度、scale 与舍入；使用 `java.time` 表达时间点、时区和持续时间
-- 注释和类、方法、字段 Javadoc 遵守个人约定；不把构造函数写成带返回值的方法
+## J01 Types, interfaces, formatting
 
-## J02 错误与资源
+- Use existing IDEA/Checkstyle/other formatting; four spaces, target 100 columns, maximum 120, at most 360 source lines
+- Group normal/static imports; use simple imported names except for local qualification to resolve collisions
+- Follow Java naming conventions, lowercase packages, meaningful constants/enum values
+- Use generics; avoid raw types and unchecked casts that conceal type errors
+- Records suit value carriers but may reference mutable objects; define defensive copying at construction/access boundaries
+- Keep equals/hashCode consistent and comparators contractual; do not mutate hash keys while stored
+- Define public nullability; Optional mainly represents absent return values rather than mechanically spreading to entity fields/parameters
+- Specify BigDecimal precision, scale, rounding; use java.time for instants, zones, durations
+- Follow personal comment/Javadoc conventions for classes, methods, fields; constructors do not have return values
 
-- 异常说明业务阶段并保留 cause；调用边界统一转换错误，避免逐层记录同一堆栈
-- 不捕获 `Throwable` 掩盖 JVM 严重错误；宽泛捕获仅用于明确的任务隔离或顶层边界
-- 中断不能当作普通失败吞掉；按契约传播或恢复中断标志并终止相关工作
-- 文件、流、连接等使用 `try-with-resources`；池化连接关闭语义以池契约为准
-- 不使用异常驱动常规高频分支；验证优化是否实际改善热点
-- 金额、身份、权限与设备地址使用明确值类型或校验，避免原始字符串到处流动
+## J02 Errors and resources
 
-## J03 并发与 Java 25
+- Add business-stage context and preserve causes; translate errors at boundaries without repeatedly logging one stack
+- Do not catch Throwable to hide serious JVM failures; broad catches require explicit task-isolation/top-level boundaries
+- Propagate interruption or restore its flag and terminate work according to contract rather than swallowing it
+- Use try-with-resources for files, streams, connections; pooled connection close follows pool contracts
+- Avoid exceptions for ordinary frequent branches; verify actual hotspot improvements
+- Validate or use value types for money, identity, permissions, device addresses rather than arbitrary strings everywhere
 
-- 阻塞式 I/O 任务优先评估虚线程；CPU 密集任务和 EventLoop 依据实际执行模型设计
-- 虚线程不池化；通过信号量、连接池、限流与有界在途表控制下游并发
-- JDK 24 的 JEP 491 已解决 `synchronized` 引起的主要虚线程钉住问题，不机械替换为 `ReentrantLock`
-- 原生调用等剩余钉住场景需按实际运行时分析，使用诊断证据而不是锁类型猜测
-- Java 25 的 `StructuredTaskScope` 仍是预览 API；仅在项目允许且工具链完整启用时使用
-- `CompletableFuture` 明确执行器、组合方式、异常、取消与超时；取消 Future 不保证实际 I/O 被取消
-- 阻塞操作不进入 `ForkJoinPool.commonPool()` 的公共计算路径；异步回调避免无意占用框架 I/O 线程
-- `ConcurrentHashMap` 的线程安全不能替代跨键事务；`compute` 回调保持短小，不做外部 I/O
-- `ThreadLocal`、MDC、事务与安全上下文按异步边界显式传播及恢复
-- `volatile` 保证其规定的可见性与顺序，不保证复合操作原子性
+## J03 Concurrency and Java 25
 
-## J04 框架与依赖
+- Evaluate virtual threads for blocking I/O; design CPU work/event loops according to actual execution models
+- Do not pool virtual threads; bound downstream concurrency with semaphores, connections, rate limits, in-flight tables
+- JDK 24 JEP 491 removed the main synchronized-related virtual-thread pinning issue; do not mechanically replace synchronized with ReentrantLock
+- Analyze remaining pinning such as native calls using actual-runtime diagnostics rather than lock-type guesses
+- Java 25 StructuredTaskScope remains preview; use only where approved and fully enabled by the toolchain
+- Specify CompletableFuture executors, composition, failures, cancellation, timeouts; cancelling futures does not guarantee I/O cancellation
+- Keep blocking work out of common ForkJoinPool computation paths; avoid unintentionally occupying framework I/O threads in callbacks
+- ConcurrentHashMap is not a cross-key transaction; keep compute callbacks short and free of external I/O
+- Explicitly propagate/restore ThreadLocal, MDC, transaction, security contexts across async boundaries
+- Volatile provides specified visibility/ordering rather than compound atomicity
 
-- Spring、Quarkus、Jakarta 等按实际依赖采用，不能把不同框架注解混合成通用方案
-- 依赖注入优先构造器，循环依赖应检查职责；配置绑定校验范围与默认值
-- Spring 事务注意代理、自调用、异常回滚规则和异步边界；事务中不等待慢外部服务
-- JPA/MyBatis 检查 N+1、懒加载、分页与会话生命周期；批处理控制条数和字节数
-- JSON 库沿用 BOM 中的批准版本，关闭不必要的任意类型实例化和不可信多态反序列化
-- Netty 引用计数依据所有权转移和 Handler 自动释放契约，不套用无条件 finally 释放
+## J04 Frameworks and dependencies
 
-## J05 验证
+- Follow actual Spring, Quarkus, Jakarta dependencies; do not combine annotations into a supposedly generic solution
+- Prefer constructor injection and inspect responsibility for cycles; validate configuration ranges/defaults
+- Check Spring proxies, self-invocation, rollback rules, asynchronous boundaries; do not wait for slow external services in transactions
+- Inspect JPA/MyBatis N+1, lazy loading, pagination, session lifecycles; bound batch counts/bytes
+- Use BOM-approved JSON versions and disable unnecessary arbitrary-type/untrusted polymorphic construction
+- Follow Netty ownership transfers/handler auto-release rather than unconditional finally release
+
+## J05 Verification
 
 ```text
 ./mvnw -pl affected-module -am -DskipTests compile
 ./gradlew :affected-module:compileJava
 ```
 
-- 以上是编译起点，命令按仓库与操作系统替换；不证明集成、并发或性能正确
-- 不新增仓库 Java 单元测试；运行适用的现有检查，并补临时协议向量、真实组件或集成验证
-- 检查 JDK 编译版本、运行版本和预览参数一致，必要时查看依赖树与字节码目标
-- 性能使用 JFR、async-profiler、JMH 等适用工具；微基准不能替代端到端负载
-- 优先定位分配、GC、锁、线程阻塞、连接等待和 N+1，再决定优化
+- Adapt compilation commands to repository/OS; compilation does not prove integration, concurrency, performance
+- Add no repository Java unit tests; run applicable existing checks and temporary protocol-vector, real-component, integration verification
+- Align compiler/runtime JDK and preview flags; inspect dependency trees/bytecode targets when needed
+- Use JFR, async-profiler, JMH where appropriate; microbenchmarks do not replace end-to-end loads
+- Locate allocation, GC, locks, blocking, connection waits, N+1 before optimizing
 
-权威依据见 [来源索引](../sources.md)：JLS、JDK API、JEP 491/505、框架官方文档。
+See [sources](../sources.md): JLS, JDK API, JEP 491/505, official framework documentation.

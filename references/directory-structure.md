@@ -1,53 +1,55 @@
-# 所有语言的包与目录规模硬约束
+# Mandatory package and directory limits for all languages
 
-## DIR01 强制上限
+**English** | [简体中文](zh-CN/directory-structure.md) | [Standards index](translations.md)
 
-每个包或目录直接归属的同类源文件最多 20 个。适用于全部编程语言、组件、样式、接口定义、基础设施代码与 HDL；不是 Go 或 Java 的特例。
+## DIR01 Hard limit
 
-- 第一方生产、测试、声明、头文件、平台变体和生成源码均计入对应类别
-- 子包、孙包和更深目录独立计数；上限不是整个项目只能有 20 个文件
-- 不能通过修改后缀、生成标记、移动到 vendor/build、同目录堆放测试或创建数字目录绕过
-- 第三方原样依赖、构建输出与非源码资料不是第一方包设计对象，应明确范围，不擅自重组供应商代码
-- 文档和配置同样按职责组织；本 Skill 自身也避免单目录堆积参考文件
+Each package/directory directly owns at most 20 same-family source files. This applies to all languages, components, styles, interface definitions, infrastructure code, HDL rather than Go/Java alone.
 
-## DIR02 同类计数
+- Include first-party production, tests, declarations, headers, platform variants, generated sources in their family
+- Count child/grandchild/deeper directories independently; the whole project is not limited to 20 files
+- Do not bypass by suffixes, generated labels, vendor/build placement, same-directory tests, numbered folders
+- Original third-party dependencies, build output, non-source assets are outside first-party package design; identify scope without reorganizing vendors arbitrarily
+- Organize documentation/configuration by responsibility too; this skill avoids piling references into one directory
 
-| 技术族 | 合并计数范围 |
+## DIR02 Source families
+
+| Family | Combined count |
 | --- | --- |
-| Java | `.java`，包含测试与生成的第一方文件 |
-| Go | `.go`，含 `_test.go`、平台与构建标签变体 |
-| Rust | `.rs`，含模块内生产和测试文件 |
-| C/C++ | `.c`、`.h`、`.cpp`、`.cc`、`.cxx`、`.hpp`、`.hh`、`.hxx` |
-| Python | `.py`、`.pyi` |
-| JavaScript/TypeScript | `.js`、`.jsx`、`.mjs`、`.cjs`、`.ts`、`.tsx`、`.mts`、`.cts` |
-| Vue | `.vue`，脚本与样式同时遵守各自类别 |
-| Kotlin | `.kt`、`.kts` |
-| Swift、Dart、C#、PHP、Lua、Zig、SQL 等 | 对应语言源码与测试合并 |
-| HTML | `.html`、`.htm` |
-| 样式 | `.css`、`.scss`、`.sass`、`.less` |
-| Verilog/SystemVerilog | `.v`、`.sv`、`.vh`、`.svh` |
-| VHDL | `.vhd`、`.vhdl` |
-| Shell/PowerShell 等 | 对应同族脚本与模块合并 |
-| 其他语言 | 按真实语言族合并，未知后缀先补充检查器映射，不视为豁免 |
+| Java | .java including tests/first-party generated files |
+| Go | .go including _test.go, platform/build-tag variants |
+| Rust | .rs including module production/tests |
+| C/C++ | .c, .h, .cpp, .cc, .cxx, .hpp, .hh, .hxx |
+| Python | .py, .pyi |
+| JavaScript/TypeScript | .js, .jsx, .mjs, .cjs, .ts, .tsx, .mts, .cts |
+| Vue | .vue; separate script/style files follow their own families |
+| Kotlin | .kt, .kts |
+| Swift, Dart, C#, PHP, Lua, Zig, SQL, etc. | Source/tests of each language together |
+| HTML | .html, .htm |
+| Styles | .css, .scss, .sass, .less |
+| Verilog/SystemVerilog | .v, .sv, .vh, .svh |
+| VHDL | .vhd, .vhdl |
+| Shell/PowerShell, etc. | Related scripts/modules of each family |
+| Other languages | Group actual language families; register unknown suffixes rather than exempting them |
 
-C/C++ 采用合并计算，避免公共头文件归属歧义。实际逻辑包跨多个物理目录时，还需人工审查其职责和依赖，目录计数不能证明模块设计合理。
+Combine C/C++ to avoid header-ownership ambiguity. Logical packages spanning physical directories still need responsibility/dependency review; counts alone do not prove sound modularity.
 
-## DIR03 在设计时规避
+## DIR03 Prevent violations during design
 
-1. 列出业务能力、输入输出、状态所有者和变化原因
-2. 估计生产、测试、平台与生成文件的增量；不要只数当前实现文件
-3. 边界选择能独立描述、演进和验证的领域或能力，例如调度、路由、持久化、编解码与传输
-4. 子包通过明确 API 协作，内部类型与实现细节限制可见性，依赖保持无环
-5. 变更前核对目标目录现有规模；接近 20 时先完成合理拆分，再继续实现
-6. 验证导入、构建、测试、资源路径、代码生成配置及公开 API 兼容性
+1. Identify capabilities, inputs/outputs, state owners, reasons to change.
+2. Estimate growth in production, tests, platform, generated files beyond current implementation.
+3. Select independently describable/evolving/verifiable boundaries such as scheduling, routing, persistence, codecs, transport.
+4. Collaborate through explicit APIs, restrict internals, keep dependencies acyclic.
+5. Check target size before changes; split cohesively before continuing near 20.
+6. Verify imports, builds, tests, resources, generator configuration, public compatibility.
 
-不要按单一文件类型机械拆成 model/service/util 后继续堆积，也不要用更深嵌套隐藏一个无法描述的职责。
+Do not merely create model/service/util buckets that continue growing, or hide incoherent responsibilities under deeper nesting.
 
-## DIR04 自动检查与边界
+## DIR04 Automated checks and scope
 
-- `scripts/source_catalog.py` 集中维护已识别语言、后缀、分组和规模规则
-- 即使 `--files` 只选择一个文件，也检查该源码目录直接归属的全部已识别类别
-- 同一类别的混合后缀、测试文件和生成文件名不能绕过计数
-- 未识别语言、逻辑命名空间及职责合理性仍需人工审查，不能把机械检查通过解释成全面符合
-- 未知语言可通过 `--source-group 'Nim=.nim,.nims'` 补充，本次即参与发现、380 行上限及同类 20 文件检查；不能覆盖内置分组拆散计数
-- 默认排除真实依赖和构建目录；第一方受交付源码不能通过排除规则取得豁免
+- scripts/source_catalog.py centralizes recognized suffixes, families, size rules
+- Even --files selecting one file checks complete directly owned recognized families in that source directory
+- Mixed suffixes, tests, generated names cannot bypass family counts
+- Unknown languages, logical namespaces, responsibility still need review; mechanical success is not complete conformance
+- Register --source-group 'Nim=.nim,.nims' to include discovery, 380-line limits, 20-file counts for that invocation; built-in families cannot be overridden/split
+- Defaults exclude actual dependency/build directories; excluded first-party deliverable code does not gain exemption

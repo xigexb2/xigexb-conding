@@ -1,46 +1,48 @@
 # Rust
 
-所有包/目录直接同类源码最多 20 个，测试、声明与第一方生成文件合并计数；设计时按职责划分子包，遵守 [统一目录规范](../directory-structure.md)
+**English** | [简体中文](../zh-CN/languages/rust.md) | [Standards index](../translations.md)
 
-## R01 类型与所有权
+Each package/directory directly owns at most 20 same-family source files, including tests, declarations, and first-party generated files. Design cohesive subpackages according to the [shared directory standards](../directory-structure.md).
 
-- 读取 edition、MSRV、features、目标三元组和锁文件策略，单文件最多 360 行
-- 公共类型与 trait 暴露最小稳定能力；状态优先用枚举与 newtype 表达，避免无效组合
-- 优先借用、不可变值和明确移动；不能用到处 `clone()` 掩盖生命周期设计
-- `Arc` 提供共享所有权，内部可变性仍需同步；不要把引用计数当作线程安全证明
-- 公开集合与回调说明分配、顺序、所有权和 panic 契约
-- 泛型与 trait object 按静态专门化、编译体积、动态扩展和热路径成本选择
-- 不强制所有循环改成迭代链；选择更容易表达不变量且可优化的形式
+## R01 Types and ownership
 
-## R02 错误与 panic
+- Inspect edition, MSRV, features, targets, lockfile policy; each file at most 360 lines
+- Expose minimal stable public types/traits; use enums/newtypes for states rather than invalid combinations
+- Prefer borrowing, immutability, explicit moves; do not hide lifecycle design behind pervasive clone
+- Arc shares ownership; interior mutability still needs synchronization and reference counting is not thread-safety proof
+- Specify allocation, ordering, ownership, panic contracts for public collections/callbacks
+- Choose generics/trait objects by specialization, binary size, extension, hot-path cost
+- Do not force all loops into iterator chains; favor clear invariants and optimizable code
 
-- 外部输入、网络、配置和持久化失败使用 `Result` / `Option` 与 `?` 传播
-- 生产路径不以 `unwrap()` / `expect()` 掩盖可恢复失败；确证不变量要说明理由与影响
-- 库提供可匹配的错误类型，应用边界补充上下文；不为了风格强制引入新错误库
-- panic 策略核对 unwind/abort，析构和 FFI 边界不能依赖未知传播行为
-- 序列化、反序列化和整数转换检查范围、长度、分配上限及不可信输入
+## R02 Errors and panic
 
-## R03 unsafe 与 FFI
+- Propagate input, network, configuration, persistence failures with Result/Option and ?
+- Do not hide recoverable failures with unwrap/expect in production paths; justify proven invariants and impact
+- Libraries expose matchable errors and applications add context; do not impose new error libraries purely for style
+- Check unwind/abort policies; destructors/FFI boundaries must not assume unknown propagation behavior
+- Validate serialization, deserialization, integer conversion ranges, lengths, allocation bounds, untrusted data
 
-- `unsafe` 限定在最小模块，提供安全封装，解释调用前置条件与内部不变量
-- 每个关键 unsafe 块用中文 `SAFETY` 说明指针对齐、初始化、有效范围、别名、生命周期及并发条件
-- 不手工实现 `Send` / `Sync`，除非能证明跨线程与共享访问契约
-- 外部布局使用适用的 `repr`；验证字段位宽、ABI、调用约定和链接目标
-- C 字符串、回调、分配器和释放函数配对，明确由哪一侧释放以及是否可以跨线程
-- 原始指针、`MaybeUninit`、`set_len`、Pin、自引用和原子操作需要专门审查
-- 按实际 ABI 和配置处理 panic 边界，不允许未定义的跨语言展开
+## R03 Unsafe and FFI
 
-## R04 异步与并发
+- Confine unsafe to small modules with safe wrappers and explained preconditions/invariants
+- Use Chinese SAFETY explanations for alignment, initialization, validity, aliasing, lifetime, concurrency in critical unsafe blocks
+- Implement Send/Sync manually only with proven cross-thread/shared-access contracts
+- Use appropriate repr layouts and verify widths, ABI, calling convention, linkage targets
+- Pair C strings, callbacks, allocators, deallocators; identify the freeing side and cross-thread permissions
+- Review raw pointers, MaybeUninit, set_len, Pin, self-reference, atomics specifically
+- Handle panic boundaries by actual ABI/configuration; prevent undefined cross-language unwinding
 
-- 异步运行时沿用项目选择，不能把 Tokio 扩展成所有 Rust 工程的必需依赖
-- 运行时工作线程中不做长时间阻塞；使用受控阻塞池，并说明已启动阻塞工作可能不能取消
-- 跨 `.await` 持锁前核对锁类型和访问模式；避免持有不必要的共享状态保护
-- 明确 future 被丢弃时的取消安全、半完成写入和资源回收
-- 任务必须有所有者，保留 JoinHandle 或明确监督者；检查 panic、错误和关闭结果
-- Channel 与队列有界，关闭时 drain、丢弃或持久化的策略明确
-- `select!` 等组合检查分支取消、饥饿与重复执行，不能仅证明 happy path
+## R04 Async and concurrency
 
-## R05 验证
+- Keep the project's runtime; Tokio is not required for every Rust project
+- Avoid long blocking on runtime workers; bound blocking pools and explain already-started non-cancellable work
+- Review lock types/access patterns across await; avoid unnecessary shared-state guards
+- Specify cancellation safety, partial writes, cleanup when futures are dropped
+- Own/supervise tasks with JoinHandles or explicit supervisors; inspect panics, errors, shutdown results
+- Bound channels/queues and define drain, discard, persistence policies on closure
+- Review select! cancellation, starvation, duplicate execution beyond happy paths
+
+## R05 Verification
 
 ```text
 cargo fmt --check
@@ -49,10 +51,10 @@ cargo clippy --all-targets -- -D warnings
 cargo test --locked
 ```
 
-- 命令依据项目实际警告策略调整，不自动给遗留项目引入全局 deny
-- 特性互斥时建立特性矩阵，不盲目使用 `--all-features`
-- unsafe、FFI 和解析器按风险使用 Miri、Sanitizer、fuzz 和属性验证，说明工具支持范围
-- 嵌入式 `no_std` 区分主机测试、目标链接、仿真及板上验证
-- 性能在 release 配置测量，记录目标 CPU、编译参数和分配行为
+- Adapt warning policy to the project rather than introducing global deny into legacy code
+- Build feature matrices for mutually exclusive features instead of blindly using --all-features
+- Use Miri, sanitizers, fuzzing, properties for unsafe/FFI/parsers according to risk and tool support
+- Separate host tests, target linking, simulation, board checks for embedded no_std
+- Measure release builds and record target CPU, flags, allocations
 
-权威依据见 [来源索引](../sources.md)：Rust Reference、Rustonomicon、API Guidelines、Cargo 文档。
+See [sources](../sources.md): Rust Reference, Rustonomicon, API Guidelines, Cargo.

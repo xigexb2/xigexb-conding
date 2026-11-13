@@ -1,52 +1,54 @@
-# 后端、企业实践与业务系统
+# Backend, enterprise practices, and business systems
 
-## BE01 业务与服务边界
+**English** | [简体中文](../zh-CN/engineering/backend.md) | [Standards index](../translations.md)
 
-- 先确认 ToB/ToC、租户模型、部署方式、峰值、数据分级和故障影响，避免套用“大厂架构”标签
-- 对外 API、内部应用服务、领域规则、持久化与集成职责清晰；保持模块化单体作为有效选项
-- 公共接口以业务能力命名，配置和策略通过稳定契约扩展，不以无限 if/else 或万能服务承载全部业务
-- 敏感状态修改通过统一授权与领域校验入口，后台任务和批量接口同样执行
-- 数据真实来源唯一，缓存、搜索索引和报表明确为派生数据及其延迟
+## BE01 Business and service boundaries
 
-## BE02 API 契约
+- Establish enterprise/consumer context, tenancy, deployment, peaks, data classification, and failure impact before applying large-company architecture labels
+- Distinguish public APIs, application services, domain rules, persistence, integrations; retain a modular monolith as a valid choice
+- Name public interfaces by business capability; extend configuration/strategy through stable contracts instead of endless branches or all-purpose services
+- Route sensitive mutations through consistent authorization/domain validation, including background jobs and batch endpoints
+- Maintain one authoritative data source; mark caches, search indexes, reports as derived data with defined lag
 
-- 使用 OpenAPI、schema 或项目既有契约定义输入、输出、错误、分页、限制与兼容性
-- 遵循 HTTP 方法、安全与幂等语义；状态码有含义，不能所有失败返回无差异成功
-- 异步操作返回可追踪操作标识和状态资源，说明受理、处理中、完成、失败及未知状态
-- 幂等键绑定操作、调用方、租户和请求摘要；同键不同载荷必须冲突，原子领取避免先查后写竞争
-- 分页、批量、上传、导出、回调有数量与字节上限、超时及部分失败策略
-- 错误可稳定识别，用户可读说明与内部诊断分离，返回错误不得泄漏堆栈和敏感数据
-- 版本演进尽量增量兼容，保留弃用窗口；字段移除和语义变化需要迁移计划
+## BE02 API contracts
 
-## BE03 ToB 与 ToC
+- Specify inputs, outputs, errors, pagination, limits, compatibility with OpenAPI, schemas, or existing project contracts
+- Respect HTTP methods, safety, idempotency, meaningful status codes; do not return indistinguishable success for every failure
+- Return trackable operation IDs and status resources for asynchronous work; distinguish accepted, processing, completed, failed, unknown
+- Bind idempotency keys to operation, caller, tenant, request digest; reject changed payloads under the same key and claim atomically
+- Bound pagination, batches, uploads, exports, callbacks by counts/bytes, timeouts, and partial-failure policies
+- Provide stable error identifiers; separate user explanations from internal diagnostics and avoid stack/sensitive-data disclosure
+- Prefer additive compatible evolution with deprecation windows; plan migration for removal and semantic changes
 
-| 场景 | 重点 |
+## BE03 Enterprise and consumer products
+
+| Scenario | Priorities |
 | --- | --- |
-| ToB 管理与审批 | 多租户、组织权限、审计、批量、导出、配置版本、可恢复工作流 |
-| ToC 高流量服务 | 延迟预算、滥用防护、热点隔离、隐私、灰度、转化流程与弱网 |
-| 私有化交付 | 可配置依赖、离线安装、升级兼容、备份恢复、最小运维面 |
-| IoT 平台 | 设备身份、路由、会话、协议、迟到消息、离线与下发确认语义 |
+| Enterprise administration/approvals | Tenancy, organization permissions, audits, batches, exports, configuration versions, recoverable workflows |
+| High-traffic consumer services | Latency budgets, abuse prevention, hot-spot isolation, privacy, staged rollout, conversion flows, weak networks |
+| Private deployment | Configurable dependencies, offline installation, upgrade compatibility, backup/restore, minimal operations surface |
+| IoT platforms | Device identity, routing, sessions, protocols, late messages, offline state, command acknowledgment semantics |
 
-这些场景可以重叠。不可因为 ToB 就放弃体验，也不可因为 ToC 就用最终一致性替代账务不变量。
+Scenarios can overlap. Enterprise products still need good UX; consumer products still need accounting invariants rather than blanket eventual consistency.
 
-## BE04 一致性与后台任务
+## BE04 Consistency and background work
 
-- 数据约束、唯一键、事务与乐观并发共同保证不变量，分布式锁不替代数据库约束
-- 跨库或跨服务操作定义 outbox、事件、补偿或对账，不宣称普通消息投递实现端到端 exactly-once
-- 定时任务有执行所有权、重复触发策略、失效检测和恢复扫描，扫描不能始终只看前一批
-- 租约失效与旧实例并行执行风险需要 fencing 或下游幂等，不凭发送前检查声称完全隔离
-- 结果未知时保留审计事实，通过查询和对账收敛，不自动标记成功或随意重放副作用
-- 批量处理按租户和下游隔离，防止大客户占满全部连接或队列
+- Preserve invariants with constraints, unique keys, transactions, optimistic concurrency; distributed locks do not replace database constraints
+- Define outbox, events, compensation, reconciliation across databases/services; ordinary message delivery does not establish end-to-end exactly-once
+- Scheduled jobs require ownership, duplicate-trigger policy, failure detection, recovery scanning that does not always examine only the first batch
+- Use fencing or downstream idempotency for expired leases and stale instances; a pre-send check alone cannot prove isolation
+- Preserve audit facts for unknown outcomes and converge through inquiry/reconciliation instead of marking success or blindly replaying side effects
+- Isolate batches by tenant/downstream so one large customer cannot occupy every connection or queue
 
-## BE05 公共企业实践的用法
+## BE05 Using public enterprise practices
 
-- Google API Improvement Proposals 用于资源与 API 演进参考，Google SRE 用于 SLI/SLO、容量和故障复盘
-- Microsoft 架构模式用于重试、隔离、缓存和补偿的取舍，AWS Well-Architected 用于运维、可靠性与成本评估
-- Alibaba Java 公开指南可参考命名、分层和工程检查；与个人格式、JDK 新版本冲突时记录取舍，不机械照搬旧规则
-- Uber Go 指南可补充团队实践，但 Go 语言语义和工具链仍以官方为准
-- 框架厂商文档负责其具体契约；某家公司使用过某项技术并不证明本项目需要
-- 不把互相矛盾的企业规范合并成一组“全部必须”；为项目选定一套可执行组合
+- Google API Improvement Proposals inform resource/API evolution; Google SRE informs SLI/SLO, capacity, incident reviews
+- Microsoft architecture patterns inform retry, isolation, caching, compensation; AWS Well-Architected informs operations, reliability, cost
+- Public Alibaba Java guidance informs naming, layering, engineering checks; document conflicts with personal formatting or newer JDK behavior rather than copying obsolete rules
+- Uber Go guidance supplements team practice; official Go semantics and tooling remain authoritative
+- Framework vendors define their specific contracts; another company's technology use does not establish this project's need
+- Select a coherent executable set instead of combining contradictory company practices into universal mandates
 
-## BE06 验收
+## BE06 Acceptance
 
-检查权限绕过、并发重复、连接与队列饱和、依赖超时、重启恢复及错误可观测性。只有编译通过时明确报告编译通过，不能描述为多实例可靠性或线上容量已验证。
+Check authorization bypass, concurrent duplicates, connection/queue saturation, dependency timeouts, restart recovery, error observability. If only compilation passed, report compilation rather than claiming multi-instance reliability or production capacity.

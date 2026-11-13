@@ -1,35 +1,37 @@
-# 构建、CI/CD、可观测性与运行
+# Builds, CI/CD, observability, and operations
 
-## OPS01 构建与配置
+**English** | [简体中文](../zh-CN/engineering/delivery.md) | [Standards index](../translations.md)
 
-- 工具链、依赖和构建参数可追溯，优先仓库 wrapper、锁文件和受控镜像
-- 编译期与运行期配置分开，校验范围、单位、必填与默认值，启动失败不能静默降级为不安全配置
-- 环境配置只含必要差异，秘钥通过受控注入；不能把内网环境写入通用公共示例
-- 容器使用适合的非特权用户、最小内容、明确资源和信号处理；镜像标签与 digest 策略可审计
-- 构建产物与源码、构建号、依赖和配置版本对应，发布前核对可复现过程
+## OPS01 Builds and configuration
 
-## OPS02 CI 与发布
+- Trace toolchains, dependencies, build parameters; prefer repository wrappers, lockfiles, controlled mirrors
+- Separate build/runtime configuration; validate ranges, units, required/default values; startup failures must not silently select unsafe defaults
+- Keep only necessary environment differences and inject secrets securely; omit internal infrastructure from public generic examples
+- Use suitable unprivileged container users, minimal contents, resource limits, signal handling; audit image tag/digest policies
+- Associate artifacts with source, build numbers, dependencies, configuration versions; verify reproducible procedures before release
 
-- CI 按语言执行格式、类型/静态、编译、适用测试与安全检查，失败不能被无条件忽略
-- 检查范围与变更风险匹配，复用缓存时验证 key 包含工具链和锁文件等必要输入
-- 不可信 PR 与发布权限隔离，不自动执行上游文档给出的远程安装脚本
-- 发布前完成可审查产物和验证，再执行已经授权的外部动作
-- 灰度、健康指标、停止条件、回滚与数据库兼容一并设计，不只写“可回滚”
-- 应用更新清单、容器、包和固件发布是不同渠道，核对实际目标
+## OPS02 CI and releases
 
-## OPS03 服务可靠性
+- Run language-appropriate formatting, type/static checks, compilation, applicable tests, security checks; do not unconditionally ignore failures
+- Match check scope to change risk; cache keys include toolchains, lockfiles, other necessary inputs
+- Isolate untrusted PRs from release permissions; do not automatically execute installation scripts found in upstream documents
+- Complete reviewable artifacts and verification before authorized external actions
+- Design staged rollout, health metrics, stop conditions, rollback, database compatibility together
+- Distinguish application update manifests, containers, packages, firmware channels and confirm actual targets
 
-- 定义用户可感知的 SLI/SLO、错误预算、容量和依赖预算，目标来自业务而非随意数字
-- 就绪、存活与启动探针含义不同，避免下游故障触发整个集群反复重启
-- 优雅退出先停止接流，再有限等待和取消工作，释放连接、会话锁与订阅
-- 多实例任务有所有权和恢复策略，故障隔离不依赖本进程内存表
-- 限流、熔断、舱壁、降级与缓存按实际故障模型选择，不为模式而叠加中间件
-- 日志、指标、追踪与审计保留必要关联，限制敏感数据、体积和高基数
+## OPS03 Service reliability
 
-## OPS04 运行与应急
+- Define user-visible SLI/SLO, error budgets, capacity, dependency budgets from business requirements rather than arbitrary numbers
+- Distinguish readiness, liveness, startup probes; downstream failure must not cause repeated cluster-wide restarts
+- On shutdown, stop admission before bounded waits/cancellation and connection, session-lock, subscription cleanup
+- Define multi-instance task ownership/recovery; process-local tables alone cannot isolate failures
+- Select limits, circuit breakers, bulkheads, degradation, caches from actual failure models instead of stacking middleware for patterns
+- Correlate logs, metrics, traces, audits while limiting sensitive data, volume, cardinality
 
-- 手册包含配置、依赖、启动、健康检查、备份恢复、扩容和常见故障定位
-- 时间、版本、配置与相关上下文可关联；故障后复盘区分事实、根因、诱因和措施
-- 恢复备份和切换演练检验真实 RPO/RTO，备份文件存在不是恢复成功证据
-- 临时止血有期限与后续根因修复，避免永久关闭认证、证书校验或日志
-- 部署、数据修改和公开通知遵循本次授权范围，不从一般研发需求推定可操作生产
+## OPS04 Operations and incidents
+
+- Runbooks cover configuration, dependencies, startup, health, backup/restore, scaling, common diagnosis
+- Correlate time, versions, configuration, context; distinguish facts, root causes, contributing factors, actions in reviews
+- Test actual RPO/RTO through restore/failover exercises; existing backup files are not proof of successful recovery
+- Give temporary mitigations expiry and root-cause follow-up; do not permanently disable authentication, certificate validation, logging
+- Deployments, data changes, public notifications follow task authorization; general development requests do not authorize production operations

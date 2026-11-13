@@ -7,11 +7,13 @@ import re
 import sys
 from pathlib import Path
 
+from diagnostics import localize
+
 try:
     import yaml
 except ImportError:
     raise SystemExit(
-        "请先安装开发依赖：python -m pip install -r requirements-dev.txt"
+        "Install development dependencies / 请安装开发依赖：python -m pip install -r requirements-dev.txt"
     ) from None
 
 
@@ -95,8 +97,15 @@ def validate_metadata(text: str) -> dict:
 def validate_root(root: Path) -> None:
     """解析技能、Agent 元数据及实际存在的 CI YAML"""
     data = validate_metadata((root / "SKILL.md").read_text(encoding="utf-8"))
-    ui_path = root / "agents/openai.yaml"
-    if ui_path.exists():
+    localized = root / "SKILL.zh-CN.md"
+    if localized.exists():
+        translated = validate_metadata(localized.read_text(encoding="utf-8"))
+        for field in ("name", "license", "metadata"):
+            if data.get(field) != translated.get(field):
+                raise ValueError(
+                    f"Localized metadata differs / 双语元数据不一致：{field}"
+                )
+    for ui_path in (root / "agents").glob("openai*.yaml"):
         interface = parse_yaml(ui_path.read_text(encoding="utf-8")).get("interface")
         if not isinstance(interface, dict):
             raise ValueError("Agent interface 必须为映射")
@@ -113,15 +122,18 @@ def validate_root(root: Path) -> None:
 
 def main() -> int:
     """解析错误返回失败，供发布检查及 CI 使用"""
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(
+        description="Validate Skill metadata / 验证技能元数据"
+    )
     parser.add_argument("root", nargs="?", default=".")
+    parser.add_argument("--lang", choices=("en", "zh-CN"), default="en")
     args = parser.parse_args()
     try:
         validate_root(Path(args.root).resolve())
     except (OSError, ValueError, yaml.YAMLError) as error:
-        print(str(error), file=sys.stderr)
+        print(localize(str(error), args.lang), file=sys.stderr)
         return 1
-    print("Skill、Agent 与 CI YAML 验证通过")
+    print(localize("Skill、Agent 与 CI YAML 验证通过", args.lang))
     return 0
 
 

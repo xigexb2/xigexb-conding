@@ -1,58 +1,60 @@
-# iOS、Android、原生、混合与小程序
+# iOS, Android, native, hybrid, and mini-program apps
 
-## M01 选型与平台契约
+**English** | [简体中文](../zh-CN/product/mobile.md) | [Standards index](../translations.md)
 
-- 原生 Swift/Kotlin、Flutter、React Native、Uni-app、WebView 和小程序按能力、性能、团队与分发方式选择
-- 共享领域逻辑和数据契约，不强制共享所有交互；系统导航、权限和生命周期遵守各平台
-- 确认最低 OS、设备、SDK、构建工具、商店与隐私要求，变更前检查兼容矩阵
-- 代码复用比例不能代替启动、内存、滚动、原生能力和维护成本测量
+## M01 Platform selection and contracts
 
-## M02 Apple 平台
+- Choose Swift/Kotlin, Flutter, React Native, Uni-app, WebView, mini-programs by capability, performance, team, distribution
+- Share domain logic/data contracts without forcing every interaction to be shared; respect platform navigation, permissions, lifecycles
+- Identify minimum OS, devices, SDK, build, store/privacy requirements and compatibility matrices before changes
+- Code reuse percentages do not replace startup, memory, scrolling, native-capability, maintenance measurements
 
-- 采用 HIG 的导航、内容层级、系统控件与安全区域，尊重返回手势与平台预期
-- iOS 触控目标按平台推荐通常至少 44×44 pt 设计，不与 CSS px 混用
-- 使用语义颜色、系统文字样式、Dynamic Type、VoiceOver 和合适 SF Symbols，核对授权及目标版本
-- 字体放大、横竖屏和分屏按产品支持范围验证，不能仅固定一张手机截图
-- SwiftUI state/identity/actor 与 UIKit 生命周期正确，网络和重计算不阻塞主线程
-- 深色、减少动态效果、对比与透明度辅助设置按平台能力适配
-- ATT、定位、相机、照片、通知等权限按实际功能与平台要求申请，不先收集后解释
+## M02 Apple platforms
 
-## M03 Android 与 Material
+- Follow HIG navigation, hierarchy, controls, safe areas, back gestures, platform expectations
+- Generally design iOS touch targets at least 44 by 44 pt per platform guidance rather than CSS px
+- Use semantic colors, system text styles, Dynamic Type, VoiceOver, appropriate SF Symbols with license/version checks
+- Verify text scaling, orientation, split views within supported product scope beyond one fixed screenshot
+- Respect SwiftUI state/identity/actors and UIKit lifecycles; keep networking/heavy computation off main threads
+- Adapt dark mode, reduced motion, contrast/transparency accessibility settings
+- Request ATT, location, camera, photos, notifications by actual needs/platform rules before collecting data
 
-- 使用 Material 语义色与组件状态，动态配色按产品决策与系统支持提供合理回退
-- 触控目标通常至少 48×48 dp，视觉图标和实际点击区可分别设计
-- 处理 edge-to-edge、系统栏、IME inset、手势导航和 predictive back 的目标版本要求
-- 手机、平板、折叠屏采用自适应布局，导航栏/rail 等按窗口尺寸与任务选择
-- 生命周期感知收集状态，进程死亡与后台恢复有持久化或可重建路径
-- 后台任务选择 WorkManager、前台服务等适用机制，不绕过系统电量和权限限制
-- 检查 TalkBack、字体缩放、深色、触控与键盘，不能只满足颜色和圆角外观
+## M03 Android and Material
 
-## M04 跨端、混合与 WebView
+- Use semantic Material colors/states; choose dynamic-color behavior and fallbacks by product/system support
+- Generally provide at least 48 by 48 dp targets, allowing different visible-icon/hit-area dimensions
+- Handle target-version edge-to-edge, system bars, IME insets, gestures, predictive back
+- Adapt phone/tablet/foldable layouts and bars/rails by window size/task
+- Collect state lifecycle-aware and persist/reconstruct after process death/background restoration
+- Choose WorkManager/foreground services appropriately without bypassing battery/permission restrictions
+- Check TalkBack, font scaling, dark mode, touch, keyboards beyond rounded/color appearance
 
-- 识别 JS/native、Dart/native 和平台通道的异步、线程、序列化与错误边界
-- 原生桥使用允许的操作、来源和参数范围，不能暴露任意文件、命令或反射执行能力
-- WebView 控制导航、外部 URL、文件访问、JS 接口、证书与混合内容，避免默认全开
-- 进入后台、销毁、重新挂载和桥重连时清理订阅与未决调用
-- 滚动、相机、蓝牙、串口、定位等重资源在真实设备验证内存、权限与释放
-- 离线包、热更新与原生版本有兼容矩阵，遵守平台分发规则与签名验证
-- 原生端权限成功不意味着 Web 层状态已同步，回调与恢复状态需实际确认
+## M04 Cross-platform, hybrid, WebView
 
-## M05 小程序与第三方登录
+- Identify JS/native, Dart/native, platform-channel async/threading/serialization/error boundaries
+- Allowlist bridge operations, origins, parameters; do not expose arbitrary files, commands, reflection
+- Control WebView navigation, external URLs, file access, JS interfaces, certificates, mixed content instead of enabling all
+- Clean subscriptions/pending calls across backgrounding, destruction, remounting, bridge reconnect
+- Validate memory, permissions, cleanup of scrolling, cameras, Bluetooth, serial, location on real devices
+- Version offline bundles/hot updates against native compatibility and distribution/signature rules
+- Native permission success does not prove synchronized Web state; confirm callbacks/restoration
 
-- 登录 code 的用途、有效期、服务端换取和身份绑定按平台官方契约执行
-- 手机号、外部 ID 与既有账户绑定校验授权意图和唯一性，不能默认注册或合并用户
-- 隐私声明与实际 API 使用一致，授权失败、用户拒绝和配置缺失分别呈现
-- 主包/分包、插件、后台能力与审核要求用平台工具实际检查，静态代码检查不能代替 IDE 质量扫描
-- 小程序登录、网站扫码登录、原生 SDK 登录是不同能力，不互相冒充
+## M05 Mini-programs and external login
 
-## M06 弱网、升级与数据
+- Follow official login-code purpose, lifetime, server exchange, identity-linking contracts
+- Validate authorization intent/uniqueness when linking phones/external IDs to existing accounts; do not default to registration/merging
+- Keep privacy declarations aligned with API use and distinguish denied authorization, user refusal, missing configuration
+- Use platform tools for package/subpackage, plugin, background, review checks; static checks do not replace IDE quality scans
+- Mini-program, website QR, native-SDK login are distinct capabilities
 
-- 网络切换、DNS、代理、证书、重定向、CDN 和平台策略分别诊断，不能仅按手机品牌猜测根因
-- 更新流程区分清单请求、版本解析、下载、校验、安装和回滚阶段
-- 更新元数据和包校验来自受信渠道，使用签名或可靠的信任链，不能仅靠同源可篡改 checksum
-- 断点续传、空间不足、取消、后台和重复点击有确定行为；安装完成必须由平台结果确认
-- 本地数据升级、凭据存储、备份与卸载策略符合平台安全能力
+## M06 Weak networks, upgrades, data
 
-## M07 验收矩阵
+- Diagnose network switching, DNS, proxies, certificates, redirects, CDNs, platform policies separately rather than guessing by phone brand
+- Separate manifest requests, version parsing, download, verification, installation, rollback
+- Trust update metadata/artifacts through signatures or reliable trust chains; mutable same-origin checksums alone are insufficient
+- Define resume, insufficient space, cancellation, backgrounding, repeated clicks; confirm installation through platform results
+- Align local migrations, credential storage, backups, uninstall policies with platform security
 
-覆盖目标系统版本、代表性真机、权限拒绝、弱网/离线、进出后台、进程重建、主题、字体放大、读屏、深链接与升级。模拟器和单台手机验证均需说明范围。
+## M07 Acceptance matrix
+
+Cover target OS versions, representative real devices, denied permissions, weak/offline networks, foreground/background, process recreation, themes, font scaling, screen readers, deep links, upgrades. State simulator/single-device validation scope.

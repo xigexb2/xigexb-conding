@@ -1,39 +1,41 @@
-# 通信工程、协议栈与信号算法
+# Communication engineering, protocol stacks, and signal algorithms
 
-## COM01 分层与契约
+**English** | [简体中文](../zh-CN/hardware/communications.md) | [Standards index](../translations.md)
 
-- 物理层、链路、网络、传输和应用职责分开，说明实际采用的层与跨层约束
-- Ethernet、IP、TCP/UDP、TLS、HTTP/MQTT、Modbus、BACnet、SNMP、CAN 等按具体标准版本实现
-- 帧格式、寻址、序号、重传、流控、拥塞、超时和重连分别建模
-- 私有协议先给字节向量、交互时序、边界和错误处理，不能仅按一个正常抓包推断全部语义
+## COM01 Layers and contracts
 
-## COM02 有线接口
+- Separate physical, link, network, transport, application responsibilities and state actual layers/cross-layer constraints
+- Implement Ethernet, IP, TCP/UDP, TLS, HTTP/MQTT, Modbus, BACnet, SNMP, CAN against specific standard versions
+- Model framing, addressing, sequencing, retries, flow/congestion control, timeout, reconnect separately
+- Specify private-protocol vectors, timing, boundaries, errors rather than inferring all semantics from one successful capture
 
-- UART 明确电平、波特率、数据位、校验、停止位和缓冲；TTL 不直接等同 RS-232/RS-485
-- RS-485 明确半双工方向、终端、偏置、总线拓扑和空闲检测，软件超时依据线路时序
-- I2C 处理上拉、电容、时钟拉伸、地址冲突和总线恢复；SPI 明确 mode、CS、位序和频率
-- CAN/CAN FD 确认波特率、采样点、终端、错误帧、bus-off 与恢复
-- USB、Ethernet 等高速接口按 PHY、阻抗、长度与参考设计要求实现，不凭通用走线经验替代
+## COM02 Wired interfaces
 
-## COM03 无线与射频
+- Specify UART levels, baud, data bits, parity, stop bits, buffering; TTL is not RS-232/RS-485
+- Define RS-485 half-duplex direction, termination, bias, topology, idle detection with line-timing-based timeouts
+- Handle I2C pullups, capacitance, clock stretching, address conflicts, recovery; define SPI mode, CS, bit order, frequency
+- Verify CAN/CAN FD bitrate, sample points, termination, error frames, bus-off, recovery
+- Follow PHY, impedance, length, reference-design requirements for USB/Ethernet high-speed links beyond generic routing experience
 
-- 明确频段、信道/索引、带宽、调制、编码、发射功率、灵敏度和天线
-- 链路预算包含路径损耗、天线增益、线损、衰落与干扰裕度，说明模型和环境
-- 配网、入网、重连、漫游与密钥更新有状态机，避免重试风暴
-- 测量 RSSI、SNR、PER/BER、吞吐和时延时记录距离、环境、包长、功率和测试设备
-- 法规、区域频段、占空比与发射限制以适用地区和产品要求为准，不把实验参数当可销售配置
+## COM03 Wireless and RF
 
-## COM04 DSP 与控制算法
+- Specify band, channel/index, bandwidth, modulation, coding, transmit power, sensitivity, antenna
+- Include path loss, gains, cable loss, fading/interference margins in link budgets with model/environment
+- Use state machines for provisioning, joining, reconnecting, roaming, key renewal against retry storms
+- Record distance, surroundings, packet size, power, instruments for RSSI, SNR, PER/BER, throughput, latency
+- Apply regional regulation, bands, duty cycles, emission limits; laboratory settings are not automatically saleable configurations
 
-- 采样率、信号带宽、抗混叠、量化、窗函数和滤波延迟明确定义
-- FFT 频率分辨率、幅值归一化、泄漏及定点溢出按数据链路验证
-- 滤波器、估计器、PID 等说明稳定性、初始化、饱和、积分抗饱和与离散化假设
-- 定点实现提供位宽、缩放、舍入和误差预算，与高精度参考对照
-- 浮点仿真、软件在环、硬件在环和真实传感器分别验证，不能仅凭平滑曲线判断正确
+## COM04 DSP and control
 
-## COM05 工具与验收
+- Define sampling rate, bandwidth, anti-aliasing, quantization, windows, filter delay
+- Verify FFT resolution, amplitude normalization, leakage, fixed-point overflow across the data chain
+- Explain stability, initialization, saturation, anti-windup, discretization for filters, estimators, PID
+- Provide fixed-point widths, scaling, rounding, error budgets and compare high-precision references
+- Validate floating-point simulation, software/hardware-in-loop, real sensors separately rather than trusting smooth plots
 
-- 使用抓包、逻辑分析仪、示波器、频谱仪、协议分析和误码统计形成跨层证据
-- 区分软件队列延迟、链路传输、设备执行和观察时间，时钟同步误差单独估计
-- 覆盖丢包、重复、乱序、错误校验、断电重连、噪声与满载
-- 对互操作性使用独立标准实现或认证工具，不仅验证两份共享代码能够互通
+## COM05 Tools and acceptance
+
+- Build cross-layer evidence with captures, logic analyzers, oscilloscopes, spectrum analyzers, protocol analysis, error-rate statistics
+- Distinguish queueing, transmission, device execution, observation time; estimate synchronization error separately
+- Cover loss, duplicates, reordering, invalid checksums, power-cycle reconnect, noise, full loads
+- Establish interoperability with independent implementations/certification tools rather than two copies sharing code

@@ -1,50 +1,52 @@
-# Vue、Web 与跨端组件
+# Vue, web, and cross-platform components
 
-所有包/目录直接同类源码最多 20 个，测试、声明与第一方生成文件合并计数；设计时按职责划分子包，遵守 [统一目录规范](../directory-structure.md)
+**English** | [简体中文](../zh-CN/languages/vue.md) | [Standards index](../translations.md)
 
-## V01 版本与职责
+Each package/directory directly owns at most 20 same-family source files, including tests, declarations, and first-party generated files. Design cohesive subpackages according to the [shared directory standards](../directory-structure.md).
 
-- 确认 Vue 版本、Vite/Nuxt、Router、Pinia、组件库与目标端，SFC 最多 360 行
-- 新 Vue 3 功能优先 Composition API 与 `<script setup>`；保留明确要求的 Options API，不无关迁移
-- TypeScript 按项目实际选择，不能为小修复强制重写整个 JavaScript 项目
-- 页面负责布局与用例协调，组件负责稳定交互单元，composable 管理可复用状态与副作用
-- Props 向下、事件向上；定义 props、emits、slots 与双向绑定契约，禁止直接修改 props
-- 不因文件行数拆出无语义的模板碎片；先明确状态拥有者和组件边界
+## V01 Versions and responsibilities
 
-## V02 响应式与状态
+- Identify Vue, Vite/Nuxt, Router, Pinia, component library, target platforms; SFCs at most 360 lines
+- Prefer Composition API/script setup for new Vue 3 work; preserve required Options API without unrelated migration
+- Follow actual TypeScript choices rather than rewriting JavaScript projects for small fixes
+- Pages own layout/use-case coordination, components stable interactions, composables reusable state/effects
+- Props flow down/events up; define props, emits, slots, two-way contracts without mutating props
+- Do not split meaningless template fragments for line limits; identify state owners/component boundaries first
 
-- 原始状态最少化，可推导值使用 computed；watch 处理副作用而非维持重复数据
-- 解构 reactive、props 和 Pinia state 时核对具体版本语义；Pinia state/getters 需要时使用 `storeToRefs`
-- `shallowRef` 仅用于不需要深层追踪且能保证替换策略的对象，不能机械替代所有 ref
-- 列表 key 稳定且反映实体身份；可重排列表不使用数组索引表示身份
-- 不对大型数据无依据 deep watch；控制依赖、触发频率和资源规模
-- Store 不承载整个页面局部状态；SSR 按请求隔离，避免模块级单例泄漏用户数据
-- 页面切换、卸载和参数变化时清理请求、监听、timer、observer 和连接
+## V02 Reactivity and state
 
-## V03 请求、路由与安全
+- Minimize source state, derive with computed, use watch for side effects rather than duplicated data
+- Check version-specific destructuring of reactive/props/Pinia; use storeToRefs for state/getters when needed
+- Use shallowRef for deliberately shallow objects with clear replacement policies rather than replacing every ref
+- Keys represent stable identity; do not use indices for reorderable entity lists
+- Avoid unjustified deep watching of large data; bound dependencies, frequency, resources
+- Keep page-local state out of global stores; isolate SSR state per request against user-data leaks
+- Clean requests, listeners, timers, observers, connections on navigation, unmount, parameter changes
 
-- 路由同组件参数变化不一定重新挂载，重新加载行为以参数和实际生命周期驱动
-- 搜索与分页处理竞态，旧响应不得覆盖新查询；防抖不能代替请求取消和结果版本校验
-- 鉴权守卫用于体验，后端仍必须授权；隐藏按钮不构成安全边界
-- `v-html` 仅用于已经按场景净化的可信内容；CSP 与 URL 校验不能省略
-- 登录过期、权限拒绝、离线、超时、空结果与服务异常分别处理
-- SSR 的浏览器 API 仅在合适生命周期使用，保证 hydration 一致与服务端数据隔离
+## V03 Requests, routing, security
 
-## V04 页面体验与性能
+- Parameter changes may reuse components without remounting; reload from parameters/actual lifecycle
+- Handle search/pagination races; stale responses cannot override current queries; debounce is not cancellation/version validation
+- Route guards support UX while backends authorize; hidden buttons are not security controls
+- Use v-html only for context-sanitized trusted contents; preserve CSP/URL validation
+- Distinguish expired login, forbidden access, offline, timeout, empty, service errors
+- Use browser APIs in suitable SSR lifecycles; preserve hydration consistency/server data isolation
 
-- 按 [UI 规范](../product/ui-ux.md) 和 [设计体系](../product/design-systems.md) 选择一套主体系
-- 保留表格筛选、分页、选中和滚动上下文；跨页批量操作明确作用范围与部分失败
-- 组件库表单、日期、弹窗和上传遵循其契约，主题通过 tokens/config provider 管理
-- 大列表评估分页、虚拟化、分块与浅响应；不能只靠 keep-alive 隐藏问题
-- 路由级懒加载、依赖体积、图片尺寸和缓存基于真实构建分析
-- Nuxt SSR、SSG、CSR 依据首屏、SEO、权限和部署成本选择，不一律上 SSR
-- Uni-app/小程序不是浏览器完全等价环境：核对事件、权限、隐私、分包、原生桥和后台行为
+## V04 UX and performance
 
-## V05 验证
+- Select one primary system using [UI standards](../product/ui-ux.md) and [design systems](../product/design-systems.md)
+- Preserve filters, pagination, selection, scroll; define cross-page batch scope and partial failures
+- Follow library contracts for forms, dates, dialogs, uploads; centralize themes through tokens/config providers
+- Assess pagination, virtualization, chunking, shallow reactivity for large lists; keep-alive alone does not fix problems
+- Base route lazy loading, dependency size, image dimensions, caching on real build analysis
+- Choose Nuxt SSR/SSG/CSR by first paint, SEO, permissions, deployment cost rather than universal SSR
+- Uni-app/mini-programs differ from browsers; check events, permissions, privacy, subpackages, native bridges, background behavior
 
-- 执行项目格式、lint、类型检查与正式构建，按风险验证组件行为及端到端主流程
-- 实际检查窄屏、长文本、键盘、加载/错误状态和低速网络
-- 跨端分别验证 H5、目标小程序、Android/iOS；单端通过不能代表全部平台
-- 验证请求乱序、快速切页、重复点击、权限变化和卸载后的回调
+## V05 Verification
 
-权威依据见 [来源索引](../sources.md)：Vue、Pinia、Vue Router、Vite、Nuxt、DCloud 文档。
+- Run project formatting, lint, types, production builds; test component/end-to-end behavior by risk
+- Check narrow screens, long text, keyboards, loading/errors, slow networks
+- Verify H5, target mini-program, Android/iOS separately; one platform does not prove all
+- Check reordered requests, quick navigation, repeated clicks, permission changes, post-unmount callbacks
+
+See [sources](../sources.md): Vue, Pinia, Vue Router, Vite, Nuxt, DCloud.

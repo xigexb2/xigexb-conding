@@ -1,49 +1,51 @@
 # Go
 
-所有包/目录直接同类源码最多 20 个，测试、声明与第一方生成文件合并计数；设计时按职责划分子包，遵守 [统一目录规范](../directory-structure.md)
+**English** | [简体中文](../zh-CN/languages/go.md) | [Standards index](../translations.md)
 
-## G01 语言惯例与包设计
+Each package/directory directly owns at most 20 same-family source files, including tests, declarations, and first-party generated files. Design cohesive subpackages according to the [shared directory standards](../directory-structure.md).
 
-- 以 `go.mod`、toolchain 与实际 CI 为准，不将作者机器版本作为项目要求
-- 使用 `gofmt`；需要时使用项目已有 `goimports`，允许标准 Tab 缩进
-- 包名简短、小写、职责明确，避免万能 `util`、`common` 包和循环依赖
-- 每个目录生产与测试 `.go` 文件合计最多 20 个，单文件最多 360 行
-- 小接口由使用方按能力定义；返回具体类型是常见选择，不把它升级成所有 API 的硬规则
-- 结构体优先拥有可解释的零值；必须初始化的类型提供构造入口与前置校验
-- 不复制包含 Mutex、原子状态或禁止复制资源的对象；区分值接收者与指针接收者
-- 导出标识符的注释以其名称开头，正文中文；不要将 Java Javadoc 模板套到 Go
+## G01 Idioms and package design
 
-## G02 错误处理
+- Follow go.mod, toolchain, actual CI rather than the author's workstation version
+- Use gofmt and existing goimports where needed; standard tab indentation is allowed
+- Use short lowercase cohesive package names; avoid all-purpose util/common packages and cycles
+- Each directory has at most 20 production/test .go files together; each file at most 360 lines
+- Define small capability interfaces at consumers; returning concrete types is common but not a universal API mandate
+- Prefer meaningful zero values; types needing initialization expose constructors/precondition checks
+- Do not copy objects containing mutexes, atomic state, non-copyable resources; choose value/pointer receivers deliberately
+- Exported comments start with the identifier and continue in Chinese; do not apply Java Javadoc templates
 
-- 处理所有有意义的错误，禁止静默丢弃；无法影响结果的清理错误也要说明策略
-- 使用 `fmt.Errorf` 和 `%w` 包装上下文，`errors.Is` / `errors.As` 判断原因
-- 不通过字符串匹配区分业务错误；避免同时记录错误并逐层返回造成重复日志
-- `panic` 保留给程序不变量或不可继续的初始化失败；请求输入不以 panic 表达
-- `recover` 只用于明确隔离边界，不能把损坏状态伪装为成功
-- 命名返回值只在改善表达时使用，避免长函数裸返回掩盖错误
+## G02 Error handling
 
-## G03 Goroutine 与生命周期
+- Handle meaningful errors rather than silently dropping them; define policies for cleanup errors that cannot affect results
+- Wrap context with fmt.Errorf and %w; inspect causes with errors.Is/errors.As
+- Do not classify business errors by string matching or log-and-return repeatedly through layers
+- Reserve panic for broken invariants/unrecoverable initialization rather than request input
+- Recover only at explicit isolation boundaries; do not disguise damaged state as success
+- Use named returns only when clearer; avoid naked returns in long functions
 
-- 每个 Goroutine 有启动者、退出条件、取消路径及必要的等待者
-- `context.Context` 通常作为首参，不传 nil，不把它当业务字段容器或长期全局状态
-- `cancel` 在所有适用路径调用；下游预算不能超过父级剩余时间
-- Channel 的关闭责任归协调发送结束的一方；多个发送者使用统一协调，不能由任意接收者关闭
-- 所有阻塞发送、接收、等待和外部调用都有明确退出条件
-- 有界工作池控制 CPU 或下游资源；不能无限启动 Goroutine 后在深层等待连接
-- `errgroup`、信号量等复用批准依赖，明确并发上限和首个错误后的行为
-- 用 Mutex 保护复合不变量；不要为了“无锁”把简单状态拆成不一致的多个原子值
+## G03 Goroutines and lifecycles
 
-## G04 内存与 I/O
+- Every goroutine has a starter, exit condition, cancellation path, necessary waiter
+- Context is usually the first parameter; never pass nil or use it as a business-field container/global state
+- Call cancel on all applicable paths; downstream budgets fit parent remaining time
+- The coordinator of completed sending owns channel closure; arbitrary receivers must not close channels with multiple senders
+- Define exits for every blocking send, receive, wait, external call
+- Bound workers by CPU/downstream resources; do not start unlimited goroutines waiting for connections deeper in the stack
+- Reuse approved errgroup/semaphore dependencies and specify concurrency/first-error behavior
+- Protect compound invariants with mutexes instead of splitting them into inconsistent atomics for a lock-free label
 
-- 切片和 map 的复制是浅层语义，跨异步边界说明底层数组及嵌套对象所有权
-- 不保留已归还池中的切片或 `bytes.Buffer.Bytes()`；归还前清理敏感与大对象引用
-- `sync.Pool` 只作可丢弃临时对象缓存，不承担资源生命周期或固定容量保证
-- 检查大切片小视图造成的底层数组保留；预分配依据可信规模并设置上限
-- HTTP 客户端复用 Transport，配置连接和超时；响应 Body 按路径正确关闭与限量读取
-- `defer` 在函数结束执行，大循环内需要及时释放时使用独立函数或显式关闭
-- 预分配、逃逸优化和 `unsafe` 必须有测量依据；常规业务不使用危险零拷贝转换
+## G04 Memory and I/O
 
-## G05 测试与验证
+- Slice/map copying is shallow; specify backing-array/nested-object ownership across async boundaries
+- Do not retain pooled slices or bytes.Buffer.Bytes() after return; clear sensitive/large references before returning
+- sync.Pool is a disposable temporary-object cache rather than lifecycle/fixed-capacity management
+- Avoid retaining large arrays through small slices; bound preallocation using trusted sizes
+- Reuse HTTP transports with limits/timeouts; close response bodies correctly and limit reads
+- Defer runs at function exit; use helper functions/explicit close when resources must be released inside long loops
+- Require measurements for preallocation, escape optimizations, unsafe; avoid risky zero-copy conversions in ordinary business code
+
+## G05 Tests and verification
 
 ```text
 gofmt -l .
@@ -52,11 +54,11 @@ go test ./...
 go test -race ./...
 ```
 
-- 行为变更必须新增或更新表驱动单测，覆盖正常、边界、错误、取消、重复与资源回收
-- 并发关键路径运行 race 检查；平台不支持时明确缺口并在支持环境复验
-- 时间相关测试优先可控时钟和同步事件，不依赖脆弱的固定 sleep
-- 解析器可使用 fuzz，基准用 `go test -bench` 与分配指标，必要时使用 pprof、trace、benchstat
-- 不把 `go mod tidy` 当只读检查，它会修改模块文件；执行后审查差异
-- 支持平台与构建标签相关文件不能只在本机平台验证
+- Behavior changes require new/updated table-driven unit tests for success, boundaries, errors, cancellation, duplicates, cleanup
+- Run race checks on critical concurrency paths; disclose unsupported platforms and revalidate where supported
+- Prefer controlled clocks/synchronization events to fragile fixed sleeps
+- Consider parser fuzzing, go test -bench/allocation metrics, pprof, trace, benchstat
+- Go mod tidy mutates module files; inspect its diff instead of calling it read-only
+- Verify supported platforms/build tags beyond the local machine
 
-权威依据见 [来源索引](../sources.md)：Go Specification、Memory Model、Effective Go、官方工具文档。
+See [sources](../sources.md): Go Specification, Memory Model, Effective Go, official tools.

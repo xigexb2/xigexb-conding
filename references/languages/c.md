@@ -1,44 +1,46 @@
 # C
 
-所有包/目录直接同类源码最多 20 个，测试、声明与第一方生成文件合并计数；设计时按职责划分子包，遵守 [统一目录规范](../directory-structure.md)
+**English** | [简体中文](../zh-CN/languages/c.md) | [Standards index](../translations.md)
 
-## C01 标准、ABI 与接口
+Each package/directory directly owns at most 20 same-family source files, including tests, declarations, and first-party generated files. Design cohesive subpackages according to the [shared directory standards](../directory-structure.md).
 
-- 确认 C 标准版本、编译器、目标 ABI、freestanding/hosted 环境和平台扩展
-- `.c` 与手工头文件最多 360 行；头文件自包含并有 include guard，公开类型保持稳定
-- 输入指针同时表达长度、容量、可空性、所有权和输出的失败状态
-- 使用符合目标平台的定宽或大小类型，输出格式与类型匹配，注意 `size_t` 和指针宽度
-- 不依赖结构体填充、位域布局或本机字节序作为持久化和网络格式
-- 宏参数防止重复求值和优先级错误；可用函数或 `static inline` 表达时优先采用
-- 公共头文件不暴露无关平台实现和内部可变全局对象
+## C01 Standards, ABI, interfaces
 
-## C02 内存与未定义行为
+- Identify C version, compiler, target ABI, freestanding/hosted environment, extensions
+- Limit .c and maintained headers to 360 lines; headers are self-contained with guards/stable public types
+- Specify pointer lengths, capacity, nullability, ownership, failed output state
+- Use appropriate fixed-width/size types and matching formats; account for size_t/pointer width
+- Do not use padding, bitfield layout, native byte order as persistence/network formats
+- Prevent repeated macro evaluation/precedence bugs; prefer functions/static inline when sufficient
+- Public headers must not expose unrelated platform details/internal mutable globals
 
-- 分配前检查乘加溢出、最大长度和失败；`realloc` 用临时指针保护原资源
-- 每个资源有明确拥有者与释放函数；成功转移所有权后调用者不能继续释放
-- 初始化后使用，检查数组边界、指针对齐、对象生命周期及有效类型与别名规则
-- 禁止对已释放对象访问、二次释放和返回栈地址；释放置空只能防止局部重用，不能修复所有悬挂别名
-- 字符串区分容量、有效长度和终止符，处理截断；不能把 `strncpy` 视为通用安全替代
-- `memcpy` 要求区域不重叠，可能重叠使用 `memmove`；长度仍必须验证
-- 位移检查位宽与符号，避免有符号整数溢出；不能依赖 UB 结果
-- 多资源初始化可以使用集中 `goto cleanup`，按成功获取的逆序释放，不用重复分支掩盖遗漏
+## C02 Memory and undefined behavior
 
-## C03 并发与底层
+- Check multiplication/addition overflow, maximum sizes, allocation failures; protect realloc with temporary pointers
+- Define each resource owner/deallocator; callers must not free after ownership transfer
+- Initialize before use and check bounds, alignment, object lifetime, effective-type/aliasing rules
+- Prevent use-after-free, double free, stack-address returns; nulling one pointer does not repair dangling aliases
+- Distinguish string capacity, length, terminators and handle truncation; strncpy is not universally safe
+- Use memcpy only for nonoverlap and memmove for possible overlap, with validated lengths
+- Check shift width/signedness and signed overflow rather than relying on UB
+- Centralized goto cleanup is valid for multi-resource initialization; release acquired resources in reverse order
 
-- `volatile` 用于其规定的访问语义，不提供线程同步、原子性或 CPU/DMA 屏障
-- C 原子与锁根据内存模型建立 happens-before；跨中断访问还要考虑目标硬件和 RTOS
-- ISR 中禁止阻塞、普通锁、无界分配和不适用的日志；ISR 安全 API 以平台文档为准
-- 对齐、cache line、false sharing 和 DMA 一致性在实测瓶颈或硬件契约下处理
-- 驱动寄存器使用平台 MMIO 接口，不以普通指针强转代替屏障和访问宽度要求
-- 信号处理只使用异步信号安全操作；不要把线程安全等同于信号安全
+## C03 Concurrency and low-level access
 
-## C04 构建与验证
+- Volatile supplies its specified access semantics rather than synchronization, atomicity, CPU/DMA barriers
+- Establish happens-before with C atomics/locks; interrupt sharing also follows hardware/RTOS contracts
+- ISRs must not block, use ordinary locks, allocate unbounded memory, or call unsuitable logging; use platform ISR-safe APIs
+- Handle alignment, cache lines, false sharing, DMA coherence when required by hardware or measured bottlenecks
+- Use platform MMIO interfaces rather than pointer casts that omit barriers/access-width requirements
+- Signal handlers use async-signal-safe operations; thread safety is not signal safety
 
-- GCC/Clang 按兼容性启用 `-Wall -Wextra` 等警告，逐步治理，不盲目压制
-- 在支持环境使用 ASan、UBSan；竞争检查用独立的 TSan 配置，避免不兼容工具组合
-- 编译器静态分析、fuzz、协议向量和故障注入按风险执行
-- 检查 Debug/Release、优化级别、不同架构与 ABI；优化后暴露的问题可能源于 UB
-- 关注链接脚本、段布局、栈/堆预算、启动代码、map 文件及构建可重现性
-- 编译和仿真通过不能替代实际外设、时序、电源、射频与板级验证
+## C04 Build and verification
 
-权威依据见 [来源索引](../sources.md)：WG14、POSIX、SEI CERT C、编译器与平台文档。
+- Enable compatible GCC/Clang warnings such as -Wall -Wextra; fix progressively rather than suppress blindly
+- Use ASan/UBSan where supported and separate TSan configurations; avoid incompatible tool combinations
+- Apply static analysis, fuzzing, protocol vectors, failure injection by risk
+- Verify Debug/Release, optimization levels, architectures, ABIs; optimization-only failures may expose UB
+- Inspect linker scripts, section layouts, stack/heap budgets, startup, map files, reproducibility
+- Compilation/simulation do not replace peripheral, timing, power, RF, board validation
+
+See [sources](../sources.md): WG14, POSIX, SEI CERT C, compiler/platform documentation.

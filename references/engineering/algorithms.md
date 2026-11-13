@@ -1,47 +1,49 @@
-# 算法与数据结构
+# Algorithms and data structures
 
-## AL01 先定义问题
+**English** | [简体中文](../zh-CN/engineering/algorithms.md) | [Standards index](../translations.md)
 
-- 明确输入规模、分布、允许误差、排序与稳定性、在线或离线、更新与查询比例
-- 定义空输入、重复元素、极值、非法输入及不可信输入的处理
-- 给出时间复杂度、额外空间、最坏情况及必要的摊还前提；不能只给平均复杂度
-- 对分配、缓存命中、序列化和 I/O 成本给出实际估算；渐近复杂度不是全部性能
+## AL01 Define the problem first
 
-## AL02 选择结构
+- Specify input size/distribution, permitted error, ordering/stability, online/offline operation, update/query ratio
+- Define behavior for empty input, duplicates, extrema, invalid and untrusted input
+- State time complexity, extra space, worst cases, and amortization assumptions rather than average complexity alone
+- Estimate allocation, cache hits, serialization, and I/O; asymptotic complexity is not the entire performance model
 
-| 需求 | 优先评估 | 注意事项 |
+## AL02 Choose structures
+
+| Requirement | Evaluate first | Considerations |
 | --- | --- | --- |
-| 密集顺序访问 | 数组、切片、连续向量 | 扩容、移动成本、迭代失效 |
-| 精确键查询 | 哈希表 | 碰撞退化、哈希攻击、容量和键稳定性 |
-| 范围与有序查询 | 平衡树、排序数组、数据库索引 | 更新频率、比较器一致性 |
-| Top-K、定时调度 | 堆、时间轮 | 懒删除堆积、粒度、时钟跳变 |
-| FIFO 与背压 | 有界队列、环形缓冲 | 满空状态、生产消费模型 |
-| 去重与集合运算 | 集合、位图 | ID 稀疏程度、内存规模 |
-| 概率预过滤 | Bloom Filter 等 | 假阳性、删除能力、不能据此拒绝合法业务 |
-| 前缀匹配 | Trie、排序检索 | Unicode、归一化、内存成本 |
-| 依赖调度 | DAG、拓扑排序 | 环检测、局部失败与重试 |
+| Dense sequential access | Arrays, slices, contiguous vectors | Growth, moves, iterator invalidation |
+| Exact-key lookup | Hash tables | Collision degradation, hash attacks, capacity, key stability |
+| Range/ordered queries | Balanced trees, sorted arrays, database indexes | Update frequency, comparator consistency |
+| Top-K, timers | Heaps, timing wheels | Lazy-deletion buildup, granularity, clock changes |
+| FIFO and backpressure | Bounded queues, ring buffers | Full/empty states, producer/consumer model |
+| Deduplication/set operations | Sets, bitmaps | Sparse IDs, memory size |
+| Probabilistic prefilter | Bloom filters and similar | False positives, deletion support; cannot justify rejecting valid business operations |
+| Prefix matching | Tries, sorted search | Unicode, normalization, memory cost |
+| Dependency scheduling | DAGs, topological sorting | Cycle detection, partial failure, retries |
 
-成熟标准库优先。自定义并发容器、内存池、跳表和无锁队列必须有明确缺口及测量证据。
+Prefer mature standard libraries. Custom concurrent containers, memory pools, skip lists, and lock-free queues require a demonstrated gap and measurements.
 
-## AL03 数值与边界
+## AL03 Numbers and boundaries
 
-- 在加法、乘法、索引和容量计算之前检查溢出；先溢出再比较无效
-- 不用减法实现可能溢出的比较器；验证严格弱序或语言所需比较契约
-- 金额采用明确精度的十进制或整数最小单位，写明舍入与范围
-- 二进制协议使用明确位宽、符号和字节序；不得使用本机结构体布局代替线协议
-- 时间点、持续时间、时区和单调时钟分开建模
-- 处理 NaN、无穷、负零和浮点容差，避免浮点相等表达业务结算规则
-- 文本长度区分字节、码点与用户感知字符；不能在 UTF-8 中间截断
+- Check overflow before addition, multiplication, indexing, capacity calculation; comparison after overflow is ineffective
+- Avoid subtraction-based comparators that can overflow; verify strict weak ordering or the language's comparison contract
+- Represent money using specified decimal precision or integer minor units; define rounding and range
+- Specify bit width, signedness, endianness for binary protocols; native struct layout is not a wire format
+- Model instants, durations, time zones, monotonic clocks separately
+- Handle NaN, infinity, negative zero, tolerance; floating-point equality is not a settlement rule
+- Distinguish bytes, code points, user-perceived characters; never split UTF-8 sequences
 
-## AL04 证明与验证
+## AL04 Proof and verification
 
-- 对循环和状态转换说明不变量、终止条件及越界防护
-- 使用已知样例、边界、随机生成、性质检查及小规模朴素参考实现进行对照
-- 关键性质可包括幂等、单调、守恒、排序后置条件和编解码已知向量
-- 编解码互为逆不证明符合标准，两端可能共享同一错误
-- 对恶意数据检查最坏复杂度、递归深度、指数回溯和内存膨胀
-- Java 遵守不新增仓库单测的个人约定，必要的算法差分验证放在临时目录并报告结果
+- Explain invariants, termination, bounds checks for loops and state transitions
+- Compare known cases, boundaries, generated inputs, properties, and small naive reference implementations
+- Useful properties include idempotency, monotonicity, conservation, sorted postconditions, known codec vectors
+- Codec round trips do not prove standards conformance; both ends can share one mistake
+- Check adversarial worst-case complexity, recursion depth, exponential backtracking, memory growth
+- Follow the Java convention of no new repository unit tests; run necessary differential algorithm checks in temporary directories and report results
 
-## AL05 工程取舍
+## AL05 Engineering tradeoffs
 
-递归与迭代、精确与近似、预计算与实时计算、空间换时间均需说明输入范围和维护成本。选择可解释、可验证且满足预算的方案，避免为理论最优牺牲可靠性。
+State input ranges and maintenance costs when choosing recursion/iteration, exact/approximate, precomputed/on-demand, or space/time tradeoffs. Prefer an explainable, verifiable solution within budget without sacrificing reliability for theoretical optimality.

@@ -1,49 +1,51 @@
-# 协议、通信与分布式行为
+# Protocols, communication, and distributed behavior
 
-## PD01 线协议
+**English** | [简体中文](../zh-CN/engineering/protocols-distributed.md) | [Standards index](../translations.md)
 
-- 修改前读取规范、版本、消息方向和参考实现；截图、历史实现与正式文档冲突时核对实际权威
-- 逐字段明确顺序、位宽、字节序、符号、缩放、可选条件、保留值和校验范围
-- 长度先验证再读取或分配，限制帧长、嵌套深度、解压比与批量条数
-- TCP 是字节流，处理半包、粘包、多帧及断连；UDP 处理丢失、重复、乱序与 MTU
-- 校验和和 CRC 检测传输错误，不提供身份认证或抗篡改安全
-- 编解码使用已知字节向量、跨实现和边界输入验证，不只做自身往返
-- 协议类型与常量、公共帧和上下行消息按实际仓库职责组织，不强制固定包名
+## PD01 Wire protocols
 
-## PD02 命令与状态
+- Read specifications, versions, message direction, reference implementations before changes; resolve conflicts among screenshots, historical code, formal documents against actual authority
+- Specify every field's order, width, endianness, signedness, scaling, optional conditions, reserved values, checksum coverage
+- Validate lengths before reads/allocations; bound frames, nesting, decompression ratios, batches
+- TCP is a byte stream: handle partial/coalesced/multiple frames and disconnects; UDP requires loss, duplicates, ordering, MTU handling
+- Checksums/CRC detect transmission errors without providing authentication/tamper resistance
+- Verify codecs using known byte vectors, independent implementations, boundaries rather than self round trips alone
+- Organize protocol types/constants, common frames, uplink/downlink messages by repository responsibilities without imposing fixed package names
 
-- 分离本地受理、队列提交、传输确认、网关确认、设备应答和业务完成
-- 每个操作定义关联 ID、会话/设备归属、截止时间、重复响应和迟到响应处理
-- 单播、组播和广播有不同确认能力，不能根据一次发送成功伪造逐设备执行结果
-- 身份规范化遵循协议位宽、前导零、大小写和保留地址，不根据展示字符串随意截断
-- 断连、重连和旧会话回包必须与新会话隔离；请求表清理不能破坏仍有效的状态
-- 离线、超时、拒绝、取消和结果未知分别建模；观察不到回复不能证明设备没有执行
+## PD02 Commands and state
 
-## PD03 MQTT 与事件
+- Separate local acceptance, queue submission, transport acknowledgment, gateway acknowledgment, device reply, business completion
+- Define correlation IDs, session/device ownership, deadlines, duplicate and late responses for each operation
+- Unicast/multicast/broadcast have different acknowledgment capabilities; successful sending cannot establish per-device execution results
+- Normalize identities according to protocol width, leading zeros, case, reserved addresses; do not truncate based on display strings
+- Isolate old-session replies across disconnect/reconnect; request-table cleanup must preserve still-valid state
+- Model offline, timeout, rejection, cancellation, unknown outcome separately; missing replies do not prove non-execution
 
-- QoS 0/1/2 是协议投递语义，不自动保证业务 exactly-once
-- 发布确认、消费者处理、持久化提交和下游副作用分开设计
-- Topic ACL、租户与设备身份绑定；通配订阅、retained、will、session expiry 按真实业务配置
-- 重复消息通过稳定业务键幂等，不能只依赖连接内 packet ID
-- 消费重试、死信、毒消息和人工重放有上限、审计与错误分类
-- 消费者重平衡、分区顺序和批量提交可能影响重复及漏处理，需按框架验证
+## PD03 MQTT and events
 
-## PD04 分布式协调
+- QoS 0/1/2 specifies protocol delivery rather than automatic business exactly-once
+- Design publish acknowledgment, consumer processing, persistence commit, downstream side effects separately
+- Bind topic ACLs to tenants/devices; configure wildcard subscriptions, retained messages, wills, session expiry for actual business needs
+- Deduplicate with stable business keys rather than connection-local packet IDs alone
+- Bound and audit retries, dead letters, poison messages, manual replay with error classification
+- Verify framework-specific rebalance, partition ordering, batch commits for duplicates/missed processing
 
-- 锁与租约说明持有者、作用域、续约、失效、回收与网络分区行为
-- fencing token 必须由实际受保护资源校验，只有生成 token 不构成防旧主写入
-- 幂等依赖原子存储与请求摘要，避免“检查不存在后执行”的竞争
-- 不宣称网络分区下同时获得任意一致性与可用性；按业务明确拒绝、等待或降级
-- 分布式时钟不可假定同步；超时用本地单调时钟，排序和租约使用明确协调机制
-- 恢复扫描有界且公平，不能每轮只扫描固定开头而饿死后续任务
-- 重试放在明确一层，采用预算、退避和抖动；非幂等操作结果未知时先查询或对账
+## PD04 Distributed coordination
 
-## PD05 HTTP、RPC 与实时通道
+- Define lock/lease holders, scope, renewal, expiry, reclamation, partition behavior
+- The protected resource must validate fencing tokens; generating tokens alone does not prevent stale writers
+- Idempotency requires atomic storage and request digests rather than check-then-execute races
+- Do not promise arbitrary consistency and availability during partitions; define rejection, waiting, degradation by business needs
+- Do not assume synchronized distributed clocks; use local monotonic time for timeouts and explicit coordination for ordering/leases
+- Make recovery scans bounded/fair instead of repeatedly scanning the same prefix
+- Retry at a defined layer with budgets, backoff, jitter; inquire/reconcile before retrying unknown non-idempotent operations
 
-- 遵循 RFC HTTP 语义，重试条件依据方法、幂等键和已发送数据判断
-- RPC 定义 deadline、取消、状态码、消息大小、流控和版本兼容
-- WebSocket、SSE 处理心跳、重连、认证过期、背压和恢复游标
-- 长连接身份变更与权限撤销必须及时生效，不能只在首次连接检查
-- 用户体验应说明等待、已下发和实际完成的区别，状态更新不能凭乐观 UI 伪造事实
+## PD05 HTTP, RPC, and realtime channels
 
-硬件通信、信号与接口细节见 [通信工程](../hardware/communications.md)。
+- Follow HTTP RFC semantics; decide retries from methods, idempotency keys, transmitted data
+- Define RPC deadlines, cancellation, status codes, message sizes, flow control, compatibility
+- Handle heartbeats, reconnection, authentication expiry, backpressure, resume cursors for WebSocket/SSE
+- Apply identity changes/permission revocation promptly to persistent connections, rather than checking only at connection establishment
+- Explain waiting, dispatched, completed states in the UX; optimistic interfaces must not fabricate completion
+
+See [communication engineering](../hardware/communications.md) for hardware interfaces and signal details.

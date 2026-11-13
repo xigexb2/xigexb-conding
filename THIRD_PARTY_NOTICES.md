@@ -1,10 +1,12 @@
-# 第三方来源与许可
+# Third-party sources and licenses
 
-本项目原创规范与工具使用 MIT 许可。第三方名称、商标和资料保留其权利。来源研究不表示公司背书或认证。
+**English** | [简体中文](THIRD_PARTY_NOTICES.zh-CN.md) | [Standards index](references/translations.md)
 
-没有直接分发上游 SKILL.md 正文、脚本、风格数据库、图片或字体。为保持研究与许可可追溯性，保留下列已获取的 MIT/Apache 许可原文；这些文件不改变上游的许可归属。
+Original standards/tools use MIT. Third-party names, trademarks, materials retain their rights. Research does not imply company endorsement/certification.
 
-| 来源 | 原文许可 |
+This repository does not redistribute upstream SKILL.md prose, scripts, style databases, images, fonts. The following acquired MIT/Apache license texts are retained for provenance and do not alter upstream licensing.
+
+| Source | Original license |
 | --- | --- |
 | [Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills/blob/078a25cc5bfd8011459be7b91d004e900c1d02d3/LICENSE) | [Jeffallan--claude-skills.txt](third_party/licenses/Jeffallan--claude-skills.txt) |
 | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill/blob/f6b76575f949707b4e3c37cd86cb44b0b98643e8/LICENSE) | [Leonxlnx--taste-skill.txt](third_party/licenses/Leonxlnx--taste-skill.txt) |
@@ -23,6 +25,8 @@
 | [vuejs-ai/skills](https://github.com/vuejs-ai/skills/blob/198f0cd8f7f9c0a3d9b566ccc16de6677519ee78/LICENSE) | [vuejs-ai--skills.txt](third_party/licenses/vuejs-ai--skills.txt) |
 | [wshobson/agents](https://github.com/wshobson/agents/blob/9c61ab243def98f72da12abd41cfcf5bcd91af9d/LICENSE) | [wshobson--agents.txt](third_party/licenses/wshobson--agents.txt) |
 
-Trail of Bits 的相关内容采用 CC-BY-SA-4.0，未复制纳入本项目。Vercel 候选仓库本次未检测到根许可，未复制分发。混合许可仓库按具体文件核对，不作为整体 MIT 重新许可。
+Relevant Trail of Bits content is CC-BY-SA-4.0 and was not copied into this project. No root license was detected for the Vercel candidate during research, so its content was not copied/distributed. Mixed-license repositories require file-specific checks rather than blanket MIT relicensing.
 
-如后续引入任何第三方代码或文字，必须逐文件确认授权、保留版权与许可、标注修改并处理 NOTICE 等义务。完整调研范围见 [来源记录](references/github-research.md)。
+For future third-party code/prose, verify permissions per file, retain copyright/licenses, mark modifications, satisfy applicable NOTICE obligations. See the [research record](references/github-research.md) for scope.
+
+Original license texts remain verbatim in English. Project documentation translations do not replace legal license texts.

@@ -1,37 +1,49 @@
-# 贡献与规则维护
+# Contributing and maintaining standards
 
-## 修改前
+**English** | [简体中文](CONTRIBUTING.zh-CN.md) | [Standards index](references/translations.md)
 
-- 明确修改属于个人偏好、语言官方契约、框架版本行为还是工程建议
-- 先读相关参考和来源，说明适用范围与旧规则的问题
-- 不为单个历史故障新增全局禁令，不复制上游整份 Skill 或无法确认许可的内容
-- 不加入内网环境、真实客户数据、凭据、私有协议和受限资料
+## Before changes
 
-## 文档与代码
+- Identify personal preferences, official contracts, framework-version behavior, engineering advice
+- Read relevant references/sources and explain scope and the old rule's problem
+- Do not turn isolated historical failures into universal prohibitions or copy entire upstream skills/unclear-license content
+- Exclude internal environments, real customer data, credentials, private protocols, restricted materials
 
-- UTF-8 无 BOM、LF、一个末尾换行，无尾部空白，中文注释
-- 主入口保持精简，新规则放所属参考并更新路由和覆盖清单
-- 所有本地链接可解析，版本相关结论有权威出处，不宣称无证据的性能或认证
-- Python 工具采用标准库、类型标注、必要错误处理和职责分离，单文件不超过 380 行
-- 新脚本或行为变更添加有意义的测试；不要只匹配文案或复制实现表达式
-- 文件规模与格式要求不适用于原样保留的第三方许可，仍保持文本可读
+## Documentation and code
 
-## 复验
+- Use UTF-8 without BOM, LF, one final newline, no trailing whitespace, Chinese code comments
+- Keep the entry concise; put rules in relevant references and update routes/coverage
+- Resolve local links and substantiate version-specific claims; do not invent performance/certification
+- Python tools use the standard library where practical, typing, error handling, separated responsibilities, at most 380 lines per file
+- Add meaningful tests for new scripts/behavior rather than text-matching/implementation-mirroring assertions
+- Verbatim third-party licenses retain original text rather than source-format/size conventions
+
+## Verification
 
 ```text
 python scripts/check_repo.py . --require-skill
 python -m pip install -r requirements-dev.txt
 python scripts/validate_skill.py .
+python scripts/check_translations.py .
 python -m unittest discover -s tests -v
 ```
 
-完整 YAML 校验由 validate_skill.py 执行并纳入 CI。适用时另用客户端技能校验工具，不能把基础正则字段检查称为完整 YAML 验证。
+Validate YAML through validate_skill.py in CI; basic regex is not complete YAML parsing. Use applicable client skill validators as well.
 
-对规则变更走查 verification.md 的典型任务，确认没有改变授权、语言格式、内存所有权和平台语义。复杂变更可以开展独立行为评测，但不得把文档走查写成已经执行了模型评测。
+For rule changes walk through verification.md scenarios against authorization, native formatting, ownership, platform semantics. Complex changes may warrant independent agent evaluations; manual document review is not an executed model evaluation.
 
-## 提交与审查
+## Bilingual maintenance
 
-- 一个 PR 说明具体规则缺陷、适用范围、最终变化和验证结果
-- Conventional Commits：`type(scope): 简体中文摘要`，具体要求见 [Git 规范](references/engineering/git.md)
-- 上游借鉴注明固定提交、文件、许可与取舍；新增代码或文字需处理其版权与 NOTICE 义务
-- 不因增加了来源链接就宣称全文审查，也不因为 Star 高就采纳未经验证的建议
+- English is canonical at default paths; Chinese references mirror them under references/zh-CN, while root documents use .zh-CN.md
+- Maintain both languages in one change, preserving rule IDs, requirements, examples, sources, version-specific qualifications
+- Every document links to its exact counterpart; Chinese internal navigation stays in the Chinese tree
+- Run the translation checker for counterpart coverage, reverse navigation, rule IDs, external links, code-fence balance, language-tree integrity
+- Keep code comments in Chinese and original legal license texts verbatim; English explanations accompany tool usage
+- See [translation index](references/translations.md) and [tools](references/tooling.md)
+
+## Commits and review
+
+- Describe the concrete defect, scope, final changes, verification in each PR
+- Use Conventional Commits with type(scope) and Simplified Chinese summaries; see [Git](references/engineering/git.md)
+- Pin upstream references to commits/files/licenses and document decisions; handle copyright/NOTICE for introduced code/prose
+- Links do not prove full review and stars do not justify unverified rules

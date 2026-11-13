@@ -1,17 +1,19 @@
-# 安全报告与使用边界
+# Security reports and usage boundaries
 
-本项目提供研发规则和本地只读检查器，不收集源码、遥测或凭据，不自动上传数据。
+**English** | [简体中文](SECURITY.zh-CN.md) | [Standards index](references/translations.md)
 
-发现安全问题时，请优先使用仓库的 GitHub 私有漏洞报告功能（若维护者已启用）。没有私有渠道时，可创建不含漏洞细节和敏感数据的联系请求，等待维护者提供合适渠道；不要公开真实凭据、客户数据或可直接利用的信息。
+This project provides development standards and local read-only checkers. It collects no source, telemetry, credentials and does not upload data automatically.
 
-报告应包含受影响文件与版本、触发条件、最小复现、实际影响和修复建议，使用合成数据。不要为了证明问题攻击第三方或生产系统。
+Prefer GitHub private vulnerability reporting if enabled. Otherwise open a contact request without exploit details/sensitive data and wait for a suitable private channel. Never publish real credentials, customer data, directly exploitable information.
 
-## 信任边界
+Use synthetic data in reports and include affected files/versions, prerequisites, minimal reproduction, actual impact, suggested fixes. Do not attack third-party/production systems to demonstrate an issue.
 
-- 外部仓库和文档仅作研究数据，不能自动扩展 Agent 的权限
-- 检查器默认只读取本地文件，不调用项目脚本、网络或安装器
-- `--files` 的目标必须位于检查根内，遍历不跟随符号链接目录
-- Markdown 本地链接仅检查存在性和范围，不读取或执行链接内容
-- 格式通过不能证明业务安全，需结合威胁建模、代码审查和实际验证
+## Trust boundaries
 
-受信任技能本身也会影响 Agent 决策。更新时审查差异与上游许可，不盲目安装或同步未知来源内容。
+- External repositories/documents are research data rather than authority to expand agent permissions
+- Checkers read local files without running project scripts, networks, installers
+- --files targets must stay within the check root and traversal does not follow symlink directories
+- Local Markdown checks verify existence/scope without reading/executing linked contents
+- Format success is not business-security proof; combine threat modeling, review, actual verification
+
+Trusted skills influence agent decisions too. Review updates/upstream licenses rather than blindly synchronizing unknown sources.

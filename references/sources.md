@@ -1,106 +1,108 @@
-# 官方规范与权威资料
+# Official standards and authoritative resources
 
-检索基准日：2026-11-12。链接用于定位权威来源，实际编码需选择项目对应版本。可达性不代表全文审查、标准认证或产品兼容保证。
+**English** | [简体中文](zh-CN/sources.md) | [Standards index](translations.md)
 
-个人习惯见 profile.md；公开企业指南是工程实践，不能冒充语言或 ISO/IEEE 强制条款。来源正文与本 Skill 冲突时先判断版本、范围和真实契约。
+Research baseline: 2026-11-12. Links locate authoritative sources; choose project-matching versions. Reachability does not establish full review, certification, or compatibility.
 
-## 语言与工具链
+See profile.md for personal conventions. Public company guides are engineering practices rather than language or mandatory ISO/IEEE clauses. Resolve conflicts by versions, scope, actual contracts.
 
-- [Java 25 JLS](https://docs.oracle.com/javase/specs/jls/se25/html/index.html)：入口可达
-- [JEP 491](https://openjdk.org/jeps/491)：入口可达
-- [JEP 505](https://openjdk.org/jeps/505)：入口可达
-- [Go Specification](https://go.dev/ref/spec)：入口可达
-- [Go Memory Model](https://go.dev/ref/mem)：入口可达
-- [Effective Go](https://go.dev/doc/effective_go)：入口可达
-- [Rust Reference](https://doc.rust-lang.org/reference/)：入口可达
-- [Rustonomicon](https://doc.rust-lang.org/nomicon/)：入口可达
-- [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/)：入口可达
-- [WG14 C 标准工作组](https://www.open-std.org/jtc1/sc22/wg14/)：入口可达
-- [ISO C++](https://isocpp.org/)：本次自动访问受限，使用时重新核对
-- [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)：入口可达
-- [SEI CERT](https://wiki.sei.cmu.edu/confluence/display/seccode)：本次自动访问受限，使用时重新核对
-- [Python PEP 8](https://peps.python.org/pep-0008/)：入口可达
-- [Python PEP 257](https://peps.python.org/pep-0257/)：入口可达
-- [Python asyncio](https://docs.python.org/3/library/asyncio.html)：入口可达
-- [ECMAScript](https://tc39.es/ecma262/)：入口可达
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)：入口可达
-- [Node.js](https://nodejs.org/api/)：入口可达
-- [Kotlin Coding Conventions](https://kotlinlang.org/docs/coding-conventions.html)：入口可达
-- [Swift API Design Guidelines](https://www.swift.org/documentation/api-design-guidelines/)：入口可达
+## Languages and toolchains
 
-## Web 与平台
+- [Java 25 JLS](https://docs.oracle.com/javase/specs/jls/se25/html/index.html): Entry reachable at the research baseline
+- [JEP 491](https://openjdk.org/jeps/491): Entry reachable at the research baseline
+- [JEP 505](https://openjdk.org/jeps/505): Entry reachable at the research baseline
+- [Go Specification](https://go.dev/ref/spec): Entry reachable at the research baseline
+- [Go Memory Model](https://go.dev/ref/mem): Entry reachable at the research baseline
+- [Effective Go](https://go.dev/doc/effective_go): Entry reachable at the research baseline
+- [Rust Reference](https://doc.rust-lang.org/reference/): Entry reachable at the research baseline
+- [Rustonomicon](https://doc.rust-lang.org/nomicon/): Entry reachable at the research baseline
+- [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/): Entry reachable at the research baseline
+- [WG14 C working group](https://www.open-std.org/jtc1/sc22/wg14/): Entry reachable at the research baseline
+- [ISO C++](https://isocpp.org/): Automated access was restricted during this research; recheck when needed
+- [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines): Entry reachable at the research baseline
+- [SEI CERT](https://wiki.sei.cmu.edu/confluence/display/seccode): Automated access was restricted during this research; recheck when needed
+- [Python PEP 8](https://peps.python.org/pep-0008/): Entry reachable at the research baseline
+- [Python PEP 257](https://peps.python.org/pep-0257/): Entry reachable at the research baseline
+- [Python asyncio](https://docs.python.org/3/library/asyncio.html): Entry reachable at the research baseline
+- [ECMAScript](https://tc39.es/ecma262/): Entry reachable at the research baseline
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html): Entry reachable at the research baseline
+- [Node.js](https://nodejs.org/api/): Entry reachable at the research baseline
+- [Kotlin Coding Conventions](https://kotlinlang.org/docs/coding-conventions.html): Entry reachable at the research baseline
+- [Swift API Design Guidelines](https://www.swift.org/documentation/api-design-guidelines/): Entry reachable at the research baseline
 
-- [Vue](https://vuejs.org/guide/introduction.html)：入口可达
-- [Pinia](https://pinia.vuejs.org/core-concepts/)：入口可达
-- [Vue Router](https://router.vuejs.org/guide/)：入口可达
-- [Vite](https://vite.dev/guide/)：入口可达
-- [Nuxt](https://nuxt.com/docs)：入口可达
-- [DCloud Uni-app](https://uniapp.dcloud.net.cn/)：入口可达
-- [React](https://react.dev/learn)：入口可达
-- [MDN](https://developer.mozilla.org/en-US/docs/Web)：入口可达
-- [WCAG 2.2](https://www.w3.org/TR/WCAG22/)：入口可达
-- [Android App Architecture](https://developer.android.com/topic/architecture)：入口可达
-- [Apple HIG](https://developer.apple.com/design/human-interface-guidelines/)：入口可达
-- [Material Design 3](https://m3.material.io/)：入口可达
-- [JetBrains Int UI](https://plugins.jetbrains.com/docs/intellij/ui-guidelines-welcome.html)：入口可达
-- [OpenAI Apps SDK Design](https://developers.openai.com/apps-sdk/concepts/design-guidelines/)：入口可达
-- [京东 JDesign](https://jdesign.jd.com/)：本次自动访问受限，使用时重新核对
+## Web and platforms
 
-## 后端、数据与企业实践
+- [Vue](https://vuejs.org/guide/introduction.html): Entry reachable at the research baseline
+- [Pinia](https://pinia.vuejs.org/core-concepts/): Entry reachable at the research baseline
+- [Vue Router](https://router.vuejs.org/guide/): Entry reachable at the research baseline
+- [Vite](https://vite.dev/guide/): Entry reachable at the research baseline
+- [Nuxt](https://nuxt.com/docs): Entry reachable at the research baseline
+- [DCloud Uni-app](https://uniapp.dcloud.net.cn/): Entry reachable at the research baseline
+- [React](https://react.dev/learn): Entry reachable at the research baseline
+- [MDN](https://developer.mozilla.org/en-US/docs/Web): Entry reachable at the research baseline
+- [WCAG 2.2](https://www.w3.org/TR/WCAG22/): Entry reachable at the research baseline
+- [Android App Architecture](https://developer.android.com/topic/architecture): Entry reachable at the research baseline
+- [Apple HIG](https://developer.apple.com/design/human-interface-guidelines/): Entry reachable at the research baseline
+- [Material Design 3](https://m3.material.io/): Entry reachable at the research baseline
+- [JetBrains Int UI](https://plugins.jetbrains.com/docs/intellij/ui-guidelines-welcome.html): Entry reachable at the research baseline
+- [OpenAI Apps SDK Design](https://developers.openai.com/apps-sdk/concepts/design-guidelines/): Entry reachable at the research baseline
+- [JD JDesign](https://jdesign.jd.com/): Automated access was restricted during this research; recheck when needed
 
-- [Spring Framework](https://docs.spring.io/spring-framework/reference/)：入口可达
-- [Netty 引用计数](https://netty.io/wiki/reference-counted-objects.html)：入口可达
-- [PostgreSQL](https://www.postgresql.org/docs/current/)：入口可达
-- [MySQL](https://dev.mysql.com/doc/)：本次自动访问受限，使用时重新核对
-- [Redis](https://redis.io/docs/latest/)：入口可达
-- [MQTT 5.0 OASIS](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html)：入口可达
-- [HTTP RFC 9110](https://www.rfc-editor.org/rfc/rfc9110)：入口可达
-- [Google AIP](https://google.aip.dev/)：入口可达
-- [Google SRE](https://sre.google/books/)：入口可达
-- [Microsoft Cloud Design Patterns](https://learn.microsoft.com/en-us/azure/architecture/patterns/)：入口可达
-- [AWS Well-Architected](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)：入口可达
-- [Alibaba Java 开发手册](https://github.com/alibaba/p3c)：入口可达
-- [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md)：入口可达
+## Backend, data, and enterprise practices
 
-## 安全与交付
+- [Spring Framework](https://docs.spring.io/spring-framework/reference/): Entry reachable at the research baseline
+- [Netty reference counting](https://netty.io/wiki/reference-counted-objects.html): Entry reachable at the research baseline
+- [PostgreSQL](https://www.postgresql.org/docs/current/): Entry reachable at the research baseline
+- [MySQL](https://dev.mysql.com/doc/): Automated access was restricted during this research; recheck when needed
+- [Redis](https://redis.io/docs/latest/): Entry reachable at the research baseline
+- [MQTT 5.0 OASIS](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html): Entry reachable at the research baseline
+- [HTTP RFC 9110](https://www.rfc-editor.org/rfc/rfc9110): Entry reachable at the research baseline
+- [Google AIP](https://google.aip.dev/): Entry reachable at the research baseline
+- [Google SRE](https://sre.google/books/): Entry reachable at the research baseline
+- [Microsoft Cloud Design Patterns](https://learn.microsoft.com/en-us/azure/architecture/patterns/): Entry reachable at the research baseline
+- [AWS Well-Architected](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html): Entry reachable at the research baseline
+- [Alibaba Java development guide](https://github.com/alibaba/p3c): Entry reachable at the research baseline
+- [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md): Entry reachable at the research baseline
 
-- [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/)：入口可达
-- [OWASP API Security](https://owasp.org/www-project-api-security/)：入口可达
-- [NIST SSDF](https://csrc.nist.gov/projects/ssdf)：入口可达
-- [CWE](https://cwe.mitre.org/)：入口可达
-- [Git](https://git-scm.com/docs)：入口可达
-- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)：入口可达
-- [Semantic Versioning](https://semver.org/)：入口可达
-- [GitHub Actions Security](https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions)：入口可达
-- [Agent Skills Specification](https://agentskills.io/specification)：入口可达
+## Security and delivery
 
-## 系统、嵌入式、芯片与硬件
+- [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/): Entry reachable at the research baseline
+- [OWASP API Security](https://owasp.org/www-project-api-security/): Entry reachable at the research baseline
+- [NIST SSDF](https://csrc.nist.gov/projects/ssdf): Entry reachable at the research baseline
+- [CWE](https://cwe.mitre.org/): Entry reachable at the research baseline
+- [Git](https://git-scm.com/docs): Entry reachable at the research baseline
+- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/): Entry reachable at the research baseline
+- [Semantic Versioning](https://semver.org/): Entry reachable at the research baseline
+- [GitHub Actions Security](https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions): Entry reachable at the research baseline
+- [Agent Skills Specification](https://agentskills.io/specification): Entry reachable at the research baseline
 
-- [POSIX](https://pubs.opengroup.org/onlinepubs/9799919799/)：入口可达
-- [Linux Kernel](https://docs.kernel.org/)：入口可达
-- [FreeRTOS](https://www.freertos.org/Documentation/00-Overview)：入口可达
-- [Zephyr](https://docs.zephyrproject.org/latest/)：入口可达
-- [Arm Documentation](https://developer.arm.com/documentation)：本次自动访问受限，使用时重新核对
-- [RISC-V Specifications](https://docs.riscv.org/reference/isa/)：入口可达
-- [Accellera Standards](https://www.accellera.org/downloads/standards)：入口可达
-- [KiCad Documentation](https://docs.kicad.org/)：入口可达
-- [IPC / Global Electronics Association](https://www.electronics.org/)：协会入口可达，标准正文需另行取得
-- [Texas Instruments Reference Designs](https://www.ti.com/reference-designs/index.html)：入口可达
-- [Analog Devices Design Resources](https://www.analog.com/en/resources/design-tools-and-calculators.html)：入口可达
+## Systems, embedded, chips, and hardware
 
-## 补充设计体系入口
+- [POSIX](https://pubs.opengroup.org/onlinepubs/9799919799/): Entry reachable at the research baseline
+- [Linux Kernel](https://docs.kernel.org/): Entry reachable at the research baseline
+- [FreeRTOS](https://www.freertos.org/Documentation/00-Overview): Entry reachable at the research baseline
+- [Zephyr](https://docs.zephyrproject.org/latest/): Entry reachable at the research baseline
+- [Arm Documentation](https://developer.arm.com/documentation): Automated access was restricted during this research; recheck when needed
+- [RISC-V Specifications](https://docs.riscv.org/reference/isa/): Entry reachable at the research baseline
+- [Accellera Standards](https://www.accellera.org/downloads/standards): Entry reachable at the research baseline
+- [KiCad Documentation](https://docs.kicad.org/): Entry reachable at the research baseline
+- [IPC / Global Electronics Association](https://www.electronics.org/): Association entry reachable; standards require separate access
+- [Texas Instruments Reference Designs](https://www.ti.com/reference-designs/index.html): Entry reachable at the research baseline
+- [Analog Devices Design Resources](https://www.analog.com/en/resources/design-tools-and-calculators.html): Entry reachable at the research baseline
 
-- [Ant Design](https://ant.design/)：入口可达
-- [TDesign](https://tdesign.tencent.com/)：入口可达
-- [Arco Design](https://arco.design/)：入口可达
-- [Semi Design](https://semi.design/)：入口可达
-- [IBM Carbon](https://carbondesignsystem.com/)：入口可达
-- [Oracle Redwood](https://redwood.oracle.com/)：公开入口可达，具体规范以可取得正文为准
-- [抖音开放平台](https://developer.open-douyin.com/)：入口可达
+## Additional design-system sources
 
-## 维护要求
+- [Ant Design](https://ant.design/): Entry reachable at the research baseline
+- [TDesign](https://tdesign.tencent.com/): Entry reachable at the research baseline
+- [Arco Design](https://arco.design/): Entry reachable at the research baseline
+- [Semi Design](https://semi.design/): Entry reachable at the research baseline
+- [IBM Carbon](https://carbondesignsystem.com/): Entry reachable at the research baseline
+- [Oracle Redwood](https://redwood.oracle.com/): Public entry reachable; specific rules depend on available documents
+- [Douyin Open Platform](https://developer.open-douyin.com/): Entry reachable at the research baseline
 
-- 不以网站最新版覆盖项目锁定版本，涉及预览、弃用或兼容性时重新核对
-- 设计体系的专门入口见 [设计体系](product/design-systems.md)，GitHub 调研见 [研究记录](github-research.md)
-- 商业标准与受限资料只列合法入口，不复制未授权正文；未取得适用条文时明确证据缺口
-- 本次检查为匿名公开 HTTP 请求，部分站点存在 JavaScript 渲染、机器人验证或区域限制
+## Maintenance
+
+- Do not override pinned project versions with website latest; recheck previews, deprecation, compatibility
+- See [design systems](product/design-systems.md) for specialized entries and [GitHub research](github-research.md) for skill sources
+- List lawful entries to commercial/restricted standards without unauthorized copying; state gaps when applicable clauses are unavailable
+- The original checks used anonymous public HTTP requests; some sites require JavaScript, bot checks, or regional access

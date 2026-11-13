@@ -1,60 +1,62 @@
-# 框架与基础设施集成
+# Framework and infrastructure integration
 
-只加载实际使用的框架规则。版本、生命周期、线程模型和升级要求以对应官方文档及仓库锁定版本为准。
+**English** | [简体中文](../zh-CN/engineering/frameworks.md) | [Standards index](../translations.md)
 
-## F01 Java 服务框架
+Load only rules for frameworks actually used. Official documentation and repository-pinned versions determine version behavior, lifecycles, threading, upgrades.
 
-- Spring Boot/Spring Security、Quarkus、Jakarta 等识别后分别应用，避免跨框架混用
-- 构造器注入、配置校验、可控启动与优雅关闭，禁止初始化阶段隐式启动无监督后台线程
-- Spring 事务检查代理、自调用、传播、隔离、回滚和线程边界；响应式事务以实际上下文传播模型为准
-- 阻塞库与 WebFlux/EventLoop 隔离，不能因为方法返回 Mono/Future 就认为内部非阻塞
-- Hibernate/JPA 检查查询规模、懒加载、N+1 和实体状态；MyBatis 检查参数化和租户条件
+## F01 Java service frameworks
 
-## F02 Netty 与高性能网络库
+- Identify Spring Boot/Spring Security, Quarkus, Jakarta separately and avoid mixing framework assumptions
+- Use constructor injection, validated configuration, controlled startup, graceful shutdown; no implicit unsupervised initialization threads
+- For Spring transactions inspect proxies, self-invocation, propagation, isolation, rollback, threading; reactive transactions follow actual context propagation
+- Isolate blocking libraries from WebFlux/event loops; returning Mono/Future does not make internals nonblocking
+- For Hibernate/JPA inspect query size, lazy loading, N+1, entity state; for MyBatis inspect parameterization and tenant predicates
 
-- EventLoop 中不做阻塞操作或长计算；offload 有界并保持每连接业务顺序要求
-- 引用计数资源明确所有者和转移点，读取、消费、转发、异步保留与出站写分别处理
-- `SimpleChannelInboundHandler`、解码器和编码器可能自动释放；按具体类契约避免重复释放
-- `retain`、retained slice 和复制选择取决于共享底层内存与生命周期，不以“零拷贝”代替推理
-- 消费且不转发的引用在所有退出路径释放，转发后不无条件释放；提交失败明确所有权是否转移
-- `safeRelease` 不应掩盖常态引用计数错误，泄漏检测与异常证据必须可观察
-- gnalloy、gnet、netpoll 等分别核对回调线程、缓冲有效期、写入所有权和关闭语义
+## F02 Netty and high-performance networking
 
-## F03 Go / Rust / Python 框架
+- Do not block or run long computations on event loops; bound offloading and preserve required per-connection ordering
+- Define reference-counted ownership/transfers separately for reads, consumption, forwarding, asynchronous retention, outbound writes
+- SimpleChannelInboundHandler, decoders, encoders may release automatically; prevent double release according to concrete contracts
+- Choose retain, retained slices, copying by shared backing memory/lifetime rather than zero-copy slogans
+- Release consumed, unforwarded references on all exits; do not unconditionally release after forwarding; define ownership on submission failure
+- Do not use safeRelease to hide routine reference-count errors; expose leak detection and failure evidence
+- Check callback threads, buffer validity, write ownership, shutdown semantics separately for gnalloy, gnet, netpoll, and similar libraries
 
-- Gin、Echo、Fiber、标准 net/http 不共享完全相同请求上下文与对象生命周期，异步前复制必要数据
-- Tokio、Axum、Actix 按运行时线程、阻塞池、提取器限制和连接关闭契约设置预算
-- FastAPI、Django、Flask 区分同步/异步处理器、ORM 会话和后台任务生命周期
-- 后台任务不能依赖已经释放的请求对象或连接，可靠任务使用可持久化的队列与监督机制
-- 框架默认超时、Body 限制、连接数和认证配置必须检查，不能假定默认即可生产使用
+## F03 Go / Rust / Python frameworks
 
-## F04 前端与组件生态
+- Gin, Echo, Fiber, net/http have different request context/object lifecycles; copy necessary data before asynchronous work
+- Budget Tokio, Axum, Actix by runtime threads, blocking pools, extractor limits, connection-close contracts
+- Distinguish sync/async handlers, ORM sessions, background-task lifecycles in FastAPI, Django, Flask
+- Background work must not depend on released requests/connections; reliable jobs need durable queues and supervision
+- Inspect default timeouts, body limits, connections, authentication instead of assuming production suitability
 
-- Vue、React、Angular、Svelte 按现有技术栈实现，不能为采用某 Skill 强行替换框架
-- React 检查纯渲染、effect 清理、稳定身份与并发请求；不将所有派生数据写进 effect
-- Angular 检查变更检测、订阅清理、DI 生命周期与模板类型；Svelte 按实际版本响应式模型设计
-- SSR/SSG/CSR 按首屏、SEO、权限、缓存和部署能力取舍
-- UI 组件库版本、设计 tokens、图标、表单和可访问性集中管理，见 [设计体系](../product/design-systems.md)
+## F04 Frontend and component ecosystems
 
-## F05 Redis、缓存与锁
+- Follow existing Vue, React, Angular, Svelte stacks; adopting a skill does not justify replacing the framework
+- In React inspect pure rendering, effect cleanup, stable identity, concurrent requests; avoid storing every derived value through effects
+- In Angular inspect change detection, subscriptions, DI lifecycles, template types; use Svelte's actual version-specific reactivity
+- Choose SSR/SSG/CSR by first paint, SEO, authorization, caching, deployment capabilities
+- Centralize component versions, design tokens, icons, forms, accessibility; see [design systems](../product/design-systems.md)
 
-- 所有缓存明确 key 命名、租户/权限维度、容量、TTL、空值与失效策略
-- 避免大 key、热 key、无界集合及在线全量 KEYS；扫描仍需限量和预算
-- Lua/事务或原子指令只保证其指定范围，不能据此宣称跨系统原子性
-- 分布式锁释放校验所有者，续约和进程暂停可能影响租约；关键副作用考虑 fencing 或幂等
-- Redis 缓存和分布式锁不替代持久化唯一约束
+## F05 Redis, caching, and locks
 
-## F06 Kafka、RabbitMQ、MQTT
+- Define key namespaces, tenant/permission dimensions, capacity, TTL, null behavior, invalidation for every cache
+- Avoid large/hot keys, unbounded collections, online full KEYS; scans still require limits and budgets
+- Lua, transactions, atomic commands guarantee only their specified scope rather than cross-system atomicity
+- Verify lock owners on release; renewal/process pauses affect leases; protect critical side effects with fencing or idempotency
+- Redis caches/distributed locks do not replace durable uniqueness constraints
 
-- 区分生产者确认、代理持久化、消费者确认和业务事务提交
-- 消费重试与死信有上限、原因、保留及重放策略，检查重复副作用
-- Kafka 分区顺序只在相应范围成立，消费者重平衡与提交位置需验证
-- RabbitMQ ack/nack/requeue 与预取数防止毒消息循环和消费端内存膨胀
-- MQTT QoS 与 retained/session 语义不等于业务完成，Topic ACL 与身份绑定
+## F06 Kafka, RabbitMQ, MQTT
 
-## F07 存储与私有基础设施
+- Distinguish producer acknowledgments, broker durability, consumer acknowledgments, business transaction commits
+- Bound retries/dead letters with reasons, retention, replay policies; inspect duplicate side effects
+- Kafka ordering is partition-scoped; verify rebalance and committed-offset behavior
+- RabbitMQ ack/nack/requeue/prefetch must prevent poison-message loops and consumer memory growth
+- MQTT QoS, retained messages, sessions do not establish business completion; bind topic ACLs to identities
 
-- MinIO/S3 的权限、预签名有效期、分片上传、校验、生命周期和大文件流式处理明确
-- GitLab/Artifactory 等服务限制暴露面、最小权限、备份、升级及依赖镜像可信来源
-- 搜索索引、对象存储和数据库之间定义一致性、失败补偿与删除传播
-- 配置只装配选中的集成，避免未启用依赖意外建立连接或启动监听端口
+## F07 Storage and private infrastructure
+
+- Specify MinIO/S3 permissions, presigned expiry, multipart uploads, checksums, lifecycles, streaming for large objects
+- Limit GitLab/Artifactory exposure and permissions; define backup, upgrade, trusted artifact sources
+- Define consistency, compensation, deletion propagation between indexes, object stores, databases
+- Configure only selected integrations; disabled dependencies must not unexpectedly connect or open listeners

@@ -126,6 +126,8 @@ See [contribution guidelines](CONTRIBUTING.md) for metadata validation and check
 
 ## Documentation
 
+- [Bilingual standards index](references/translations.md)
+- [Checker usage and agent metadata](references/tooling.md)
 - [Skill entry point](SKILL.md)
 - [Default coding conventions](references/profile.md)
 - [Coverage index](references/coverage.md)
@@ -133,7 +135,7 @@ See [contribution guidelines](CONTRIBUTING.md) for metadata validation and check
 - [Open-source adoption](references/open-source.md)
 - [Third-party notices](THIRD_PARTY_NOTICES.md)
 
-The detailed reference documents are currently in Simplified Chinese. Both README versions describe the same conventions.
+The complete standards are available in English and Simplified Chinese, with a language switch on every document.
 
 ## License
 

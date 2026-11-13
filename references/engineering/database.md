@@ -1,48 +1,50 @@
-# 数据建模、SQL 与持久化
+# Data modeling, SQL, and persistence
 
-SQL 语法和方言细节见 [SQL](../languages/sql.md)，安全控制见 [安全](security.md)。
+**English** | [简体中文](../zh-CN/engineering/database.md) | [Standards index](../translations.md)
 
-## DB01 模型与约束
+See [SQL](../languages/sql.md) for dialect details and [security](security.md) for controls.
 
-- 以业务不变量定义主键、唯一性、外键、状态约束、租户范围和数据生命周期
-- 身份关联、订单、幂等记录等使用数据库唯一约束，不能只依赖 Redis 锁或应用先查后插
-- 字段明确单位、范围、可空性、默认值、时区和保留期；不要用魔法值混合未知与真实零值
-- 软删除与唯一性、关联、归档及隐私删除一并设计
-- 高写入审计与主业务状态按查询、保留期和事务要求拆分，避免无边界增长
-- JSON 列用于合适的扩展数据，不代替所有结构化约束和查询模型
+## DB01 Models and constraints
 
-## DB02 事务与并发
+- Define primary keys, uniqueness, foreign keys, state constraints, tenant scope, lifecycle from business invariants
+- Use database uniqueness for identity links, orders, idempotency records; Redis locks and application check-then-insert are insufficient
+- Specify units, ranges, nullability, defaults, time zones, retention; do not conflate unknown values with real zero through magic values
+- Design soft deletion together with uniqueness, relationships, archival, privacy deletion
+- Separate high-volume audits from primary business state according to queries, retention, transactions; prevent unbounded growth
+- Use JSON columns for suitable extension data rather than replacing all structured constraints/query models
 
-- 明确事务起止、隔离级别、锁顺序、可重试错误和最大执行时间
-- 事务隔离名称相同也可能有数据库差异，按具体版本验证幻读、写偏斜和读写冲突
-- 事务内避免慢外部调用；数据库提交与消息投递通过 outbox 等方式处理双写窗口
-- 乐观更新校验版本或旧状态，检查影响行数，冲突不能当成功
-- 死锁和序列化失败仅在幂等边界内有限重试，退避并限制总预算
-- 连接池大小依据数据库容量与服务实例数计算，不无限扩大以掩盖慢查询
-- Session 锁与会话变量必须在连接归还前正确解除；状态不确定的连接按池契约销毁并验证
+## DB02 Transactions and concurrency
 
-## DB03 查询与索引
+- Define transaction boundaries, isolation, lock order, retryable errors, maximum duration
+- Identically named isolation levels can differ between databases; verify phantoms, write skew, read/write conflicts for the actual version
+- Avoid slow external calls inside transactions; address commit/message dual writes with outbox or equivalent
+- Optimistic updates check versions/old state and affected rows; conflicts are not success
+- Retry deadlocks/serialization failures within idempotent boundaries, bounded by backoff and total budget
+- Size pools by database capacity and service instance count rather than enlarging them to hide slow queries
+- Release session locks/variables before returning connections; destroy uncertain connections according to pool contracts and verify cleanup
 
-- 依据实际查询、过滤、连接、排序与选择性设计索引，考虑列顺序和写放大
-- 观察执行计划、估计与实际行数、缓存、I/O、统计信息和锁等待
-- 顺序扫描可能是小表或高命中率查询的最优选择，不能以“必须走索引”代替分析
-- 在线请求禁止不受控的大结果集与无界扫描；诊断、离线任务和迁移单独设置预算
-- 聚合、导出和恢复扫描采用有界批处理及稳定游标，避免深分页和头部饥饿
-- 避免 N+1，使用受控批量；JOIN 和预加载不能无限扩大中间结果
-- 读写分离明确复制延迟与 read-your-writes 要求，关键读不能随意路由到陈旧副本
+## DB03 Queries and indexes
 
-## DB04 安全与租户
+- Design indexes from real filters, joins, sorting, selectivity; assess column order and write amplification
+- Inspect plans, estimated/actual rows, caches, I/O, statistics, lock waits
+- Sequential scans may be optimal for small tables or queries returning a large fraction of rows; analysis takes precedence over requiring an index
+- Bound online result sets/scans; budget diagnostics, offline jobs, migrations separately
+- Use bounded batches and stable cursors for aggregation, exports, recovery; avoid deep pagination and starvation of later records
+- Avoid N+1 with controlled batching; joins/eager loading must not create unbounded intermediate results
+- Define replica lag and read-your-writes for read/write splitting; critical reads must not silently use stale replicas
 
-- 数据值参数绑定，动态标识符允许列表；禁止原样拼接外部 SQL 片段
-- 租户 ID 来自可信认证上下文，查询、写入、关联、缓存和导出都包含正确范围
-- PostgreSQL RLS 等能力按实际角色与绕过条件验证，不能代替所有应用授权
-- 应用账号最小权限，管理、迁移和只读账号分离，凭据不进入代码与日志
-- 字段级敏感数据按用途最小读取，备份、日志和测试副本具有相同数据保护要求
+## DB04 Security and tenancy
 
-## DB05 迁移与恢复
+- Bind values and allowlist dynamic identifiers; never concatenate external SQL fragments directly
+- Obtain tenant IDs from trusted authentication context; apply scope to queries, mutations, joins, caches, exports
+- Verify actual roles and bypass conditions for PostgreSQL RLS and similar mechanisms; they do not replace every application authorization check
+- Give application accounts least privilege; separate administration, migration, read-only identities; exclude credentials from source/logs
+- Read sensitive fields minimally for the purpose; backups, logs, test copies require equivalent protection
 
-- 遵守不生成 SQL 留底约定；正式迁移文件仅在任务明确授权时生成
-- 评估 DDL 锁、索引构建、数据回填、版本共存和回滚限制，先验证代表性数据规模
-- 扩展字段、分批回填、切换读写、确认后收缩，避免部署与数据库必须同一瞬间完成
-- 明确 RPO/RTO，备份完成不等于可恢复；必须进行恢复演练并检查应用可用性
-- 线上数据修复需具体范围、预览、影响行数、审计和恢复路径，不能从一般编码授权推定可写生产库
+## DB05 Migration and recovery
+
+- Leave no ad hoc SQL files; create formal migrations only when explicitly authorized by the task
+- Assess DDL locks, index creation, backfills, version coexistence, rollback limits using representative data sizes
+- Expand fields, backfill in batches, switch reads/writes, then contract after confirmation; avoid requiring simultaneous deployment/database changes
+- Define RPO/RTO; completed backups do not prove recoverability, so rehearse restoration and application usability
+- Production repairs need explicit scope, preview, affected-row checks, audit, recovery path; general coding authorization does not authorize production writes

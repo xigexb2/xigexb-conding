@@ -1,47 +1,49 @@
-# 数字芯片、RTL、FPGA 与验证
+# Digital chips, RTL, FPGA, and verification
 
-适用于 HDL/RTL 与芯片工程的规范框架。模拟与混合信号见 [模拟芯片](analog-ic.md)；工艺、PDK、封装及认证仍需实际专业资源，不能从软件规范推定已完成。
+**English** | [简体中文](../zh-CN/hardware/chip-design.md) | [Standards index](../translations.md)
 
-## IC01 规格与微架构
+An HDL/RTL engineering framework. See [analog ICs](analog-ic.md) for analog/mixed-signal work; process, PDK, packaging, certification require actual specialist resources rather than being inferred from software rules.
 
-- 明确功能、接口、寄存器、吞吐、延迟、时钟、电源域、面积和功耗目标
-- 规格描述复位、背压、并发、异常、非法输入、错误上报与可观察状态
-- ISA、总线和外设遵循明确版本，如 RISC-V、AMBA AXI/APB 等，以合法取得的规范为准
-- 模块按数据通路、控制、寄存器和跨域职责划分，接口给出周期级契约
-- 寄存器读写副作用、保留位、原子更新和软硬件访问竞争明确
+## IC01 Specifications and microarchitecture
 
-## IC02 RTL 编码
+- Define functionality, interfaces, registers, throughput, latency, clocks, power domains, area, power targets
+- Specify reset, backpressure, concurrency, exceptions, invalid input, error reporting, observable state
+- Use legally obtained versioned ISA/bus/peripheral specifications such as RISC-V, AMBA AXI/APB
+- Separate datapath, control, registers, domain crossing; provide cycle-level interface contracts
+- Specify register read/write side effects, reserved bits, atomic updates, hardware/software access races
 
-- Verilog/SystemVerilog/VHDL 以实际仿真、综合和形式工具支持范围为准，默认手工文件最多 380 行
-- 时序与组合逻辑分离，使用适用的 `always_ff`/`always_comb` 或等价结构
-- 赋值语义、位宽、符号、截断、扩展和优先级明确，不依赖隐式推断
-- 组合逻辑覆盖全部路径，避免非预期 latch；时序状态具有明确复位策略
-- ready/valid 等握手在背压时保持必要数据和控制稳定，避免丢拍、重复和组合环
-- 参数化设计校验合法范围、零宽、边界和不同配置，不能只验证默认参数
-- X/Z、未初始化和 don't-care 语义区分仿真与综合，不利用掩盖实际不确定状态
+## IC02 RTL coding
 
-## IC03 时钟、复位与低功耗
+- Follow actual Verilog/SystemVerilog/VHDL simulator/synthesis/formal support; maintained files default to at most 380 lines
+- Separate sequential/combinational logic with appropriate always_ff/always_comb or equivalents
+- Make assignment semantics, widths, signedness, truncation, extension, priority explicit
+- Cover all combinational paths against unintended latches and define sequential reset policy
+- Preserve required ready/valid data/control during backpressure against lost/duplicated transfers and combinational loops
+- Validate parameter ranges, zero widths, boundaries, configurations beyond defaults
+- Distinguish X/Z, initialization, don't-care simulation/synthesis semantics without hiding actual uncertainty
 
-- CDC 按单比特、多比特、脉冲、计数和数据流选择同步器、握手或异步 FIFO
-- 多位总线不能仅逐位两级同步；亚稳态风险不是数字仿真通过即可消除
-- RDC、异步复位释放、时钟门控和复位顺序按工具与工艺方法验证
-- 异步 FIFO 的指针编码、跨域、满空、复位及约束进行专门审查
-- 时钟域、电源域、隔离、保持和上电顺序在适用的低功耗意图中定义
+## IC03 Clocks, resets, low power
 
-## IC04 验证
+- Select synchronizers, handshakes, async FIFOs according to single/multibit, pulse, counter, stream crossings
+- Do not synchronize multibit buses merely bit-by-bit with two flops; digital simulation does not remove metastability risks
+- Verify RDC, async-reset release, clock gating, reset sequence through appropriate tools/process methods
+- Specifically review async FIFO pointer encoding, crossing, full/empty, reset, constraints
+- Define clock/power domains, isolation, retention, sequencing in applicable low-power intent
 
-- 需求到测试与断言可追踪，建立参考模型、scoreboard、覆盖计划和可复现随机种子
-- 定向测试覆盖边界、非法输入、复位、背压、超时、同时事件与错误恢复
-- SVA/形式检查明确假设、断言、可达性和边界，防止约束过强造成空洞通过
-- 功能覆盖、代码覆盖和断言覆盖各有局限，高覆盖率不代表规格无遗漏
-- lint、CDC/RDC、仿真、形式、综合和 STA 是不同证据，不互相替代
-- FPGA 验证记录 bitstream、时钟、引脚、电压、板版本和真实 I/O 结果
+## IC04 Verification
 
-## IC05 实现与签核
+- Trace requirements to tests/assertions with reference models, scoreboards, coverage plans, reproducible seeds
+- Direct tests at boundaries, invalid inputs, reset, backpressure, timeouts, simultaneous events, recovery
+- Define formal/SVA assumptions, assertions, reachability, bounds against vacuous overconstraint
+- Functional/code/assertion coverage has limits; high coverage does not prove complete specifications
+- Lint, CDC/RDC, simulation, formal, synthesis, STA are separate evidence
+- Record FPGA bitstream, clocks, pins, voltage, board revision, actual I/O results
 
-- 约束包括时钟、输入输出延迟、false path/multicycle 等，所有例外具有设计理由与审查
-- STA 检查 setup/hold、时钟不确定性、模式与 PVT corners，不能只看单个典型角
-- 评估面积、动态/静态功耗、拥塞、布线与热，优化后重新验证功能与约束
-- ASIC 的 DRC/LVS、等价性、IR drop、EM、DFT 与制造签核需相应流程和工具证据
-- 未完成的签核项目必须明确列出，仿真或 FPGA 演示不描述为可流片保证
-- PDK、网表、客户 IP 和受限标准不得随通用 Skill 发布到公开仓库
+## IC05 Implementation and sign-off
+
+- Include clocks, I/O delays, false/multicycle paths and justify/review every exception
+- Check setup/hold, uncertainty, modes, PVT corners in STA rather than one typical corner
+- Assess area, dynamic/static power, congestion, routing, heat; reverify behavior/constraints after optimization
+- ASIC DRC/LVS, equivalence, IR drop, EM, DFT, manufacturing sign-off require actual workflow/tool evidence
+- List incomplete sign-off explicitly; simulation/FPGA demonstrations are not tape-out guarantees
+- Keep PDKs, netlists, customer IP, restricted standards out of the public skill

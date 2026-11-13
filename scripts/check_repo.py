@@ -8,6 +8,7 @@ import os
 import sys
 from pathlib import Path
 
+from diagnostics import localize
 from repo_rules import (
     TEXT_NAMES,
     TEXT_SUFFIXES,
@@ -96,6 +97,7 @@ def run(
     patterns: list[str],
     require_skill: bool,
     custom: dict[str, str] | None = None,
+    language: str = "en",
 ) -> int:
     """聚合独立失败，非零状态阻止 CI 将不完整验证当作通过"""
     paths = collect_paths(root, selected, patterns, custom)
@@ -119,42 +121,61 @@ def run(
     failures.extend(check_source_counts(paths, custom))
     for path, error in failures:
         label = path.relative_to(root).as_posix() if path != root else "."
-        print(f"{label}: {error}", file=sys.stderr)
-    print(f"已检查 {len(paths)} 个文本文件，发现 {len(failures)} 项问题")
+        print(f"{label}: {localize(error, language)}", file=sys.stderr)
+    print(
+        localize(
+            f"已检查 {len(paths)} 个文本文件，发现 {len(failures)} 项问题", language
+        )
+    )
     return 1 if failures else 0
 
 
 def main() -> int:
     """提供只读 CLI，参数错误与检查失败使用不同退出码"""
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("root", nargs="?", default=".", help="检查根目录")
+    parser = argparse.ArgumentParser(
+        description="Read-only repository checks / 只读仓库检查"
+    )
+    parser.add_argument("root", nargs="?", default=".", help="Check root / 检查根目录")
     parser.add_argument(
-        "--files", nargs="+", default=[], help="仅检查相对根目录的指定文件"
+        "--lang",
+        choices=("en", "zh-CN"),
+        default="en",
+        help="Diagnostic language / 诊断语言",
+    )
+    parser.add_argument(
+        "--files",
+        nargs="+",
+        default=[],
+        help="Select root-relative files / 选择根目录内文件",
     )
     parser.add_argument(
         "--exclude",
         action="append",
         default=[],
-        help="排除根目录相对 POSIX 路径模式，可重复",
+        help="Repeatable root-relative POSIX exclusion glob / 可重复的排除模式",
     )
     parser.add_argument(
-        "--require-skill", action="store_true", help="要求根目录具有 SKILL.md"
+        "--require-skill",
+        action="store_true",
+        help="Require root SKILL.md / 要求技能入口",
     )
     parser.add_argument(
         "--source-group",
         action="append",
         default=[],
-        help="补充语言分组，例如 Nim=.nim,.nims，可重复，不得改写内置分组",
+        help="Add a source family, e.g. Nim=.nim,.nims; no overrides / 补充语言分组，禁止覆盖",
     )
     args = parser.parse_args()
     root = Path(args.root).resolve()
     if not root.is_dir():
-        parser.error("root 必须是已存在目录")
+        parser.error(localize("root 必须是已存在目录", args.lang))
     try:
         custom = parse_source_groups(args.source_group)
-        return run(root, args.files, args.exclude, args.require_skill, custom)
+        return run(
+            root, args.files, args.exclude, args.require_skill, custom, args.lang
+        )
     except (ValueError, OSError) as error:
-        print(str(error), file=sys.stderr)
+        print(localize(str(error), args.lang), file=sys.stderr)
         return 2
 
 

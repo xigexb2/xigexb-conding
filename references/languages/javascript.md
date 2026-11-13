@@ -1,22 +1,24 @@
 # JavaScript
 
-所有包/目录直接同类源码最多 20 个，测试、声明与第一方生成文件合并计数；设计时按职责划分子包，遵守 [统一目录规范](../directory-structure.md)
+**English** | [简体中文](../zh-CN/languages/javascript.md) | [Standards index](../translations.md)
 
-- 先确认浏览器、Node.js、模块类型、打包器与最低运行环境；`.js` 文件最多 360 行
-- 使用 `const` 表达不重新绑定的引用，需要重绑定时用 `let`，不以 `var` 引入隐式作用域问题
-- 避免隐式类型转换和真假值混淆，区分 `0`、空串、`null` 与 `undefined`
-- 对象和数组传播运算是浅拷贝，不能据此宣称嵌套对象不可变
-- 大整数身份和金额不能超出 Number 的精确范围；BigInt 的 JSON 与协议转换必须明确
-- Promise 必须被等待、返回或显式监督，禁止无处理的 fire-and-forget
-- `Promise.all` 不自动取消其他请求；失败、取消和部分成功语义需要显式实现
-- 使用 AbortSignal 等实际 I/O 取消机制；丢弃结果不等于中止请求
-- 防止搜索、分页和路由请求旧结果覆盖新状态，使用取消或请求世代标识
-- EventLoop 中避免长 CPU 工作，大量转换、压缩和解析按负载评估 worker 或分片
-- 事件监听、定时器、观察器、连接和订阅在生命周期结束时清理
-- 不把用户输入传入 eval、动态 Function、危险 HTML 或 shell
-- Node 服务设置请求体、并发、超时和输出上限，流式处理遵循 backpressure
-- 依赖管理沿用锁文件和包管理器，不混用 npm/pnpm/yarn 重写锁文件
-- 模块导入不能隐式启动服务或修改全局配置，配置装配与业务逻辑分离
-- 使用已有 ESLint、格式工具和行为测试；运行正式构建与真实页面验证，不能只做语法检查
+Each package/directory directly owns at most 20 same-family source files, including tests, declarations, and first-party generated files. Design cohesive subpackages according to the [shared directory standards](../directory-structure.md).
 
-权威依据见 [来源索引](../sources.md)：ECMAScript、MDN、Node.js 官方文档。
+- Identify browsers, Node.js, module type, bundler, minimum runtime; .js files at most 360 lines
+- Use const for stable bindings, let for rebinding; avoid var scope pitfalls
+- Avoid implicit-conversion/truthiness confusion among 0, empty strings, null, undefined
+- Object/array spread is shallow copying rather than deep immutability
+- Keep IDs/money within Number precision or explicitly define BigInt JSON/protocol conversion
+- Await, return, or supervise promises rather than unhandled fire-and-forget
+- Promise.all does not cancel sibling requests; define failure/cancellation/partial-success semantics
+- Use actual I/O cancellation such as AbortSignal; ignoring results does not abort requests
+- Prevent stale search/pagination/router responses overwriting current state using cancellation/generations
+- Avoid long CPU work on event loops; assess workers/chunking for conversions, compression, parsing
+- Clean listeners, timers, observers, connections, subscriptions at lifecycle end
+- Do not feed user input to eval, Function, dangerous HTML, shell
+- Bound Node request bodies, concurrency, timeouts, output and respect streaming backpressure
+- Preserve the chosen package manager/lockfile rather than mixing npm/pnpm/yarn
+- Imports must not implicitly start services/change global configuration; separate configuration assembly from business logic
+- Run existing lint, formatting, behavior tests, production builds, real-page verification beyond syntax alone
+
+See [sources](../sources.md): ECMAScript, MDN, Node.js.

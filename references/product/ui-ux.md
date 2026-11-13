@@ -1,103 +1,105 @@
-# UI、交互、页面与视觉设计
+# UI, interaction, page, and visual design
 
-## UX01 先确定使用情境
+**English** | [简体中文](../zh-CN/product/ui-ux.md) | [Standards index](../translations.md)
 
-- 明确用户、核心任务、使用频率、设备、环境、权限、信息密度与成功标准
-- ToB 关注长时间工作、键盘效率、复杂表格、批量与审计；ToC 关注理解成本、信任、移动操作与主路径
-- IoT 页面呈现数据新鲜度、在线状态和控制确认层级，不能用动画替代设备真实状态
-- 新页面先给信息架构、关键状态和布局意图，再确定视觉语言；局部修复保留既有成熟体系
-- 确认主设计体系，见 [设计体系对照](design-systems.md)，避免组件、图标和交互各用一套
+## UX01 Establish usage context
 
-## UX02 信息架构与页面布局
+- Identify users, core tasks, frequency, devices, environment, permissions, information density, success criteria
+- Enterprise tools prioritize sustained work, keyboard efficiency, complex tables, batches, audit; consumer products prioritize comprehension, trust, mobile interaction, primary flows
+- IoT pages show data freshness, connectivity, confirmation levels rather than substituting animation for device facts
+- For new pages establish information architecture, states, layout intent before visual language; local fixes preserve mature systems
+- Choose a primary [design system](design-systems.md) rather than inconsistent components/icons/interactions
 
-- 每页有明确标题、主任务和主要动作，次要与危险操作在层级和位置上区分
-- 按任务与认知顺序组织内容，不按数据库字段顺序直接排列页面
-- 顶部导航、侧栏、面包屑和页内锚点各有职责，避免重复导航占据主内容
-- 使用统一栅格、对齐、间距、尺寸和密度 tokens，间距尺度按项目体系选择
-- 卡片用于有边界的信息或操作分组，不给每个文本片段套一层阴影卡片
-- 宽屏合理利用空间，窄屏按优先级重排，不缩小整张桌面页面适配手机
-- 长文本、极端数字、空字段、本地化和文字放大不能破坏布局
-- 固定头栏、底栏和浮动按钮不能遮挡焦点、键盘、内容和安全区域
-- 页面既有内容稳定，避免加载造成跳动；媒体预留尺寸
+## UX02 Information architecture and layout
 
-## UX03 配色与主题
+- Give each page a title, primary task/action and distinct secondary/destructive hierarchy/placement
+- Organize by task/cognition rather than database-field order
+- Give top navigation, sidebars, breadcrumbs, page anchors distinct purposes without crowding content
+- Use consistent grids, alignment, spacing, dimensions, density tokens according to the project
+- Use cards for meaningful groups rather than shadow containers around every text fragment
+- Use wide screens effectively and reprioritize narrow layouts rather than shrinking desktop pages
+- Handle long text, extreme numbers, empty fields, localization, zoom without breakage
+- Fixed bars/floating buttons must not obscure focus, keyboards, content, safe areas
+- Keep existing content stable during loading and reserve media dimensions
 
-- 颜色分为基础、语义、组件 tokens：背景、表面、文字、边界、品牌、成功、警告、错误和焦点
-- 一个项目建立一致主色和辅助色关系，主色用于关键行动与选中态，不把品牌色铺满所有表面
-- 文本普通状态通常按 WCAG AA 4.5:1 检查，大文本 3:1；大文本定义以 WCAG 为准
-- 适用的 UI 边界和图形信息按非文本对比度要求检查；不要把禁用、装饰与有效操作混为一谈
-- 不只用红绿或颜色表达状态，同时提供文字、图标和形状线索
-- 浅色和深色分别定义语义颜色与层级，不能简单反相；品牌色变化后重新测量对比度
-- 错误红保留给真实错误与危险，警告和普通提醒不能滥用
-- 渐变、玻璃、阴影、模糊和发光按任务使用，不能牺牲阅读、性能与层级
-- 不宣称蓝色必然专业、紫色必然 AI 等普遍结论；颜色决定应关联品牌、情境和验证
+## UX03 Colors and themes
 
-## UX04 字体、图标与文案
+- Organize base/semantic/component tokens for backgrounds, surfaces, text, borders, brand, success, warning, error, focus
+- Define coherent primary/accent relationships; reserve primary colors for key actions/selection instead of every surface
+- Generally check normal text at WCAG AA 4.5:1 and large text at 3:1 using WCAG's large-text definition
+- Apply non-text contrast to relevant boundaries/graphics and distinguish disabled/decorative elements from actionable controls
+- Pair color with text, icons, shapes rather than red/green alone
+- Define light/dark semantic hierarchy separately rather than inversion; remeasure contrast after brand changes
+- Reserve error red for actual errors/danger; distinguish warnings/information
+- Use gradients, glass, shadows, blur, glow for task needs without compromising reading, performance, hierarchy
+- Link color decisions to brand/context/validation rather than universal claims about blue professionalism or purple AI
 
-- 字体层级有限且稳定，区分标题、正文、辅助和数据；中文与拉丁字体回退需验证
-- 数值比较使用合适的对齐及数字特性，日期、金额和单位按地区与业务统一
-- 次要文字保持可读对比，不用极浅灰制造视觉层级
-- 图标风格、线宽与尺寸统一，图标按钮具有可访问名称，关键动作优先有文字
-- 文案使用用户任务语言，避免展示内部异常、数据库名和实现细节
-- 操作标签具体，如“保存修改”“导出选中设备”，避免含糊的“确定”“操作”
-- 错误说明发生了什么、用户可以怎样恢复；不能只显示“系统异常”或原始堆栈
-- 字体、图片和图标核对授权，不从参考产品提取未授权品牌资产
+## UX04 Typography, icons, content
 
-## UX05 表单与编辑
+- Maintain limited stable heading/body/support/data hierarchy and verify Chinese/Latin fallback fonts
+- Align comparative numbers appropriately and use consistent regional dates, money, units
+- Preserve contrast for secondary text rather than extremely light gray
+- Standardize icon style/stroke/size; label icon buttons accessibly and prefer text for key actions
+- Use users' task language instead of internal exceptions/database names/implementation details
+- Label actions specifically, such as Save changes or Export selected devices, rather than ambiguous OK/Action
+- Explain what failed and how to recover rather than generic errors/raw stacks
+- Check font/image/icon licenses and avoid extracting unauthorized brand assets
 
-- 标签持续可见，placeholder 仅作示例；必填与格式要求在操作前可理解
-- 输入类型、键盘、单位、范围、默认值和自动填充符合真实数据
-- 在合适时机校验，不在用户刚输入首字符时不断报错；提交时聚焦或定位首个错误
-- 错误与字段关联，保留输入内容，提供修复建议和错误摘要
-- 校验与后端规则一致，前端校验改善体验但不替代服务端校验
-- 保存状态区分未修改、保存中、成功、失败和冲突，重复点击不产生重复副作用
-- 离开未保存页面按损失风险提供恢复、自动草稿或确认，避免所有导航都弹窗
-- 破坏性操作确认说明对象、数量和后果；低风险可逆动作优先撤销
+## UX05 Forms and editing
 
-## UX06 表格、搜索和批量
+- Keep labels visible, placeholders illustrative, requirements/formats understandable before action
+- Match input types, keyboards, units, ranges, defaults, autofill to actual data
+- Validate at useful times rather than immediately on the first character; focus/locate the first submission error
+- Associate errors with fields, preserve input, provide fixes/error summaries
+- Align frontend/backend validation; client checks improve UX rather than replacing server checks
+- Distinguish unchanged, saving, saved, failed, conflict; repeated clicks must not duplicate side effects
+- Handle unsaved navigation by loss risk with recovery/drafts/confirmation rather than dialogs everywhere
+- Explain objects/counts/consequences for destructive actions; favor undo for low-risk reversible operations
 
-- 列按任务重要性排序，控制密度、固定列和溢出；不要默认展示所有数据库字段
-- 筛选、排序、分页与 URL/返回导航状态一致；必要时支持可分享查询
-- 搜索区分未输入、无匹配、请求失败和无权限，不将所有情况都显示为空
-- 跨页选择明确“当前页”“选中项”与“全部匹配”的范围与数量
-- 批量操作展示部分成功、失败原因、重试范围和审计，不能用一个 toast 掩盖失败项
-- 大数据使用服务端查询、分页或虚拟化，键盘与读屏体验也需验证
-- 导出采用异步任务时提供进度与结果位置，处理失效、权限变化和超时
+## UX06 Tables, search, batches
 
-## UX07 状态、反馈与异步
+- Prioritize columns by tasks and control density, pinning, overflow rather than exposing all database fields
+- Keep filters, sorting, pages consistent with URLs/back navigation and shareable queries when useful
+- Distinguish no input, no matches, request failure, forbidden instead of one empty state
+- Specify current-page, selected-item, all-matching selection scope/count across pages
+- Show partial success, reasons, retry scope, audits for batches rather than hiding failed items behind one toast
+- Use server queries, pagination, virtualization for large data and verify keyboard/screen-reader behavior
+- Track asynchronous exports with progress/result location, expiry, permission changes, timeouts
 
-每个主流程至少考虑适用的状态：初始、加载、空数据、正常、部分数据、无权限、离线、超时、失败、成功及结果未知。
+## UX07 States, feedback, async work
 
-- 加载只影响必要区域，保留已有可用内容；骨架屏形状与真实布局相符
-- 长任务可追踪，能够取消时给出有效取消操作，无法取消时不提供虚假按钮
-- 成功反馈与实际确认级别一致，设备下发、支付受理和最终执行不能混称成功
-- Toast 用于短暂非关键提示，重要错误与待处理状态保留在可恢复位置
-- 乐观更新仅用于可回滚且风险合适的操作，失败后恢复状态并解释
-- 弱网和断网提供重试、草稿、恢复与数据新鲜度，不让用户重复提交未知结果
+Consider applicable initial, loading, empty, normal, partial, forbidden, offline, timeout, failed, successful, unknown-result states for every main flow.
 
-## UX08 导航与交互
+- Load only necessary regions, preserve useful contents, match skeletons to actual layout
+- Track long tasks and offer working cancellation only where supported
+- Match feedback to actual confirmation levels; dispatch, payment acceptance, execution are distinct
+- Use toasts for transient noncritical information; retain important errors/pending work in recoverable locations
+- Use optimistic updates only for suitable reversible risk and restore/explain failures
+- Provide weak/offline retry, drafts, recovery, freshness without encouraging duplicate unknown-result submissions
 
-- 链接用于跳转、按钮用于动作，支持浏览器返回、打开新页和合理 URL
-- 弹窗只承载明确短任务，复杂多步编辑优先页面或合理侧栏
-- 对话框处理焦点进入、循环、Esc、背景交互及关闭后恢复焦点
-- 键盘可完成主流程，焦点顺序与视觉顺序一致，焦点不能被悬浮元素遮挡
-- 快捷键有发现入口，不覆盖平台常用行为；拖拽提供替代操作
-- 移动与触控目标考虑尺寸和间距，不能只验证鼠标精准点击
+## UX08 Navigation and interaction
 
-## UX09 无障碍与动效
+- Links navigate/buttons act; preserve browser back, new tabs, meaningful URLs
+- Dialogs serve short tasks; prefer pages/appropriate drawers for complex multistep editing
+- Manage dialog focus entry, cycling, Esc, background interaction, restoration
+- Main flows work by keyboard with logical order and unobscured focus
+- Make shortcuts discoverable without overriding common platform behavior; provide drag alternatives
+- Consider touch size/spacing rather than mouse precision alone
 
-- 默认以适用的 WCAG 2.2 AA 为目标，结合平台读屏和键盘实测，不自动声称认证
-- 正确名称、角色、状态、语义标题与 live region；ARIA 不重复或替代已有原生语义
-- Web 目标尺寸按 WCAG 2.2 的 24 CSS px 最低规则及其例外检查，44 CSS px 可作更舒适目标
-- iOS 与 Android 使用其平台目标尺寸，单位 pt、dp、CSS px 不互换
-- 动效解释状态变化、空间关系或反馈，时长与缓动统一，不强制每页 hero 动画
-- 尊重减少动态效果与系统设置，防闪烁，关键内容不依赖动画才能理解
-- 读屏、色觉差异、放大、低精度输入和高对比模式按目标用户验证
+## UX09 Accessibility and motion
 
-## UX10 设计验收
+- Target applicable WCAG 2.2 AA with screen-reader/keyboard validation rather than claiming automatic certification
+- Provide names, roles, states, semantic headings, live regions; ARIA must not duplicate/replace native semantics
+- Check Web target size against WCAG 2.2's 24 CSS px minimum and exceptions; 44 CSS px can be a more comfortable target
+- Use platform-specific iOS/Android sizes; pt, dp, CSS px are not interchangeable
+- Motion explains transitions/spatial relationships/feedback with consistent timing/easing rather than mandatory hero animation
+- Respect reduced motion/system settings, prevent flashing, keep essential content understandable without motion
+- Verify screen readers, color-vision differences, zoom, imprecise input, high contrast for target users
 
-- 使用真实或代表性业务数据验证主任务、长文本、极值与所有关键状态
-- 检查目标断点、触控、键盘、读屏、主题及文字放大
-- 对照设计 tokens、间距、层级、图标、对比度、焦点和可恢复性复验
-- 新页面说明选择的设计体系、主要组件、状态和验证结果
-- 截图只证明某个状态的外观，不能证明交互、无障碍、性能或真实业务可用性
+## UX10 Acceptance
+
+- Use real/representative data for main tasks, long text, extrema, critical states
+- Check breakpoints, touch, keyboard, screen readers, themes, text scaling
+- Review tokens, spacing, hierarchy, icons, contrast, focus, recoverability
+- Document selected systems, components, states, verification for new pages
+- Screenshots show one appearance state rather than proving interactions, accessibility, performance, business usability

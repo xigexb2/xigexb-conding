@@ -1,23 +1,25 @@
-# SQL 与数据库方言
+# SQL and database dialects
 
-所有包/目录直接同类源码最多 20 个，测试、声明与第一方生成文件合并计数；设计时按职责划分子包，遵守 [统一目录规范](../directory-structure.md)
+**English** | [简体中文](../zh-CN/languages/sql.md) | [Standards index](../translations.md)
 
-SQL 是声明式语言，正确性取决于数据模型、NULL、事务和方言。持久化整体设计另见 [数据库](../engineering/database.md)。
+Each package/directory directly owns at most 20 same-family source files, including tests, declarations, and first-party generated files. Design cohesive subpackages according to the [shared directory standards](../directory-structure.md).
 
-- 明确 PostgreSQL、MySQL、SQL Server、Oracle 或 SQLite 及其具体版本，不混用方言与隔离语义
-- 输入数据使用驱动参数绑定；MyBatis 值用 `#{}`，不得将用户值放入 `${}`
-- 表名、列名和排序方向不能作为普通值绑定，必须由服务端映射到允许的标识符集合
-- 查询列明确，避免意外扩大数据暴露与传输；小型受控诊断查询按实际场景判断
-- NULL 用其三值逻辑推理，检查 `NOT IN`、比较、聚合和 outer join 的空值行为
-- JOIN、WHERE 与 HAVING 的过滤位置影响结果，不能只为了执行计划随意移动
-- 分页必须具有稳定且足够唯一的排序，深分页评估 keyset，明确并发变更下的可见性
-- 批量写入控制事务时长、绑定参数数、报文大小和锁范围
-- 更新和删除有租户与业务范围条件，检查影响行数并处理乐观锁冲突
-- 唯一、外键和 CHECK 等约束用于数据库可表达的不变量，不能只依赖应用先查后写
-- 时间、金额、ID 与 JSON 使用适合业务的类型，字符集与排序规则要核对
-- `EXPLAIN ANALYZE` 可能实际执行 SQL，写操作和高成本查询必须按环境及授权选择安全验证方式
-- 索引与统计信息根据真实查询和写入成本评估，不因出现顺序扫描就认定有错误
-- 迁移、存储过程和触发器必须说明执行与回滚边界；不留下 SQL 留底文件
-- 对 DDL 的事务能力、隐式提交、在线建索引和锁行为以具体数据库文档为准
+SQL is declarative; correctness depends on models, NULL, transactions, dialects. See [database design](../engineering/database.md) for persistence architecture.
 
-本 Skill 不自动生成 `.sql` 文件；正式迁移如需此类文件，遵守个人约定中的明确例外流程。
+- Identify PostgreSQL, MySQL, SQL Server, Oracle, SQLite versions; do not mix dialect/isolation assumptions
+- Bind values through drivers; MyBatis values use #{}, never user values in ${}
+- Tables, columns, sort directions need server-side allowlisted mappings rather than ordinary value binding
+- Select explicit columns to control disclosure/transfer; assess small controlled diagnostic queries by context
+- Reason about NULL's three-valued logic in NOT IN, comparisons, aggregates, outer joins
+- Filter placement in JOIN/WHERE/HAVING affects results; do not relocate merely for plans
+- Use stable sufficiently unique pagination ordering; assess keysets for deep pages and define concurrent-change visibility
+- Bound bulk transaction duration, parameters, message size, locks
+- Scope updates/deletes by tenant/business conditions, check affected rows, handle optimistic conflicts
+- Use unique/foreign-key/CHECK constraints for expressible invariants rather than application check-then-write alone
+- Choose suitable temporal, monetary, ID, JSON types and verify encodings/collations
+- EXPLAIN ANALYZE may execute statements; select safe authorized verification for writes/expensive queries
+- Assess indexes/statistics using actual queries/write costs; sequential scans are not automatically errors
+- Define execution/rollback boundaries for migrations, procedures, triggers; leave no ad hoc SQL files
+- Follow actual database documentation for transactional DDL, implicit commits, online indexes, locks
+
+The skill does not automatically create .sql files; formal migrations needing them follow the explicitly authorized exception in the personal conventions.

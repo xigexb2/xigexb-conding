@@ -1,50 +1,52 @@
 # C++
 
-所有包/目录直接同类源码最多 20 个，测试、声明与第一方生成文件合并计数；设计时按职责划分子包，遵守 [统一目录规范](../directory-structure.md)
+**English** | [简体中文](../zh-CN/languages/cpp.md) | [Standards index](../translations.md)
 
-## CXX01 标准与模型
+Each package/directory directly owns at most 20 same-family source files, including tests, declarations, and first-party generated files. Design cohesive subpackages according to the [shared directory standards](../directory-structure.md).
 
-- 明确 C++ 标准、标准库实现、ABI、异常/RTTI 策略和最低编译器，单文件最多 360 行
-- 按领域划分命名空间与模块，头文件自包含；不在公共头文件使用 `using namespace`
-- 优先值语义和 Rule of Zero；资源拥有类需要时一致定义或删除复制与移动操作
-- 以 RAII 管理内存、句柄、锁、映射和事务保护；析构通常不能抛异常
-- 类继承表达可替换的多态契约；通过基类删除时析构契约必须正确
-- 接口准确表达可空性、借用、所有权和错误，避免原始指针隐式转移所有权
+## CXX01 Standards and modeling
 
-## CXX02 内存与生命周期
+- Specify C++ version, library, ABI, exception/RTTI policy, minimum compiler; each file at most 360 lines
+- Organize namespaces/modules by domain, keep headers self-contained, omit using namespace from public headers
+- Prefer value semantics/Rule of Zero; define/delete resource-owner copy/move consistently when needed
+- Use RAII for memory, handles, locks, mappings, transaction guards; destructors generally must not throw
+- Inheritance expresses substitutable polymorphism; deletion through bases requires correct destruction contracts
+- Express nullability, borrowing, ownership, errors explicitly; raw pointers must not transfer ownership implicitly
 
-- 独占所有权优先 `unique_ptr`；确需共享时使用 `shared_ptr`，处理循环引用
-- 原始指针、引用、`span`、`string_view` 可以表达借用，但不延长底层生命周期
-- 禁止返回悬挂引用或视图，异步 lambda 不捕获已离开作用域对象的引用
-- 记录容器扩容、删除、移动造成的迭代器、指针和视图失效
-- 非平凡对象不通过 `memset`、字节复制或随意类型重解释管理生命周期
-- 移动后的对象只依赖其保证的有效状态，不能假定容器必然为空
-- 自定义分配器、placement new、union 和内存序列化必须检查对齐与对象生命周期
-- 资源池与 arena 明确线程归属、失效时刻和逃逸对象约束
+## CXX02 Memory and lifecycles
 
-## CXX03 错误与类型
+- Prefer unique_ptr for exclusive ownership and shared_ptr only for genuine sharing, with cycle handling
+- Pointers, references, span, string_view can express borrowing without extending backing lifetimes
+- Avoid dangling references/views and async lambdas capturing expired objects by reference
+- Account for iterator/pointer/view invalidation from container growth, deletion, moves
+- Do not manage nontrivial-object lifetimes through memset, byte copying, arbitrary reinterpretation
+- Depend only on guaranteed moved-from validity rather than assuming moved containers are empty
+- Review alignment/lifetimes for custom allocators, placement new, unions, serialization
+- Specify pool/arena thread ownership, invalidation, escaping-object constraints
 
-- 采用项目一致的异常或显式结果策略；支持时可评估 `std::expected`，不能假定旧工具链可用
-- 异常路径提供基本或强保证，禁止析构展开期间再次抛出；`noexcept` 反映真实契约
-- 使用 `enum class`、显式转换和范围校验；避免窄化与有符号/无符号混算
-- 模板和 concept 表达真实约束，减少难以诊断的过度元编程
-- 不为了减少几次复制引入无法验证的生命周期关系；先测量再采用复杂表达式模板
+## CXX03 Errors and types
 
-## CXX04 并发
+- Follow consistent exceptions/explicit-results policy; consider std::expected only with supported toolchains
+- Provide basic/strong exception guarantees, prevent double exceptions during unwinding, make noexcept truthful
+- Use enum class, explicit conversion, range checks; avoid narrowing and signed/unsigned mistakes
+- Express actual template/concept constraints without excessive hard-to-diagnose metaprogramming
+- Do not trade verifiable lifetimes for a few copies; measure before complex expression templates
 
-- 线程和异步任务有所有者，优先可自动加入的封装；停止令牌需要业务代码协作响应
-- 互斥量使用作用域锁，多个锁采用已定义顺序或适用的无死锁获取机制
-- 条件变量等待有谓词，处理虚假唤醒；通知不能代替受保护状态
-- 原子变量的内存序依据数据发布关系证明，不能仅因 x86 上可运行而使用 relaxed
-- 无锁不等于无等待，也不等于低延迟；内存回收、ABA、饥饿与平台进展保证需说明
-- `shared_ptr` 控制块安全不意味着被指向对象并发访问安全
+## CXX04 Concurrency
 
-## CXX05 验证
+- Assign thread/task owners; prefer automatically joining wrappers, with cooperative stop-token handling
+- Use scoped locks and defined ordering or suitable deadlock-avoiding multi-lock acquisition
+- Wait on condition-variable predicates and handle spurious wakeups; notification does not replace protected state
+- Prove atomic memory orders from publication relationships; working on x86 alone does not justify relaxed ordering
+- Lock-free is neither wait-free nor automatically low latency; explain reclamation, ABA, starvation, platform progress
+- Thread-safe shared_ptr control blocks do not make pointee access safe
 
-- 使用项目 `clang-format`、`clang-tidy` 与编译数据库，不无差别重排全仓库
-- CMake presets、构建类型和工具链明确；支持环境执行 ASan/UBSan 与独立 TSan
-- 测试真实行为与资源回收，解析器使用 fuzz，复杂算法与朴素实现差分验证
-- 基准避免死代码消除、错误计时和 Debug 构建，记录分配、缓存与锁竞争
-- C++ Core Guidelines 是工程指南，不能冒充 ISO C++ 语言标准
+## CXX05 Verification
 
-权威依据见 [来源索引](../sources.md)：ISO C++、C++ Core Guidelines、SEI CERT C++、编译器文档。
+- Reuse clang-format, clang-tidy, compilation databases without reformatting unrelated code
+- Specify CMake presets, configurations, toolchains; run ASan/UBSan and separate TSan where supported
+- Test behavior/cleanup, fuzz parsers, compare complex algorithms with naive references
+- Avoid dead-code elimination, incorrect timing, Debug benchmarks; record allocation, caches, contention
+- C++ Core Guidelines are engineering guidance rather than the ISO language standard
+
+See [sources](../sources.md): ISO C++, C++ Core Guidelines, SEI CERT C++, compiler documentation.

@@ -1,43 +1,45 @@
-# 模拟、混合信号与射频芯片设计
+# Analog, mixed-signal, and RF IC design
 
-与 [数字 RTL](chip-design.md) 和 [板级电路](electronics-pcb.md) 分开执行。本章约束设计与证据，不替代 PDK、器件模型、工艺规则或受限 IP。
+**English** | [简体中文](../zh-CN/hardware/analog-ic.md) | [Standards index](../translations.md)
 
-## AIC01 规格与工艺
+Apply separately from [digital RTL](chip-design.md) and [board circuits](electronics-pcb.md). This chapter defines design/evidence requirements rather than replacing PDKs, device models, process rules, restricted IP.
 
-- 明确电源、输入输出范围、带宽、精度、噪声、线性度、功耗、面积、负载与温度
-- 先建立系统误差和噪声预算，再分配到前端、参考、放大、转换及数字校准
-- 核对 PDK、器件选项、模型版本、额定工作范围、可靠性与版图规则，不能以通用 SPICE 模型代替签核模型
-- 设计指标区分典型、最坏情况、良率与校准后性能，明确测量带宽、条件和定义
+## AIC01 Specifications and process
 
-## AIC02 电路实现
+- Specify supplies, I/O ranges, bandwidth, accuracy, noise, linearity, power, area, load, temperature
+- Establish system error/noise budgets before allocating them to front ends, references, amplification, conversion, digital calibration
+- Verify PDK, device options, model versions, operating ratings, reliability, layout rules; generic SPICE models cannot replace sign-off models
+- Distinguish typical/worst-case/yield/calibrated specifications and define measurement bandwidth/conditions
 
-- 偏置与参考验证启动、上电顺序、供电变化、温漂、负载和低功耗状态
-- 放大器检查输入/输出摆幅、共模、增益、稳定性、压摆率、噪声、失真及负载范围
-- 反馈环路在适用工作点进行稳定性分析，不能只用单个典型负载的相位裕量判断全部工况
-- ADC/DAC 明确采样、量化、参考、时钟抖动、INL/DNL、SNR/SNDR、ENOB 与带宽的测量口径
-- PLL/时钟与 RF 模块考虑相噪、抖动、锁定、杂散、匹配与寄生，仿真设置须匹配实际指标
-- 混合信号接口处理电平、电源域、隔离、数字开关噪声和敏感模拟节点耦合
-- 定点校准与数字补偿有范围、收敛、存储、失效和不可校准情况处理
+## AIC02 Circuit implementation
 
-## AIC03 仿真与统计
+- Verify bias/reference startup, sequencing, supply variation, drift, loading, low-power states
+- Check amplifier I/O swing, common mode, gain, stability, slew, noise, distortion, load range
+- Analyze feedback stability at applicable operating points rather than one typical-load phase margin for every condition
+- Define ADC/DAC sampling, quantization, reference, jitter, INL/DNL, SNR/SNDR, ENOB, bandwidth measurement
+- Assess phase noise, jitter, lock, spurs, matching, parasitics for PLL/clock/RF blocks with specification-matched simulation
+- Handle mixed-signal levels, supply domains, isolation, digital switching noise, coupling to sensitive analog nodes
+- Bound fixed-point calibration/digital compensation, convergence, storage, failure, uncalibratable cases
 
-- DC、AC、瞬态、噪声、周期稳态等分析依据电路与指标选择，不机械要求所有工具命令
-- PVT corners、供电范围、温度、负载和启动状态构成明确验证矩阵
-- Monte Carlo 区分工艺全局变化与器件失配，报告样本、种子、失败定义和统计置信范围
-- 典型角通过不证明良率，有限样本无失败不等于零缺陷
-- 模型、仿真器、容差、初始条件、收敛警告和脚本版本可追溯，不忽略影响结论的警告
+## AIC03 Simulation and statistics
 
-## AIC04 版图与可靠性
+- Choose DC, AC, transient, noise, periodic-steady-state analyses from circuits/specifications instead of requiring every tool command
+- Define a matrix of PVT corners, supply, temperature, load, startup states
+- Distinguish global process variation/device mismatch in Monte Carlo and report sample counts, seeds, failure definitions, confidence ranges
+- Typical-corner success does not prove yield; zero failures in finite samples does not mean zero defects
+- Trace models, simulators, tolerances, initial conditions, convergence warnings, scripts; address conclusion-relevant warnings
 
-- 匹配器件考虑梯度、方向、邻近效应、dummy 和连接寄生，common-centroid 不是所有布局的通用答案
-- 电源、地、参考与敏感节点的寄生、屏蔽、隔离和回流按工艺与实际频率分析
-- 完成 DRC/LVS 及必要寄生提取，后仿真覆盖关键性能和最坏工况
-- 按工艺检查 EM、IR、ESD、latch-up、器件应力与老化，区分设计分析和认证结论
-- 模拟、数字、电源与封装协同审查，不把裸芯片仿真直接等同成品性能
+## AIC04 Layout and reliability
 
-## AIC05 实测与交付
+- Consider gradients, orientation, proximity, dummies, connection parasitics for matching; common-centroid is not universal
+- Analyze parasitics, shielding, isolation, returns for supplies, ground, references, sensitive nodes according to process/frequency
+- Complete DRC/LVS and necessary extraction; cover critical/worst-case performance in post-layout simulation
+- Check EM, IR, ESD, latch-up, stress, aging under process rules; distinguish analysis from certification
+- Review analog, digital, power, packaging together; bare-die simulation is not finished-product performance
 
-- 测试方案包含仪器能力、校准、夹具、寄生、探针、温度和测量不确定度
-- 区分前仿、后仿、晶圆测试、封装测试和板级结果，建立规格到证据的映射
-- 参数提取、校准、分档和量产测试覆盖实际良率与失效，不依据单颗样品泛化全部产品
-- 未取得 PDK、签核工具或真实器件时，只报告通用设计约束与尚缺条件，不编造可流片保证
+## AIC05 Measurement and delivery
+
+- Test plans include instrument capability, calibration, fixtures, parasitics, probes, temperature, uncertainty
+- Distinguish pre-layout/post-layout, wafer, packaged-part, board results and map specifications to evidence
+- Validate extraction, calibration, binning, production tests against actual yield/failures rather than one sample
+- Without PDKs, sign-off tools, real devices, report general constraints/missing conditions instead of fabricated tape-out guarantees

@@ -1,69 +1,71 @@
-# 设计模式选型与实现约束
+# Design-pattern selection and implementation constraints
 
-模式用于解决已经存在的变化、所有权和协作问题。先写出变化点与最小反例，再决定是否采用；不能要求每个类都体现某个模式。
+**English** | [简体中文](../zh-CN/engineering/design-patterns.md) | [Standards index](../translations.md)
 
-## DP01 创建型
+Patterns solve actual variation, ownership, and collaboration problems. Describe the variation and a minimal counterexample before selecting a pattern; do not require every class to demonstrate one.
 
-| 模式 | 适用变化 | 约束与代价 |
+## DP01 Creational patterns
+
+| Pattern | Applicable variation | Constraints and costs |
 | --- | --- | --- |
-| 工厂方法 | 创建不同实现并保持调用契约 | 创建失败、注册冲突和资源释放明确，不在热路径反复扫描 |
-| 抽象工厂 | 一组彼此兼容的实现族 | 防止不同协议版本或平台族混用，不为单个对象制造工厂层 |
-| 构建器 | 多步骤构建和跨字段不变量 | build 时验证完整性，避免半初始化对象逃逸 |
-| 原型 | 复制昂贵配置或对象模板 | 明确深浅复制、共享资源、身份与锁不可复制的限制 |
-| 单例 | 真实进程级唯一资源 | 明确初始化、并发和关闭；不等于分布式唯一，不承载请求上下文 |
+| Factory method | Construct different implementations under one contract | Define construction failures, registration conflicts, and cleanup; avoid repeated hot-path scanning |
+| Abstract factory | Compatible families of implementations | Prevent mixed protocol/platform families; avoid a factory layer for one object |
+| Builder | Multi-step construction and cross-field invariants | Validate completeness at build time; prevent partially initialized objects escaping |
+| Prototype | Copy expensive configuration or object templates | Specify deep/shallow copying, shared resources, identity, and non-copyable locks |
+| Singleton | A genuinely process-wide unique resource | Define initialization, concurrency, and shutdown; not distributed uniqueness or request-context storage |
 
-## DP02 结构型
+## DP02 Structural patterns
 
-| 模式 | 适用变化 | 约束与代价 |
+| Pattern | Applicable variation | Constraints and costs |
 | --- | --- | --- |
-| 适配器 | 将外部接口转换为内部端口 | 保留错误、超时与所有权语义，不把失败转换成默认成功 |
-| 桥接 | 两个维度需要独立演进 | 仅在两个维度真实变化时引入，避免组合数量和装配复杂度失控 |
-| 组合 | 树形对象需要统一处理 | 检测环、深度与访问规模，区分叶节点和容器约束 |
-| 装饰器 | 可叠加的计量、缓存、鉴权等能力 | 记录顺序、重复应用与异常传播，不缓存越权结果 |
-| 外观 | 为复杂子系统提供稳定入口 | 隐藏复杂度，不变成拥有全部业务和状态的万能服务 |
-| 享元 | 大量不可变共享内部状态 | 外部上下文独立，缓存有界，只有内存证据支持时采用 |
-| 代理 | 访问控制、远程调用、懒加载等边界 | 明确远程失败和生命周期；代理调用不具有本地函数同等可靠性 |
+| Adapter | Translate an external interface into an internal port | Preserve errors, timeouts, and ownership; never turn failure into default success |
+| Bridge | Two independently evolving dimensions | Introduce only for real variation in both dimensions; control combinations and assembly complexity |
+| Composite | Uniform handling of tree objects | Detect cycles and bound depth/work; distinguish leaf and container constraints |
+| Decorator | Stack metrics, caching, authorization, or similar behavior | Specify order, repeated application, and error propagation; do not cache unauthorized results |
+| Facade | Stable access to a complex subsystem | Hide complexity without becoming an all-purpose service owning all state and business logic |
+| Flyweight | Many objects sharing immutable intrinsic state | Keep external context separate and caches bounded; require memory evidence |
+| Proxy | Access control, remote access, lazy loading | Specify remote failure and lifecycle; remote calls do not have local-call reliability |
 
-## DP03 行为型
+## DP03 Behavioral patterns
 
-| 模式 | 适用变化 | 约束与代价 |
+| Pattern | Applicable variation | Constraints and costs |
 | --- | --- | --- |
-| 策略 | 可替换算法、计费、路由 | 每个策略满足相同前后置条件，选择与执行职责分开 |
-| 状态 | 显式合法转换与事件处理 | 定义终态、重复、并发和持久化，不靠多个布尔值隐式组合 |
-| 命令 | 排队、审计、重试和撤销操作 | 携带稳定意图与幂等键，撤销不等于跨系统原子回滚 |
-| 责任链 | 可组合校验和处理阶段 | 明确短路、顺序、必经环节与未处理结果，鉴权不能被跳过 |
-| 观察者 | 事件到多个订阅者 | 订阅注销、顺序、缓冲与失败隔离明确，避免隐式同步级联 |
-| 中介者 | 多对象通过中心协调 | 中介者只编排，领域规则留在归属模块，防止过度集中 |
-| 迭代器 | 隐藏遍历结构 | 明确快照、并发修改、分页及句柄关闭，不能无界物化全部数据 |
-| 模板方法 | 固定流程中局部步骤变化 | 约束继承深度和回调时机，函数组合可更简单时优先组合 |
-| 访问者 | 稳定结构上扩展操作 | 节点类型经常变化时维护成本高，不能绕过封装和权限 |
-| 备忘录 | 可恢复的局部状态快照 | 控制敏感内容、大小、版本与过期，不充当数据库备份方案 |
-| 解释器 | 简单、受限的规则语言 | 限制语法、深度、时间和能力，成熟解析器可用时不重写复杂语言 |
+| Strategy | Replaceable algorithms, billing, routing | Preserve common pre/postconditions; separate selection from execution |
+| State | Explicit legal transitions and event handling | Define terminal states, duplicates, concurrency, persistence; avoid implicit boolean combinations |
+| Command | Queuing, auditing, retry, undo | Carry stable intent and idempotency keys; undo is not cross-system atomic rollback |
+| Chain of responsibility | Composable validation/processing stages | Define short-circuiting, order, mandatory stages, and unhandled results; authorization cannot be skipped |
+| Observer | Notify multiple subscribers | Define unsubscribe, ordering, buffers, failure isolation; avoid implicit synchronous cascades |
+| Mediator | Central coordination among objects | Orchestrate only; domain rules remain in their owning modules |
+| Iterator | Hide traversal structure | Define snapshots, concurrent changes, pagination, and handle closure; avoid unbounded materialization |
+| Template method | Vary steps in a fixed workflow | Bound inheritance depth and callback timing; prefer function composition where simpler |
+| Visitor | Extend operations over stable structures | Frequent node-type changes increase maintenance; preserve encapsulation and permissions |
+| Memento | Recoverable local state snapshots | Limit sensitive content, size, versions, expiry; not a database-backup replacement |
+| Interpreter | Simple constrained rule languages | Bound syntax, depth, time, capabilities; use mature parsers for complex languages |
 
-## DP04 架构与分布式模式
+## DP04 Architectural and distributed patterns
 
-这些模式与对象设计模式处于不同层次，按系统风险选择：
+These operate at a different level from object patterns; select according to system risk:
 
-- Repository/Unit of Work：隔离持久化与事务协调，不做无语义的 ORM 包装
-- 端口适配器：隔离真实外部变化，稳定领域契约，适配器拥有框架生命周期
-- CQRS：读写模型确有不同负载和演进需求时采用，同时承担同步与运维成本
-- Outbox/Inbox：处理事务与消息的双写窗口，仍需去重、重放和积压恢复
-- Saga：定义步骤、失败、补偿和对账，不能宣称所有副作用可逆
-- 舱壁/熔断/限流：隔离资源与故障，定义降级、恢复和半开行为，避免重试放大
-- 事件溯源：需要事件历史作为权威事实时考虑，承担 schema 演进、投影和修复成本
+- Repository/Unit of Work: isolate persistence and transaction coordination; avoid meaningless ORM wrappers
+- Ports and adapters: isolate real external variation behind stable domain contracts; adapters own framework lifecycles
+- CQRS: use when read/write models have distinct load or evolution requirements; accept synchronization and operational costs
+- Outbox/Inbox: address transaction/message dual-write windows while retaining deduplication, replay, and backlog recovery
+- Saga: define steps, failures, compensation, reconciliation; do not claim every side effect is reversible
+- Bulkhead/circuit breaker/rate limiter: isolate resources and failures; define degradation, recovery, half-open behavior, and retry amplification controls
+- Event sourcing: consider when event history is the authoritative fact; account for schema evolution, projections, and repairs
 
-## DP05 各语言落实
+## DP05 Language mappings
 
-- Java/Kotlin：接口服务稳定变化点；构造器注入与密封类型按模型选择，不机械配套接口和实现
-- Go：小接口在使用方定义，函数与组合优先，不复制 Java 的类继承层级
-- Rust：枚举、trait、泛型与 trait object 按所有权、扩展和成本选择，不用 clone 回避设计
-- C：显式上下文、函数表与 opaque handle 表达契约，初始化/销毁对称，避免全局伪对象系统
-- C++：值语义、RAII、模板与运行时多态按真实需要组合，不为模式破坏生命周期
-- Python/JS/TS：函数、协议和轻量对象已足够时直接采用，不用复杂继承包装简单流程
-- Vue/原生 UI：组件、状态拥有者和组合逻辑表达职责，不让视图直接管理数据库或全局传输
+- Java/Kotlin: interfaces serve stable variation points; choose constructor injection and sealed types by the model, without mechanically pairing every class with an interface
+- Go: define small interfaces at the consumer; prefer functions and composition over Java-style inheritance structures
+- Rust: choose enums, traits, generics, and trait objects by ownership, extension, and cost; do not use clone to avoid design
+- C: express contracts with explicit contexts, function tables, opaque handles; pair initialization/destruction and avoid a global pseudo-object system
+- C++: combine value semantics, RAII, templates, runtime polymorphism as needed without breaking lifecycles to fit patterns
+- Python/JS/TS: use functions, protocols, lightweight objects when sufficient; avoid elaborate inheritance for simple flows
+- Vue/native UI: assign responsibilities to components, state owners, composable logic; views must not directly own databases or global transport
 
-## DP06 验收
+## DP06 Acceptance
 
-能够指出模式解决的真实变化点、替换时无需改动的调用方、增加的复杂度与回收条件。删除某个包装层若没有损失任何契约或隔离能力，应考虑移除。
+Identify the real variation solved, callers unchanged by replacement, added complexity, and cleanup conditions. Consider removing a wrapper if doing so loses no contract or isolation.
 
-所有模式实现仍遵守每目录 20 个同类源码的约束；不能为了容纳模式角色把整个业务拆成相互循环的碎片。
+Every pattern implementation still follows the 20 same-family source files per directory limit; do not fragment one business capability into cyclic pieces just to house pattern roles.

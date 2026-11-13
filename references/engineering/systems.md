@@ -1,46 +1,48 @@
-# 操作系统、内存与底层 I/O
+# Operating systems, memory, and low-level I/O
 
-## SYS01 执行与内存模型
+**English** | [简体中文](../zh-CN/engineering/systems.md) | [Standards index](../translations.md)
 
-- 明确 ISA、特权级、地址空间、ABI、缓存一致性和平台内存模型
-- 虚拟地址、物理地址、总线/DMA 地址分开建模，不能假定数值相同
-- 页表、映射、权限、TLB 失效和跨核同步按架构手册执行，记录地址布局与对齐
-- 内存分配明确上下文、生命周期、失败行为和回收；启动期、任务期与中断期采用适用机制
-- 引用计数、RCU、epoch 与 hazard pointer 各有回收条件，不能只证明读写原子就释放对象
-- 内核、驱动和用户态边界检查长度、权限、地址有效性及复制失败
-- 用户数据校验后仍可能变化，避免检查后使用竞争，必要时复制到受控快照
+## SYS01 Execution and memory models
 
-## SYS02 SMP、中断与调度
+- Specify ISA, privilege levels, address spaces, ABI, cache coherence, platform memory model
+- Distinguish virtual, physical, bus/DMA addresses rather than assuming numeric equivalence
+- Implement page tables, mappings, permissions, TLB invalidation, cross-core synchronization by architecture manuals; record layouts/alignment
+- Define allocation context, lifecycle, failure, reclamation; use mechanisms suited to boot, task, interrupt phases
+- Reference counting, RCU, epochs, hazard pointers have distinct reclamation conditions; atomic reads/writes alone do not justify freeing objects
+- Validate lengths, permissions, address validity, copy failures across kernel/driver/userspace boundaries
+- User memory can change after validation; prevent TOCTOU races and copy into controlled snapshots when needed
 
-- 中断、异常、任务、软中断和 NMI 等上下文可用 API 不同，不能统一按线程环境处理
-- 锁区分睡眠与自旋，确定关中断、抢占与跨核关系，禁止在不可睡眠上下文阻塞
-- 锁顺序和嵌套有文档，CPU 本地状态处理迁移与抢占，避免假定当前核永远不变
-- CPU 内存屏障、编译器屏障、MMIO 屏障和 DMA 同步分开使用
-- 调度与唤醒处理丢失唤醒、等待队列、优先级反转、饥饿及退出竞态
-- 紧急记录和 panic 路径不能依赖已损坏堆、正常调度或全局竞争锁
-- 单核测试不证明 SMP 正确；多核验证应绑定真实符号、布局和执行证据
+## SYS02 SMP, interrupts, scheduling
 
-## SYS03 网络 I/O
+- Interrupts, exceptions, tasks, softirqs, NMIs permit different APIs; do not treat all contexts as threads
+- Distinguish sleeping/spin locks and interrupt/preemption/cross-core relations; do not block where sleeping is forbidden
+- Document lock ordering/nesting; account for migration/preemption in per-CPU state rather than assuming a fixed CPU
+- Distinguish CPU/compiler/MMIO barriers and DMA synchronization
+- Handle lost wakeups, wait queues, priority inversion, starvation, exit races in scheduling/wakeup paths
+- Emergency records/panic paths must not depend on damaged heaps, ordinary scheduling, globally contended locks
+- Single-core tests do not prove SMP correctness; bind multicore evidence to actual symbols/layouts/execution
 
-- POSIX socket 处理 partial read/write、EINTR、EAGAIN、半关闭与连接重置
-- epoll 的 level/edge-triggered、kqueue 与 io_uring 有不同完成和重试契约
-- 边缘触发通常需要读写到不能继续，避免漏处理；写关注按待发送状态管理
-- io_uring 的完成事件、取消、固定资源和缓冲生命周期按内核/库版本验证
-- fd 可能复用，请求关联不能只用旧 fd 数字，采用世代或明确拥有者
-- 接收与发送缓冲有上限和背压，慢客户端不能拖垮全部连接
-- 零拷贝路径必须说明在完成前谁持有内存、何时可复用，不能把提交等同完成
+## SYS03 Network I/O
 
-## SYS04 文件与持久化
+- Handle partial reads/writes, EINTR, EAGAIN, half-close, resets in POSIX sockets
+- epoll level/edge triggering, kqueue, io_uring have different completion/retry contracts
+- Edge-triggered I/O typically drains until no progress is possible; manage write interest according to pending output
+- Verify io_uring completions, cancellation, fixed resources, buffer lifetimes for kernel/library versions
+- File descriptors can be reused; correlate requests through generations/owners rather than old descriptor numbers alone
+- Bound receive/send buffers with backpressure so slow clients cannot exhaust all connections
+- In zero-copy paths specify memory ownership until completion and reuse timing; submission is not completion
 
-- 区分写入用户缓冲、内核缓存、设备提交及持久化保证
-- rename、fsync、目录同步与崩溃一致性按文件系统和平台语义设计
-- 检查短写、磁盘满、权限、路径竞态、文件锁及句柄泄漏
-- mmap 对象有效期、截断和并发修改有清晰约束，不能假定映射永远有效
+## SYS04 Files and durability
 
-## SYS05 验证与诊断
+- Distinguish userspace buffering, kernel caches, device submission, persistence guarantees
+- Design rename, fsync, directory synchronization, crash consistency according to filesystem/platform semantics
+- Handle short writes, full disks, permissions, path races, locks, handle leaks
+- Define mmap lifetimes, truncation, concurrent mutation; mappings are not permanently valid
 
-- 记录构建标识、ELF/map、符号地址、启动参数和实际运行镜像对应关系
-- 使用调试器、core dump、sanitizer、trace、perf 与锁检测工具形成证据链
-- 仿真、QEMU、硬件在环和真机分别报告，不推定某一环境覆盖全部时序和外设
-- 故障注入包括分配失败、中断竞争、重启、I/O 错误、跨核竞争和资源耗尽
-- 崩溃记录需可信地关联线程/CPU、异常号、PC/SP 和相关内存范围，未定位根因时明确未知
+## SYS05 Validation and diagnosis
+
+- Associate build identifiers, ELF/map files, symbol addresses, boot arguments, actual running images
+- Build evidence with debuggers, core dumps, sanitizers, traces, perf, lock detection
+- Report simulation, QEMU, hardware-in-the-loop, physical-device results separately; none implicitly covers all timing/peripherals
+- Inject allocation failure, interrupt races, reboot, I/O errors, cross-core contention, resource exhaustion
+- Reliably associate crash records with thread/CPU, exception, PC/SP, memory ranges; report unknown root causes honestly
