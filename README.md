@@ -1,146 +1,140 @@
-# xigexb-coding
+# xigexb Coding
 
-面向真实研发任务的个人工程规范 Skill，采用 **精简入口 + 按需参考 + 可运行检查** 的结构。
+**English** | [简体中文](README.zh-CN.md)
 
-它把 xigexb 的编码习惯、语言官方约定和经过筛选的工程经验分开组织，覆盖从架构、实现与体验到验证、协作和交付的链路。支持 ToB、ToC、互联网、物联网、原生、网页和混合开发，并提供系统、嵌入式与硬件工程检查框架。
+An engineering standards skill for coding agents, covering architecture, implementation, UI/UX, performance, security, and delivery across software and hardware projects.
 
-## 能做什么
+Built around clear responsibilities, explicit contracts, bounded resources, and verifiable results. Use it to design, implement, refactor, and review enterprise applications, consumer products, web and mobile apps, IoT platforms, embedded systems, and low-level infrastructure.
 
-- 按 Java、Go、Rust、C、C++、Python、JavaScript、TypeScript、Vue、Kotlin、Swift、SQL、HTML/CSS 分别应用规则
-- 设计职责、接口、状态机、算法、并发、资源边界和错误恢复
-- 选择并应用统一的 UI 体系，覆盖页面、交互、色调、无障碍和平台体验
-- 核对数据库、协议、设备控制、多实例、安全和供应链的关键不变量
-- 约束 Git、CI、发布和验证证据，保护已有修改与操作授权边界
-- 对 MCU/RTOS、通信、RTL/FPGA、原理图和 PCB 提供设计与复验清单
+## Installation
 
-它不承诺“99% 覆盖”“绝对无 bug”或行业认证；具体覆盖及专业边界见 [覆盖清单](references/coverage.md)。
+Clone the repository into a skill directory supported by your coding agent. For agents that discover project skills under `.agents/skills`, run this from your project root:
 
-## 快速使用
-
-将仓库根目录作为一个 Skill 目录安装，保留 `SKILL.md`、`references/`、`scripts/` 和 `agents/` 的相对位置。
-
-项目内使用的目录形式：
-
-```text
-your-project/
-└── .agents/
-    └── skills/
-        └── xigexb-coding/
-            ├── SKILL.md
-            ├── agents/
-            ├── references/
-            └── scripts/
+```bash
+git clone https://github.com/xigexb2/xigexb-conding.git .agents/skills/xigexb-coding
 ```
 
-Codex 及其他 Agent 的发现目录以各客户端当前文档为准；支持项目技能发现的客户端可使用上述结构。不要假定所有工具都采用同一个全局目录。
+Keep `SKILL.md`, `references/`, `scripts/`, and `agents/` together. Use the agent's supported discovery directory for global installation.
 
-显式调用示例：
+## Usage
+
+Invoke the skill with a task and the relevant language, framework, or platform:
 
 ```text
-使用 $xigexb-coding，为这个 Go 网关实现有界请求调度，并验证取消、超时和关闭行为
+Use $xigexb-coding to design a Go gateway with bounded concurrency,
+cancellation, backpressure, and graceful shutdown.
 ```
 
 ```text
-使用 $xigexb-coding，按现有 TDesign Vue 体系设计设备管理页面，覆盖批量操作、弱网与权限状态
+Use $xigexb-coding to build a Vue device-management page with TDesign,
+including bulk actions, permission states, and weak-network recovery.
 ```
 
 ```text
-使用 $xigexb-coding，审查 Java 25 + Netty 的异步缓冲区所有权，不新增仓库 Java 单元测试
+Use $xigexb-coding to review a Java + Netty service for buffer ownership,
+thread safety, API contracts, and failure recovery.
 ```
 
-```text
-使用 $xigexb-coding，检查嵌入式通信方案，分别列出主机验证、板测与仪器实测证据
-```
+The skill loads the core conventions first, then selects references for the task's languages and engineering domains.
 
-## 规则是怎样组织的
+## Core standards
 
-| 层次 | 作用 | 入口 |
-| --- | --- | --- |
-| 个人约定 | UTF-8/LF、中文注释、规模、测试与 Git 习惯 | [profile.md](references/profile.md) |
-| 工程决策 | 架构、算法、性能、底层、协议、数据与安全 | [SKILL.md](SKILL.md) 路由 |
-| 语言与平台 | 对应工具链、语言与生命周期契约 | [languages/](references/languages) |
-| 视觉与体验 | UI、设计体系、Web 与移动端 | [UI](references/product/ui-ux.md)、[平台](references/product/mobile.md) |
-| 证据与交付 | 调试、验证、Git、CI 与运行 | [验证](references/verification.md)、[Git](references/engineering/git.md) |
-| 来源与维护 | 官方资料、开源调研、许可与覆盖边界 | [来源](references/sources.md)、[调研](references/github-research.md) |
+These are the skill's default conventions. Current task and repository instructions determine their application; language, protocol, and platform contracts remain authoritative.
 
-使用时先读个人约定，再按实际任务读少量相关参考。不会要求每次把所有语言、框架和硬件规范全部加载。
+| Area | Convention |
+| --- | --- |
+| Text format | UTF-8 without BOM, LF line endings, one final newline, no trailing whitespace |
+| Code comments | Professional Simplified Chinese; native documentation syntax and required tool markers |
+| Source file size | At most 360 lines for the primary language extensions and 380 for other maintained source files, including comments and blank lines; see [exact limits](references/profile.md) |
+| Package size | **At most 20 directly owned source files of the same family per package or directory, across all languages** |
+| File counting | Count production files, tests, declarations, headers, platform variants, and first-party generated sources together; count child directories separately |
+| Module boundaries | Split by domain, capability, protocol, or lifecycle before reaching the limit; maintain cohesive responsibilities and explicit dependency direction |
+| Design | Single responsibility, high cohesion, low coupling, stable contracts, and models that reflect business and physical processes |
+| Design patterns | Select patterns for concrete variation points and lifecycle needs; account for complexity and maintenance cost |
+| Concurrency | Explicit ownership, bounded queues and execution, cancellation, timeouts, backpressure, and orderly shutdown |
+| Performance | Define budgets, measure realistic workloads, identify bottlenecks, and verify improvements |
+| Java | Target 100 columns, maximum 120; no new repository unit tests, with compilation and appropriate verification still required |
+| Go | Use `gofmt`; add or update unit tests for behavior and concurrency changes |
+| SQL | Parameterized queries, explicit transaction boundaries, query-plan review, and no leftover SQL files; formal migrations require task authorization |
+| Git | Focused changes, meaningful commits, protected existing work, and explicit authorization for commits and pushes |
 
-## 默认个人约定
+Mixed extensions belonging to the same source family are counted together, including JavaScript/TypeScript and C/C++ sources and headers. See [directory and package standards](references/directory-structure.md).
 
-- UTF-8 无 BOM、LF、简体中文注释，语言原生格式化工具优先
-- 主要语言源文件上限 360 行，其余手工源文件不超过 380 行；具体后缀以 profile.md 为准
-- Java 目标行宽 100 列、硬上限 120 列；**所有语言的包/目录直接归属同类源码最多 20 个，包含测试和第一方生成代码，必须在设计时按职责拆分子包**
-- Java 不新增仓库单元测试，仍完成必要验证；Go 行为修改新增或更新单测
-- 不生成 SQL 留底文件；正式迁移文件需要符合任务明确授权
-- 未经明确授权不 commit/push；只要求提交时不推送
-- 不把下发、受理、传输确认与最终执行混为一谈
+## Engineering coverage
 
-这些是作者偏好，不代表所有团队或行业必须采用。使用者可通过当前任务或项目指令选择自己的规则，并保留语言和平台真实契约。
+| Domain | Standards |
+| --- | --- |
+| [Architecture](references/engineering/architecture.md) | Domain boundaries, interfaces and implementations, modularity, dependency direction, state machines, and architectural decisions |
+| [Design patterns](references/engineering/design-patterns.md) | Creational, structural, behavioral, and architectural patterns; selection criteria and language-specific application |
+| [Backend](references/engineering/backend.md) | API contracts, validation, authentication, authorization, tenancy, idempotency, transactions, and recovery |
+| [Algorithms](references/engineering/algorithms.md) | Complexity, data structures, numerical boundaries, correctness, and workload-based selection |
+| [Concurrency and performance](references/engineering/concurrency-performance.md) | Memory models, synchronization, bounded resources, profiling, benchmarks, latency, throughput, and capacity |
+| [Databases](references/engineering/database.md) | Data modeling, constraints, indexes, isolation, locking, migrations, and cache consistency |
+| [Protocols and distributed systems](references/engineering/protocols-distributed.md) | Message semantics, retries, ordering, consistency, ownership, failover, and execution status |
+| [Security](references/engineering/security.md) | Threat modeling, access control, tenant isolation, secrets, cryptography, supply chains, device security, and AI/agent tool boundaries |
+| [Systems](references/engineering/systems.md) | Memory safety, ABI/FFI, IPC, virtual memory, SMP, network I/O, and resource lifecycles |
+| [Frameworks](references/engineering/frameworks.md) | Version-aware use of frontend, backend, persistence, messaging, and networking frameworks |
+| [Git](references/engineering/git.md) and [delivery](references/engineering/delivery.md) | Branches, commits, reviews, CI/CD, versioning, release evidence, rollback, and operations |
 
-## 设计体系与安全参考
+## Languages
 
-设计章节区分 Ant Design、TDesign、Arco/Semi、JetBrains Int UI、Material Design、Apple HIG、IBM Carbon、Oracle Redwood，以及京东/抖音公开入口、OpenAI 与 Claude 相关公开资源。不同来源的公开程度与适用范围均有说明，不宣称掌握未公开的企业内部规范。
+Each topic applies the shared standards alongside the language's own tooling, runtime, memory model, and ecosystem conventions.
 
-安全章节参考 OWASP ASVS、API Security、NIST SSDF 和 CWE，覆盖认证授权、租户、输入输出、密码、数据、设备、供应链与事件处理。
+| Category | References |
+| --- | --- |
+| Backend and general purpose | [Java](references/languages/java.md), [Go](references/languages/go.md), [Python](references/languages/python.md) |
+| Systems and native | [Rust](references/languages/rust.md), [C](references/languages/c.md), [C++](references/languages/cpp.md) |
+| Web | [JavaScript](references/languages/javascript.md), [TypeScript](references/languages/typescript.md), [Vue](references/languages/vue.md), [HTML/CSS](references/languages/html-css.md) |
+| Mobile | [Kotlin](references/languages/kotlin.md), [Swift](references/languages/swift.md) |
+| Data | [SQL](references/languages/sql.md) |
 
-## 本地检查
+## UI, UX, and application design
 
-需要 Python 3.11 或更高版本。基础文本检查只用标准库；完整 YAML 校验与开发测试需要固定的开发依赖。以下命令在 Skill 根目录执行：
+- [UI/UX standards](references/product/ui-ux.md): information architecture, page hierarchy, color semantics, typography, spacing, navigation, forms, tables, feedback, accessibility, and responsive behavior
+- [Design systems](references/product/design-systems.md): Ant Design, TDesign, Arco/Semi, JetBrains Int UI, Google Material Design, Apple HIG, IBM Carbon, Oracle Redwood, and other public design resources
+- [Mobile and cross-platform standards](references/product/mobile.md): iOS, Android, native apps, hybrid apps, mini-programs, platform interaction, permissions, offline behavior, and lifecycle management
 
-```text
+Choose a coherent design system for the product. Adapt information density, interaction, and recovery flows to enterprise or consumer tasks and the target platform.
+
+## Embedded systems and hardware
+
+- [Embedded development](references/hardware/embedded.md): MCU/RTOS architecture, interrupts, DMA, memory budgets, timing, watchdogs, boot, OTA, and board validation
+- [Communication](references/hardware/communications.md): framing, endianness, CRC, retransmission, bus timing, industrial protocols, and interoperability
+- [Electronics and PCB](references/hardware/electronics-pcb.md): component selection, power, protection, grounding, signal integrity, EMC, DFM/DFT, and bring-up
+- [Digital chip design](references/hardware/chip-design.md): RTL/FPGA, reset, CDC/RDC, constraints, timing analysis, verification, and sign-off
+- [Analog and mixed-signal ICs](references/hardware/analog-ic.md): bias, stability, converters, RF considerations, PVT, mismatch, parasitics, reliability, and measurement
+
+## Working process
+
+1. Establish requirements, invariants, interfaces, failure semantics, and acceptance criteria.
+2. Inspect the repository, toolchain, dependencies, and existing changes.
+3. Design responsibilities, package boundaries, state transitions, security controls, and resource budgets.
+4. Implement with explicit error handling, boundary checks, ownership, and cleanup.
+5. Verify correctness, compatibility, performance, and platform behavior with evidence appropriate to the change.
+
+See [verification standards](references/verification.md) for software, UI, distributed-system, and hardware validation.
+
+## Repository checks
+
+With Python 3.11 or later, check formatting, source size, directory limits, and local documentation links:
+
+```bash
 python scripts/check_repo.py . --require-skill
-python -m pip install -r requirements-dev.txt
-python scripts/validate_skill.py .
-python -m unittest discover -s tests -v
 ```
 
-对业务仓库限定本次目标，命令中的路径相对于检查根目录：
+See [contribution guidelines](CONTRIBUTING.md) for metadata validation and checker tests.
 
-```text
-python /path/to/xigexb-coding/scripts/check_repo.py /path/to/project --files src/main.go src/worker_test.go
-```
+## Documentation
 
-检查项包括文本编码和行尾、源文件行数、Java 行长、所有已识别语言的目录同类文件数、Skill 单行标识及内联本地 Markdown 文件链接。
+- [Skill entry point](SKILL.md)
+- [Default coding conventions](references/profile.md)
+- [Coverage index](references/coverage.md)
+- [Official standards and sources](references/sources.md)
+- [Open-source adoption](references/open-source.md)
+- [Third-party notices](THIRD_PARTY_NOTICES.md)
 
-检查器只读，不运行项目、不访问网络、不自动修复，也不证明业务、安全、性能、UI 质量或规范全部符合。Java 行长按 Unicode 字符数计算，Tab 按四字符展开，不计算终端视觉宽度；Markdown 不检查锚点或复杂引用式链接。`validate_skill.py` 使用正规 YAML 解析器检查元数据、Agent 配置和 CI 语法，拒绝重复键与非法类型。
+The detailed reference documents are currently in Simplified Chinese. Both README versions describe the same conventions.
 
-默认排除 `.git`、依赖、构建与工具缓存目录，不自动读取 `.gitignore`，不跟随遍历中的符号链接。`--exclude` 使用根目录相对路径的大小写敏感 POSIX glob，可重复传入；第一方交付源码不能通过排除取得豁免。`--files` 仅接收根目录内存在的文本文件，仍核对涉及源码目录内各类别的完整数量。混合后缀和拆包要求见 [目录规模规范](references/directory-structure.md)。
+## License
 
-```text
-python scripts/check_repo.py . --exclude 'external/*'
-python scripts/check_repo.py --help
-```
-
-新增语言不必修改检查器源码，例如下面的声明将 `.nim` 与 `.nims` 合并，参与文件发现、380 行上限与每目录 20 文件检查：
-
-```text
-python scripts/check_repo.py /path/to/project --source-group 'Nim=.nim,.nims'
-```
-
-分组只对本次调用生效，不能覆盖内置分组拆散计数。安装 Skill 后，工具路径相对于 Skill 所在目录解析，目标根目录仍为实际业务仓库。
-
-Windows PowerShell 与 Bash 的参数引号规则分别遵守其 shell。检查规则不会代替 `gofmt`、编译器、Sanitizer、浏览器或真实板测。
-
-## GitHub 发布准备
-
-- 仓库根就是 Skill 根，可作为独立 GitHub 仓库提交
-- GitHub Actions 提供 Linux/Windows 的 Python 检查与测试，第三方 Action 固定到提交
-- 发布前运行本地检查、审查文件和许可，确认不含内部环境、密钥或私有代码
-- 创建远端、设置可见性、commit、push、tag、Release 分别按用户授权执行
-- 安装器的单命令远程安装格式在真实仓库地址确定后再补充，不提供虚构仓库链接
-
-## 维护与来源
-
-本版来源研究基准日为 2026-11-12。GitHub 调研包含 21 个候选仓库及 32 份重点 Skill 正文/规则片段，Star 仅为当时关注度快照；入口型 Skill 不等于其所有子文档已经阅读。
-
-- [GitHub 调研与取舍](references/github-research.md)
-- [官方规范与权威资料](references/sources.md)
-- [贡献与维护](CONTRIBUTING.md)
-- [版本记录](CHANGELOG.md)
-- [逐项需求映射](references/requirements-matrix.md)
-- [安全报告](SECURITY.md)
-- [第三方来源与许可](THIRD_PARTY_NOTICES.md)
-
-## 许可
-
-原创内容采用 [MIT](LICENSE)。保留的第三方许可文件适用各自原始条款；企业名称、字体、商标和设计资源不随本项目自动授权。不存在相关公司的背书或认证关系。
+[MIT](LICENSE). Retained third-party materials follow their respective licenses.
