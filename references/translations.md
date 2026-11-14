@@ -54,6 +54,13 @@ Read only the language and task references you need. Request Chinese when invoki
 | Checker usage and agent metadata | [English](tooling.md) | [简体中文](zh-CN/tooling.md) |
 | Bilingual standards index | [English](translations.md) | [简体中文](zh-CN/translations.md) |
 | Verification, debugging, and delivery evidence | [English](verification.md) | [简体中文](zh-CN/verification.md) |
+| Progressive web apps and emerging browser capabilities | [English](web/advanced.md) | [简体中文](zh-CN/web/advanced.md) |
+| Pinned Modern Web Guidance catalog | [English](web/catalog.md) | [简体中文](zh-CN/web/catalog.md) |
+| Browser extensions and Chrome Manifest V3 | [English](web/extensions.md) | [简体中文](zh-CN/web/extensions.md) |
+| Modern web platform foundations | [English](web/foundations.md) | [简体中文](zh-CN/web/foundations.md) |
+| Modern web interaction, forms, and accessibility | [English](web/interaction.md) | [简体中文](zh-CN/web/interaction.md) |
+| Modern web performance and measurement | [English](web/performance.md) | [简体中文](zh-CN/web/performance.md) |
+| Modern web security and privacy | [English](web/security.md) | [简体中文](zh-CN/web/security.md) |
 | Security reports and usage boundaries | [English](../SECURITY.md) | [简体中文](../SECURITY.zh-CN.md) |
 | xigexb Coding | [English](../SKILL.md) | [简体中文](../SKILL.zh-CN.md) |
 | Third-party sources and licenses | [English](../THIRD_PARTY_NOTICES.md) | [简体中文](../THIRD_PARTY_NOTICES.zh-CN.md) |

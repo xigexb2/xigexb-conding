@@ -13,9 +13,9 @@ Each package/directory directly owns at most 20 same-family source files, includ
 - Promise.all does not cancel sibling requests; define failure/cancellation/partial-success semantics
 - Use actual I/O cancellation such as AbortSignal; ignoring results does not abort requests
 - Prevent stale search/pagination/router responses overwriting current state using cancellation/generations
-- Avoid long CPU work on event loops; assess workers/chunking for conversions, compression, parsing
+- Measure main-thread interaction latency; split long tasks and assess workers, scheduler APIs or compatible fallbacks for conversions, compression and parsing; see [web performance](../web/performance.md)
 - Clean listeners, timers, observers, connections, subscriptions at lifecycle end
-- Do not feed user input to eval, Function, dangerous HTML, shell
+- Do not feed user input to eval, Function, dangerous HTML or shell; apply context-appropriate sanitization and CSP/Trusted Types where supported, as specified in [web security](../web/security.md)
 - Bound Node request bodies, concurrency, timeouts, output and respect streaming backpressure
 - Preserve the chosen package manager/lockfile rather than mixing npm/pnpm/yarn
 - Imports must not implicitly start services/change global configuration; separate configuration assembly from business logic

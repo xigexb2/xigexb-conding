@@ -2,9 +2,9 @@
 
 [English](THIRD_PARTY_NOTICES.md) | **简体中文** | [规范索引](references/zh-CN/translations.md)
 
-本项目原创规范与工具使用 MIT 许可。第三方名称、商标和资料保留其权利。来源研究不表示公司背书或认证。
+除特别标注的改编内容外，本项目原创规范与工具使用 MIT 许可。第三方名称、商标和资料保留其权利。来源研究不表示公司背书或认证。
 
-没有直接分发上游 SKILL.md 正文、脚本、风格数据库、图片或字体。为保持研究与许可可追溯性，保留下列已获取的 MIT/Apache 许可原文；这些文件不改变上游的许可归属。
+没有原样分发上游 SKILL.md 正文、脚本、风格数据库、图片或字体。为保持研究与许可可追溯性，保留下列已获取的 MIT/Apache 许可原文；这些文件不改变上游的许可归属。
 
 | 来源 | 原文许可 |
 | --- | --- |
@@ -30,3 +30,9 @@ Trail of Bits 的相关内容采用 CC-BY-SA-4.0，未复制纳入本项目。Ve
 如后续引入任何第三方代码或文字，必须逐文件确认授权、保留版权与许可、标注修改并处理 NOTICE 等义务。完整调研范围见 [来源记录](references/zh-CN/github-research.md)。
 
 法律许可原文保留英文。项目文档译文不替代法律许可原文。
+
+## GoogleChrome Modern Web Guidance
+
+[上游仓库](https://github.com/GoogleChrome/modern-web-guidance/tree/4dd968349e54ca45a05dd5c818fb035c9054b022)由 Google Chrome、Microsoft Edge、Mozilla Firefox、MDN 团队及 Web 社区贡献者共同维护。`references/web/` 与 `references/zh-CN/web/` 中的双语 Web 规范参考并改编了部分上游指南，结合本项目约定、浏览器兼容性、隐私与安全边界作了修改。索引指向固定提交的全部原始专题；原文未打包，也不表示已全部翻译。
+
+上游 `guides/` 文档采用 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)，改编内容保留本署名与许可。上游软件及扩展参考资料采用 [Apache-2.0](https://github.com/GoogleChrome/modern-web-guidance/blob/4dd968349e54ca45a05dd5c818fb035c9054b022/LICENSE)，已保留[许可原文](third_party/licenses/GoogleChrome--modern-web-guidance-Apache-2.0.txt)。上游材料可能引用 MDN、W3C、WHATWG 和 IETF 来源，各自条款仍然适用。不表示相关机构为本项目背书。

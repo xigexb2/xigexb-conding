@@ -49,7 +49,7 @@
 
 - Keep labels visible, placeholders illustrative, requirements/formats understandable before action
 - Match input types, keyboards, units, ranges, defaults, autofill to actual data
-- Validate at useful times rather than immediately on the first character; focus/locate the first submission error
+- Validate after appropriate interaction and on submission; synchronize visual and accessible error states and focus the first error or summary; see [web interaction](../web/interaction.md)
 - Associate errors with fields, preserve input, provide fixes/error summaries
 - Align frontend/backend validation; client checks improve UX rather than replacing server checks
 - Distinguish unchanged, saving, saved, failed, conflict; repeated clicks must not duplicate side effects
@@ -81,7 +81,7 @@ Consider applicable initial, loading, empty, normal, partial, forbidden, offline
 
 - Links navigate/buttons act; preserve browser back, new tabs, meaningful URLs
 - Dialogs serve short tasks; prefer pages/appropriate drawers for complex multistep editing
-- Manage dialog focus entry, cycling, Esc, background interaction, restoration
+- Select native dialog or popover semantics for the task and verify focus entry, modal containment, Esc, light-dismiss, background interaction and restoration; see [web interaction](../web/interaction.md)
 - Main flows work by keyboard with logical order and unobscured focus
 - Make shortcuts discoverable without overriding common platform behavior; provide drag alternatives
 - Consider touch size/spacing rather than mouse precision alone

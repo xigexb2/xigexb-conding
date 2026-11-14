@@ -34,7 +34,7 @@ Each package/directory directly owns at most 20 same-family source files, includ
 
 ## V04 UX and performance
 
-- Select one primary system using [UI standards](../product/ui-ux.md) and [design systems](../product/design-systems.md)
+- Select one primary system using [UI standards](../product/ui-ux.md) and [design systems](../product/design-systems.md); apply [modern web foundations](../web/foundations.md) within framework lifecycle and browser constraints
 - Preserve filters, pagination, selection, scroll; define cross-page batch scope and partial failures
 - Follow library contracts for forms, dates, dialogs, uploads; centralize themes through tokens/config providers
 - Assess pagination, virtualization, chunking, shallow reactivity for large lists; keep-alive alone does not fix problems

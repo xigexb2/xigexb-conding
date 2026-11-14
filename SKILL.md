@@ -3,7 +3,7 @@ name: xigexb-coding
 description: Design, implement, refactor, and review software using xigexb conventions and official language contracts. Apply task-specific references for architecture, concurrency, performance, security, databases, protocols, UI, mobile, systems, embedded, and hardware engineering.
 license: MIT
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
 # xigexb Coding
@@ -66,6 +66,13 @@ English is the default. When Chinese is requested, use [the Chinese entry](SKILL
 | C | [C](references/languages/c.md) |
 | C++ | [C++](references/languages/cpp.md) |
 | Python | [Python](references/languages/python.md) |
+| Modern HTML/CSS, browser compatibility, web components | [Web foundations](references/web/foundations.md) |
+| Web interactions, forms, accessibility, motion | [Web interaction](references/web/interaction.md) |
+| Web Core Web Vitals, rendering, resource loading | [Web performance](references/web/performance.md) |
+| Browser security, passkeys, web privacy | [Web security](references/web/security.md) |
+| PWA, browser AI, WebMCP, WASM | [Advanced web](references/web/advanced.md) |
+| Browser extensions, Manifest V3, web store | [Extensions](references/web/extensions.md) |
+| Specific modern web or extension topic | [Pinned upstream catalog](references/web/catalog.md) |
 | JavaScript / TypeScript | [JavaScript](references/languages/javascript.md), [TypeScript](references/languages/typescript.md) |
 | SQL / HTML / CSS | [SQL](references/languages/sql.md), [HTML/CSS](references/languages/html-css.md) |
 | Vue / Web / Uni-app | [Vue](references/languages/vue.md) plus UI/platform rules |

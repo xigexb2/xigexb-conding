@@ -34,7 +34,7 @@
 
 ## V04 页面体验与性能
 
-- 按 [UI 规范](../product/ui-ux.md) 和 [设计体系](../product/design-systems.md) 选择一套主体系
+- 按 [UI 规范](../product/ui-ux.md) 和 [设计体系](../product/design-systems.md) 选择一套主体系；结合框架生命周期和浏览器目标应用[现代 Web 基础](../web/foundations.md)
 - 保留表格筛选、分页、选中和滚动上下文；跨页批量操作明确作用范围与部分失败
 - 组件库表单、日期、弹窗和上传遵循其契约，主题通过 tokens/config provider 管理
 - 大列表评估分页、虚拟化、分块与浅响应；不能只靠 keep-alive 隐藏问题

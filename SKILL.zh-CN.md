@@ -3,7 +3,7 @@ name: xigexb-coding
 description: 按 xigexb 的编码习惯与语言官方约定设计、实现、重构和审查软件；覆盖 Java、Go、Rust、C、C++、Python、JavaScript、TypeScript、Vue，以及架构、算法、系统底层、数据库、协议、Web 与移动端体验、性能和交付验证。用于实际研发任务，按语言和任务加载参考规范
 license: MIT
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
 # xigexb Coding
@@ -66,6 +66,13 @@ metadata:
 | C | [C](references/zh-CN/languages/c.md) |
 | C++ | [C++](references/zh-CN/languages/cpp.md) |
 | Python | [Python](references/zh-CN/languages/python.md) |
+| 现代 HTML/CSS、浏览器兼容与 Web Components | [Web 基础](references/zh-CN/web/foundations.md) |
+| Web 交互、表单、无障碍与动效 | [Web 交互](references/zh-CN/web/interaction.md) |
+| Web 核心体验指标、渲染与资源加载 | [Web 性能](references/zh-CN/web/performance.md) |
+| 浏览器安全、Passkey 与 Web 隐私 | [Web 安全](references/zh-CN/web/security.md) |
+| PWA、浏览器 AI、WebMCP、WASM | [进阶 Web](references/zh-CN/web/advanced.md) |
+| 浏览器扩展、Manifest V3 与应用商店 | [浏览器扩展](references/zh-CN/web/extensions.md) |
+| 具体现代 Web 或扩展专题 | [固定版本上游索引](references/zh-CN/web/catalog.md) |
 | JavaScript / TypeScript | [JavaScript](references/zh-CN/languages/javascript.md)、[TypeScript](references/zh-CN/languages/typescript.md) |
 | SQL / HTML / CSS | [SQL](references/zh-CN/languages/sql.md)、[HTML 与 CSS](references/zh-CN/languages/html-css.md) |
 | Vue / Web / Uni-app | [Vue](references/zh-CN/languages/vue.md)，并读 UI 与平台规则 |

@@ -95,6 +95,10 @@ Skill 先加载核心约定，再按任务涉及的语言和工程领域选择�
 
 为产品选择一致的设计体系，并根据 ToB/ToC 任务与目标平台调整信息密度、交互和恢复流程。
 
+## 现代 Web 规范
+
+双语规范覆盖浏览器兼容、HTML/CSS、表单、无障碍、Web 性能、隐私、PWA、新兴 API 和浏览器扩展。可从 [Web 基础](references/zh-CN/web/foundations.md)及[固定版本专题索引](references/zh-CN/web/catalog.md)进入相应规范。
+
 ## 嵌入式与硬件
 
 - [嵌入式开发](references/zh-CN/hardware/embedded.md)：MCU/RTOS 架构、中断、DMA、内存预算、时序、看门狗、启动、OTA 与板测
@@ -138,4 +142,4 @@ python scripts/check_repo.py . --require-skill
 
 ## 许可
 
-[MIT](LICENSE)。保留的第三方资料遵循各自许可。
+原创内容采用 [MIT](LICENSE)；改编 Web 规范按 CC BY 4.0 署名，其他第三方资料遵循各自许可。详见[许可说明](THIRD_PARTY_NOTICES.zh-CN.md)。

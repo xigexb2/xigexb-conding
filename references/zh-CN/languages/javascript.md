@@ -13,9 +13,9 @@
 - `Promise.all` 不自动取消其他请求；失败、取消和部分成功语义需要显式实现
 - 使用 AbortSignal 等实际 I/O 取消机制；丢弃结果不等于中止请求
 - 防止搜索、分页和路由请求旧结果覆盖新状态，使用取消或请求世代标识
-- EventLoop 中避免长 CPU 工作，大量转换、压缩和解析按负载评估 worker 或分片
+- 测量主线程交互延迟，拆分长任务；按负载评估 Worker、调度 API 或兼容回退，见 [Web 性能](../web/performance.md)
 - 事件监听、定时器、观察器、连接和订阅在生命周期结束时清理
-- 不把用户输入传入 eval、动态 Function、危险 HTML 或 shell
+- 不把用户输入传入 eval、动态 Function、危险 HTML 或 shell；按场景净化并在支持时实施 CSP／Trusted Types，见 [Web 安全](../web/security.md)
 - Node 服务设置请求体、并发、超时和输出上限，流式处理遵循 backpressure
 - 依赖管理沿用锁文件和包管理器，不混用 npm/pnpm/yarn 重写锁文件
 - 模块导入不能隐式启动服务或修改全局配置，配置装配与业务逻辑分离

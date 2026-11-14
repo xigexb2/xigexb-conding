@@ -30,6 +30,11 @@
 - [Kotlin Coding Conventions](https://kotlinlang.org/docs/coding-conventions.html)：入口可达
 - [Swift API Design Guidelines](https://www.swift.org/documentation/api-design-guidelines/)：入口可达
 
+## 2026-11-14 补充的现代 Web 研究
+
+- [GoogleChrome Modern Web Guidance](https://github.com/GoogleChrome/modern-web-guidance/tree/4dd968349e54ca45a05dd5c818fb035c9054b022)：固定提交的研究快照；专题索引和改编范围保存在本项目
+- [Web Platform Baseline](https://web.dev/baseline/)：核验当前兼容性及项目实际浏览器目标
+
 ## Web 与平台
 
 - [Vue](https://vuejs.org/guide/introduction.html)：入口可达

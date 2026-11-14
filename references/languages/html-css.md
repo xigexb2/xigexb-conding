@@ -4,7 +4,7 @@
 
 Each package/directory directly owns at most 20 same-family source files, including tests, declarations, and first-party generated files. Design cohesive subpackages according to the [shared directory standards](../directory-structure.md).
 
-- Use semantic HTML: buttons for actions, links for navigation, real labels for controls
+- Use semantic HTML and native controls for actions, navigation and labels; follow [modern web foundations](../web/foundations.md) and [interaction](../web/interaction.md)
 - Prefer native controls when suitable; ARIA cannot replace missing keyboard/state behavior
 - Align DOM reading/keyboard order; visual CSS reordering must not confuse interaction
 - Use project tokens, spacing scales, breakpoints rather than copying arbitrary colors/dimensions
@@ -14,7 +14,7 @@ Each package/directory directly owns at most 20 same-family source files, includ
 - Specify media dimensions/aspect ratios to avoid shifts and meaningful alternate text
 - Respect reduced motion, system themes, contrast needs
 - Centralize stacking/overlay/z-index scales, focus rings, scroll locking, focus restoration
-- Check browser support/fallbacks for container queries, :has(), other new features
+- Determine the browser/WebView support matrix first; use Baseline as evidence, verify subfeatures and provide tested fallbacks for unsupported container queries, :has() and newer APIs
 - Configure autofill, input types/modes, error association, internationalization from actual needs
 - Use repository formatting and at most 380 maintained source lines; split large pages along stable component boundaries
 

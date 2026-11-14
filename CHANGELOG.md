@@ -2,6 +2,12 @@
 
 **English** | [简体中文](CHANGELOG.zh-CN.md) | [Standards index](references/translations.md)
 
+## 1.2.0 — 2026-11-14
+
+- Integrate selected Modern Web Guidance into bilingual Web, accessibility, performance, privacy and extension standards
+- Replace overlapping rules and add a complete pinned index of upstream guides and extension references
+- Record CC BY 4.0 and Apache-2.0 attribution, compatibility constraints and changes
+
 ## 1.1.0 — 2026-11-13
 
 - Provide full English/Chinese versions of the skill entry, reference standards, and maintenance documents

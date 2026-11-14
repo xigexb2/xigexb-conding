@@ -54,6 +54,13 @@
 | 检查器用法与 Agent 元数据 | [English](../tooling.md) | [简体中文](tooling.md) |
 | 双语规范索引 | [English](../translations.md) | [简体中文](translations.md) |
 | 验证、调试与交付证据 | [English](../verification.md) | [简体中文](verification.md) |
+| 渐进式 Web 应用与新兴浏览器能力 | [English](../web/advanced.md) | [简体中文](web/advanced.md) |
+| Modern Web Guidance 固定版本专题索引 | [English](../web/catalog.md) | [简体中文](web/catalog.md) |
+| 浏览器扩展与 Chrome Manifest V3 | [English](../web/extensions.md) | [简体中文](web/extensions.md) |
+| 现代 Web 平台基础规范 | [English](../web/foundations.md) | [简体中文](web/foundations.md) |
+| 现代 Web 交互、表单与无障碍 | [English](../web/interaction.md) | [简体中文](web/interaction.md) |
+| 现代 Web 性能与测量 | [English](../web/performance.md) | [简体中文](web/performance.md) |
+| 现代 Web 安全与隐私 | [English](../web/security.md) | [简体中文](web/security.md) |
 | 安全报告与使用边界 | [English](../../SECURITY.md) | [简体中文](../../SECURITY.zh-CN.md) |
 | xigexb Coding | [English](../../SKILL.md) | [简体中文](../../SKILL.zh-CN.md) |
 | 第三方来源与许可 | [English](../../THIRD_PARTY_NOTICES.md) | [简体中文](../../THIRD_PARTY_NOTICES.zh-CN.md) |

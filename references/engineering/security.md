@@ -26,7 +26,7 @@ Select controls from actual assets, attack surfaces, and risks. Reference OWASP 
 
 - Validate types, lengths, counts, ranges, enums, encodings, compression, resource budgets at boundaries
 - Bind SQL values and allowlist identifiers; use command argument arrays instead of external shell concatenation
-- Encode HTML by output context; sanitize rich text with maintained libraries; add CSP as defense in depth
+- Prefer textContent for untrusted plain text; sanitize rich HTML by context and apply CSP/Trusted Types where supported without treating Trusted Types as a sanitizer; see [web security](../web/security.md)
 - SSRF controls inspect resolved addresses, redirects, DNS rebinding, private/metadata-address access policy
 - Validate upload size, contents, location, permissions, processing tools; filenames must not directly become server paths
 - Prevent traversal, symlink escapes, archive extraction escapes; bound parser depth, entity expansion, decompression

@@ -30,6 +30,11 @@ See profile.md for personal conventions. Public company guides are engineering p
 - [Kotlin Coding Conventions](https://kotlinlang.org/docs/coding-conventions.html): Entry reachable at the research baseline
 - [Swift API Design Guidelines](https://www.swift.org/documentation/api-design-guidelines/): Entry reachable at the research baseline
 
+## Modern web research added 2026-11-14
+
+- [GoogleChrome Modern Web Guidance](https://github.com/GoogleChrome/modern-web-guidance/tree/4dd968349e54ca45a05dd5c818fb035c9054b022): pinned research snapshot; guide catalog and adaptation scope are recorded locally
+- [Web Platform Baseline](https://web.dev/baseline/): verify current compatibility and project-specific browser targets
+
 ## Web and platforms
 
 - [Vue](https://vuejs.org/guide/introduction.html): Entry reachable at the research baseline

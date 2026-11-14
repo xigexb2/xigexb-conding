@@ -2,9 +2,9 @@
 
 **English** | [简体中文](THIRD_PARTY_NOTICES.zh-CN.md) | [Standards index](references/translations.md)
 
-Original standards/tools use MIT. Third-party names, trademarks, materials retain their rights. Research does not imply company endorsement/certification.
+Original standards/tools use MIT except where otherwise attributed. Third-party names, trademarks, materials retain their rights. Research does not imply company endorsement/certification.
 
-This repository does not redistribute upstream SKILL.md prose, scripts, style databases, images, fonts. The following acquired MIT/Apache license texts are retained for provenance and do not alter upstream licensing.
+This repository does not redistribute upstream SKILL.md prose, scripts, style databases, images, or fonts verbatim. The following acquired MIT/Apache license texts are retained for provenance and do not alter upstream licensing.
 
 | Source | Original license |
 | --- | --- |
@@ -30,3 +30,9 @@ Relevant Trail of Bits content is CC-BY-SA-4.0 and was not copied into this proj
 For future third-party code/prose, verify permissions per file, retain copyright/licenses, mark modifications, satisfy applicable NOTICE obligations. See the [research record](references/github-research.md) for scope.
 
 Original license texts remain verbatim in English. Project documentation translations do not replace legal license texts.
+
+## GoogleChrome Modern Web Guidance
+
+The [upstream repository](https://github.com/GoogleChrome/modern-web-guidance/tree/4dd968349e54ca45a05dd5c818fb035c9054b022) is stewarded by the Google Chrome, Microsoft Edge, Mozilla Firefox and MDN teams together with web community contributors. Adapted bilingual Web guidance in `references/web/` and `references/zh-CN/web/` incorporates selected ideas from its guides, with changes for this project's conventions, browser compatibility, privacy and security. The catalog links to the complete original topics at the pinned commit; originals are not bundled or represented as fully translated.
+
+Upstream guide documentation under `guides/` is [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); adaptations retain this attribution and license. Upstream software and extension reference materials are [Apache-2.0](https://github.com/GoogleChrome/modern-web-guidance/blob/4dd968349e54ca45a05dd5c818fb035c9054b022/LICENSE); its [license text](third_party/licenses/GoogleChrome--modern-web-guidance-Apache-2.0.txt) is retained. Upstream materials may cite MDN, W3C, WHATWG and IETF sources with their own terms. No endorsement is implied.

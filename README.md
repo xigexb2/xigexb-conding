@@ -96,6 +96,10 @@ Each topic applies the shared standards alongside the language's own tooling, ru
 
 Choose a coherent design system for the product. Adapt information density, interaction, and recovery flows to enterprise or consumer tasks and the target platform.
 
+## Modern web standards
+
+The bilingual standards cover browser support, HTML/CSS, forms, accessibility, Web performance, privacy, PWA, emerging APIs and browser extensions. [Web foundations](references/web/foundations.md) and the [pinned topic catalog](references/web/catalog.md) route to the relevant guidance.
+
 ## Embedded systems and hardware
 
 - [Embedded development](references/hardware/embedded.md): MCU/RTOS architecture, interrupts, DMA, memory budgets, timing, watchdogs, boot, OTA, and board validation
@@ -139,4 +143,4 @@ The complete standards are available in English and Simplified Chinese, with a l
 
 ## License
 
-[MIT](LICENSE). Retained third-party materials follow their respective licenses.
+[MIT](LICENSE) for original work; adapted web guidance is attributed under CC BY 4.0, with other third-party materials under their respective licenses. See [notices](THIRD_PARTY_NOTICES.md).
