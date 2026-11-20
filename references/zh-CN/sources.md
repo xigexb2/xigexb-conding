@@ -14,6 +14,7 @@
 - [Go Specification](https://go.dev/ref/spec)：入口可达
 - [Go Memory Model](https://go.dev/ref/mem)：入口可达
 - [Effective Go](https://go.dev/doc/effective_go)：入口可达
+- [Google Rust Style Guide](https://google.github.io/styleguide/rustguide.html)：2026-11-20 核对；[固定源码版本](https://github.com/google/styleguide/blob/cceb297e93677c31053e5e75de6b701a9204fc03/rustguide.md)
 - [Rust Reference](https://doc.rust-lang.org/reference/)：入口可达
 - [Rustonomicon](https://doc.rust-lang.org/nomicon/)：入口可达
 - [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/)：入口可达

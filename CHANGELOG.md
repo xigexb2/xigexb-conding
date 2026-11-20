@@ -2,6 +2,10 @@
 
 **English** | [简体中文](CHANGELOG.zh-CN.md) | [Standards index](references/translations.md)
 
+## 1.2.1 — 2026-11-20
+
+- Integrate Google Rust Style Guide into the bilingual Rust standards with project-specific scope and attribution
+
 ## 1.2.0 — 2026-11-14
 
 - Integrate selected Modern Web Guidance into bilingual Web, accessibility, performance, privacy and extension standards

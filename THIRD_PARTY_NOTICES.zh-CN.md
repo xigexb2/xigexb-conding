@@ -36,3 +36,7 @@ Trail of Bits 的相关内容采用 CC-BY-SA-4.0，未复制纳入本项目。Ve
 [上游仓库](https://github.com/GoogleChrome/modern-web-guidance/tree/4dd968349e54ca45a05dd5c818fb035c9054b022)由 Google Chrome、Microsoft Edge、Mozilla Firefox、MDN 团队及 Web 社区贡献者共同维护。`references/web/` 与 `references/zh-CN/web/` 中的双语 Web 规范参考并改编了部分上游指南，结合本项目约定、浏览器兼容性、隐私与安全边界作了修改。索引指向固定提交的全部原始专题；原文未打包，也不表示已全部翻译。
 
 上游 `guides/` 文档采用 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)，改编内容保留本署名与许可。上游软件及扩展参考资料采用 [Apache-2.0](https://github.com/GoogleChrome/modern-web-guidance/blob/4dd968349e54ca45a05dd5c818fb035c9054b022/LICENSE)，已保留[许可原文](third_party/licenses/GoogleChrome--modern-web-guidance-Apache-2.0.txt)。上游材料可能引用 MDN、W3C、WHATWG 和 IETF 来源，各自条款仍然适用。不表示相关机构为本项目背书。
+
+## Google Rust Style Guide
+
+中英文 Rust 规范参考并改编 Google 的 [Rust Style Guide](https://github.com/google/styleguide/blob/cceb297e93677c31053e5e75de6b701a9204fc03/rustguide.md)。上游规范文本采用 [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)；本项目结合个人约定与目标平台适用范围进行了归纳和修改。上游代码示例采用 Apache-2.0，本次改编未复制上游代码示例。详见[上游许可说明](https://github.com/google/styleguide/blob/cceb297e93677c31053e5e75de6b701a9204fc03/README.md)。

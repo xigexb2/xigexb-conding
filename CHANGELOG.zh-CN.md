@@ -2,6 +2,10 @@
 
 [English](CHANGELOG.md) | **简体中文** | [规范索引](references/zh-CN/translations.md)
 
+## 1.2.1 — 2026-11-20
+
+- 将 Google Rust Style Guide 融入中英文 Rust 规范，标明项目适用范围与来源许可
+
 ## 1.2.0 — 2026-11-14
 
 - 将 Modern Web Guidance 的相关内容融入双语 Web、无障碍、性能、隐私和扩展规范

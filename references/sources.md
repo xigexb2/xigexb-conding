@@ -14,6 +14,7 @@ See profile.md for personal conventions. Public company guides are engineering p
 - [Go Specification](https://go.dev/ref/spec): Entry reachable at the research baseline
 - [Go Memory Model](https://go.dev/ref/mem): Entry reachable at the research baseline
 - [Effective Go](https://go.dev/doc/effective_go): Entry reachable at the research baseline
+- [Google Rust Style Guide](https://google.github.io/styleguide/rustguide.html): Reviewed 2026-11-20; [fixed source revision](https://github.com/google/styleguide/blob/cceb297e93677c31053e5e75de6b701a9204fc03/rustguide.md)
 - [Rust Reference](https://doc.rust-lang.org/reference/): Entry reachable at the research baseline
 - [Rustonomicon](https://doc.rust-lang.org/nomicon/): Entry reachable at the research baseline
 - [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/): Entry reachable at the research baseline
