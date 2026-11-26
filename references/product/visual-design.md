@@ -27,6 +27,22 @@ Inspect the real viewport, slide or frame at its intended size. Identify the few
 
 Adapted from Huashu Design 3.5.0. The number of alternatives and review rounds scales with the task. The project's file limits and asset permissions apply.
 
+## VD04 Choose UI design references by task
+
+Start with the screen problem that needs a decision. Carry approved flows, visual direction and design tokens forward when the work spans multiple stages.
+
+| Situation | Method and deliverable |
+| --- | --- |
+| Requirements or user flows are unclear | Use [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/tree/b73ee96f8d4ff7bbc279c52dadcd907ffe23629c) to define users, tasks, key states and recovery. Deliver a page outline and a low-fidelity flow. Walk through the main task before settling on a visual direction. |
+| An existing prototype or screen needs a redesign | Use [Taste Skill](https://github.com/Leonxlnx/taste-skill/tree/d1a2bb41d927083ac7118f60cfc9cdf711810ea0) as a reference for hierarchy, composition, typography and color using real content. Show representative before-and-after screens. Recheck existing actions, long content and narrow viewports. |
+| A mature reference or an existing screen needs analysis | Use [Impeccable](https://github.com/pbakaus/impeccable/blob/2fc5e1459efbbf06d92c7306517c286bf12490cf/README.md) to examine content order, action priority, component composition and responsive layout. Rank issues by impact on the task. Check navigation, focus, theming and performance. |
+| An admin console, dashboard or SaaS workspace needs implementation | Evaluate [shadcn/ui](https://github.com/shadcn-ui/ui) for tables, forms, dialogs and charts when the stack supports it and component selection is in scope. Reuse the project's components and tokens where established. Verify keyboard use, empty states, errors and permissions. |
+| An approved design needs a presentation or handoff | Apply the article's Design MD Collection handoff approach. Use the project's [DESIGN.md guide](design-md.md) for reusable tokens and component rules. In a case study, connect the goal, design decisions, representative screens and verification results. |
+
+The use cases are adapted from Jason's article. The article names Design MD Collection. This workflow uses the existing `DESIGN.md` format for its handoff. [Original article](https://mp.weixin.qq.com/s/IgzOThFw1Bqx8zu4FKEzBQ)
+
+For the steps behind the brief, redesign, review and component integration, see [UI design, review, and component implementation](ui-design-workflow.md).
+
 ## Upstream references
 
 - [SKILL.md](https://github.com/alchaincyf/huashu-design/blob/59065698ad63f87ea1532c126c87f488d4f93fd6/SKILL.md)

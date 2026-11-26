@@ -3,7 +3,7 @@ name: xigexb-coding
 description: Design, implement, refactor, and review software using xigexb conventions and official language contracts. Apply task-specific references for architecture, concurrency, performance, security, databases, protocols, UI, mobile, systems, embedded, and hardware engineering.
 license: MIT
 metadata:
-  version: "1.2.4"
+  version: "1.2.5"
 ---
 
 # xigexb Coding
@@ -58,7 +58,8 @@ English is the default. When Chinese is requested, use [the Chinese entry](SKILL
 | Identity, authorization, untrusted input, privacy | [Security](references/engineering/security.md) |
 | Spring, Netty, Redis, messaging integrations | [Frameworks](references/engineering/frameworks.md) |
 | Pages, colors, interaction, forms, motion | [UI/UX](references/product/ui-ux.md) |
-| Visual directions, critiques, prototypes, and visual deliverables | [Visual design exploration and prototyping](references/product/visual-design.md) |
+| Design briefs, redesigns, usability reviews and component integration | [UI design, review, and component implementation](references/product/ui-design-workflow.md) |
+| UI design reference selection, visual directions, prototypes, and deliverable review | [Visual design exploration and prototyping](references/product/visual-design.md) |
 | Vendor design languages, components, themes | [Design systems](references/product/design-systems.md) |
 | DESIGN.md authoring, token validation and export | [Google DESIGN.md format](references/product/design-md.md) |
 | Stitch, design system extraction, prototype-to-code handoff | [Google Stitch design and implementation workflow](references/product/stitch-workflow.md) |

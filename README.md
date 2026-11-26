@@ -100,7 +100,8 @@ Each topic applies the shared standards alongside the language's own tooling, ru
 | Task | Project guide |
 | --- | --- |
 | Design enterprise or consumer screens with accessible color, hierarchy, navigation, forms, tables, and state feedback | [UI/UX standards](references/product/ui-ux.md) |
-| Explore visual directions, prototype, and review each delivery medium using methods adapted from Huashu Design | [Visual design exploration and prototyping](references/product/visual-design.md) |
+| Apply four upstream workflows to design briefs, redesigns, usability reviews, and component integration | [UI design, review, and component implementation](references/product/ui-design-workflow.md) |
+| Choose UI design references by task, explore visual directions, prototype, and review deliverables | [Visual design exploration and prototyping](references/product/visual-design.md) |
 | Choose and apply a design system in an existing product using Ant Design, TDesign, Arco/Semi, JetBrains Int UI, Material 3, Apple HIG, IBM Carbon, or Oracle Redwood as references | [Design systems](references/product/design-systems.md) |
 | Write `DESIGN.md` with YAML design tokens, then lint, diff, and export DTCG JSON or Tailwind with the CLI | [Google DESIGN.md format and bilingual example](references/product/design-md.md) |
 | Go from a screen brief, extracted design system, and multi-page prototype to implementation and verification in Vue, React, or React Native | [Google Stitch workflow and index of 16 upstream skills](references/product/stitch-workflow.md) |

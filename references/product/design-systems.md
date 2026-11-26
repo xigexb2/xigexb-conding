@@ -46,6 +46,8 @@ Names belong to their owners. This project does not represent those companies or
 
 For authoring and validating a design handoff, see the [Google DESIGN.md format](design-md.md). For extraction and prototype-to-code handoff, see the [Google Stitch workflow](stitch-workflow.md).
 
+For shadcn/ui composition, registry integration and data-table verification, see [UI design and component implementation](ui-design-workflow.md).
+
 ## DS04 AI products and conversational tools
 
 - Distinguish generation, sources, tool status, actual external results

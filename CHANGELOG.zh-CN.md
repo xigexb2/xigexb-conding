@@ -2,6 +2,11 @@
 
 [English](CHANGELOG.md) | **简体中文** | [规范索引](references/zh-CN/translations.md)
 
+## 1.2.5 — 2026-11-26
+
+- 补充 UI 设计参考选用规范，覆盖需求梳理、页面改版、设计评审、后台实现与设计交付。
+- 融合 Taste Skill、Impeccable、shadcn/ui 与 UI UX Pro Max 的具体做法，补充双语设计工作流和固定版本出处。
+
 ## 1.2.4 — 2026-11-26
 
 - 合入 Google DESIGN.md 格式，提供双语设计令牌、示例、CLI 校验与导出规范，并接入 Stitch 工作流。

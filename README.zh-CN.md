@@ -99,7 +99,8 @@ Skill 先加载核心约定，再按任务涉及的语言和工程领域选择�
 | 任务 | 项目指南 |
 | --- | --- |
 | 设计 ToB 或 ToC 界面，完善色彩、层级、导航、表单、表格、状态与无障碍 | [UI/UX 规范](references/zh-CN/product/ui-ux.md) |
-| 选择视觉方向、制作原型并按交付媒介复验，参考花叔设计 | [视觉方向探索与原型设计](references/zh-CN/product/visual-design.md) |
+| 落实设计简报、视觉改版、可用性评审和组件接入，融合四个上游项目 | [UI 设计、评审与组件实现](references/zh-CN/product/ui-design-workflow.md) |
+| 按任务选择 UI 设计参考，探索视觉方向、制作原型并复验 | [视觉方向探索与原型设计](references/zh-CN/product/visual-design.md) |
 | 在现有产品中选择并应用设计体系，参考 Ant Design、TDesign、Arco/Semi、JetBrains Int UI、Material 3、Apple HIG、IBM Carbon 和 Oracle Redwood | [设计体系](references/zh-CN/product/design-systems.md) |
 | 编写 `DESIGN.md`、记录 YAML 设计令牌，用 CLI 校验、比较并导出 DTCG JSON 或 Tailwind | [Google DESIGN.md 格式与双语示例](references/zh-CN/product/design-md.md) |
 | 从界面简报、设计体系提取和多页原型走到 Vue、React 或 React Native 实现与复验 | [Google Stitch 工作流与 16 项上游技能索引](references/zh-CN/product/stitch-workflow.md) |

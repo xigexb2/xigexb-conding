@@ -49,6 +49,7 @@ Read only the language and task references you need. Request Chinese when invoki
 | Design languages, component libraries, and enterprise references | [English](product/design-systems.md) | [简体中文](zh-CN/product/design-systems.md) |
 | iOS, Android, native, hybrid, and mini-program apps | [English](product/mobile.md) | [简体中文](zh-CN/product/mobile.md) |
 | UI, interaction, page, and visual design | [English](product/ui-ux.md) | [简体中文](zh-CN/product/ui-ux.md) |
+| UI design, review, and component implementation | [English](product/ui-design-workflow.md) | [简体中文](zh-CN/product/ui-design-workflow.md) |
 | Visual design exploration and prototyping | [English](product/visual-design.md) | [简体中文](zh-CN/product/visual-design.md) |
 | Google DESIGN.md format | [English](product/design-md.md) | [简体中文](zh-CN/product/design-md.md) |
 | Google Stitch design and implementation workflow | [English](product/stitch-workflow.md) | [简体中文](zh-CN/product/stitch-workflow.md) |

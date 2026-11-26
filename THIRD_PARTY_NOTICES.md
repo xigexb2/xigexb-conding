@@ -58,3 +58,12 @@ The bilingual workflow adapts Google Stitch design and implementation methods to
 The bilingual guide adapts Google's DESIGN.md format for project handoffs and the Stitch workflow. The example was written for this project. [Google DESIGN.md format](references/product/design-md.md)
 
 [Upstream format](https://github.com/google-labs-code/design.md/blob/db977b3c1d1f309269f43d5d17ae828d54bd6ae3/docs/spec.md) · [Apache-2.0](third_party/licenses/google-labs-code--design-md.txt)
+
+## UI design workflow sources
+
+The bilingual UI workflow adapts the following upstream methods into project design, review, and component implementation guidance. [UI design, review, and component implementation](references/product/ui-design-workflow.md)
+
+- [Leonxlnx/taste-skill · MIT](https://github.com/Leonxlnx/taste-skill/blob/d1a2bb41d927083ac7118f60cfc9cdf711810ea0/LICENSE)
+- [pbakaus/impeccable · Apache-2.0](https://github.com/pbakaus/impeccable/blob/2fc5e1459efbbf06d92c7306517c286bf12490cf/LICENSE)
+- [shadcn-ui/ui · MIT](https://github.com/shadcn-ui/ui/blob/0e5b2e621a9ee4cf6a604bbe6c5c0d5b70561eb4/LICENSE.md)
+- [nextlevelbuilder/ui-ux-pro-max-skill · MIT](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/b73ee96f8d4ff7bbc279c52dadcd907ffe23629c/LICENSE)

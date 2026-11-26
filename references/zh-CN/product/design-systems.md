@@ -46,6 +46,8 @@
 
 编写或校验设计交接文档时，参见 [Google DESIGN.md 格式](design-md.md)。从代码提取设计或将原型交付到前端时，参见 [Google Stitch 工作流](stitch-workflow.md)。
 
+shadcn/ui 的组件组合、registry 接入和数据表格复验见 [UI 设计与组件实现](ui-design-workflow.md)。
+
 ## DS04 AI 产品与对话式工具
 
 - 用户能够区分生成内容、来源、工具执行状态和实际外部结果

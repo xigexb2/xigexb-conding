@@ -2,6 +2,11 @@
 
 **English** | [简体中文](CHANGELOG.zh-CN.md) | [Standards index](references/translations.md)
 
+## 1.2.5 — 2026-11-26
+
+- Add guidance for choosing UI design references for requirements, redesigns, reviews, dashboard implementation, and design handoff.
+- Integrate practices from Taste Skill, Impeccable, shadcn/ui and UI UX Pro Max into a bilingual design workflow with pinned sources.
+
 ## 1.2.4 — 2026-11-26
 
 - Integrate the Google DESIGN.md format with bilingual token guidance, an example, CLI validation and export, and routing from the Stitch workflow.
