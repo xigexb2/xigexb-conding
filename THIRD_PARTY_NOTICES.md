@@ -46,3 +46,9 @@ The bilingual Rust standard adapts the [Google Rust Style Guide](https://github.
 Huashu Design is maintained by alchaincyf. This project adapts its direction exploration, deliverable checks and visual review, adjusting the number of concepts, selection conditions and review rounds. The upstream repository provides its source, scripts and assets.
 
 [Huashu Design](https://github.com/alchaincyf/huashu-design/tree/59065698ad63f87ea1532c126c87f488d4f93fd6) · [MIT](third_party/licenses/alchaincyf--huashu-design.txt)
+
+## Google Stitch Skills
+
+The bilingual workflow adapts Google Stitch design and implementation methods to the existing project stack and asset permissions. It indexes all 16 upstream skills at the reviewed revision. The upstream maintainers publish the original documentation, plugins and scripts. [Google Stitch design and implementation workflow](references/product/stitch-workflow.md)
+
+[google-labs-code/stitch-skills](https://github.com/google-labs-code/stitch-skills/tree/75f4696f162000fb69fca6a31489b5b21d47a506) · [Apache-2.0](third_party/licenses/google-labs-code--stitch-skills.txt)

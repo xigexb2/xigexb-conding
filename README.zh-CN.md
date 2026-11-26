@@ -91,6 +91,7 @@ Skill 先加载核心约定，再按任务涉及的语言和工程领域选择�
 
 - [UI/UX 规范](references/zh-CN/product/ui-ux.md)：信息架构、页面层级、配色语义、字体、间距、导航、表单、表格、反馈、无障碍与响应式行为
 - [设计体系](references/zh-CN/product/design-systems.md)：Ant Design、TDesign、Arco/Semi、JetBrains Int UI、Google Material Design、Apple HIG、IBM Carbon、Oracle Redwood 及其他公开设计资源
+- [Google Stitch 设计与实现流程](references/zh-CN/product/stitch-workflow.md)涵盖界面简报、令牌提取、多页原型交接与前端实现。
 - [移动与跨平台规范](references/zh-CN/product/mobile.md)：iOS、Android、原生、混合、小程序、平台交互、权限、离线行为与生命周期管理
 
 为产品选择一致的设计体系，并根据 ToB/ToC 任务与目标平台调整信息密度、交互和恢复流程。

@@ -46,3 +46,9 @@ Trail of Bits 的相关内容采用 CC-BY-SA-4.0，未复制纳入本项目。Ve
 花叔设计由 alchaincyf 维护。本项目改编其方向探索、分媒介交付和渲染复验方法，调整了候选数量、确认条件和复验轮数。上游源文件、脚本与素材通过原仓库查阅。
 
 [Huashu Design](https://github.com/alchaincyf/huashu-design/tree/59065698ad63f87ea1532c126c87f488d4f93fd6) · [MIT](third_party/licenses/alchaincyf--huashu-design.txt)
+
+## Google Stitch Skills
+
+本文档按现有项目技术栈和素材授权范围改写 Google Stitch 的设计与实现流程，并按固定版本索引 16 项上游技能。上游文档、插件与脚本由其维护者发布。 [Google Stitch 设计与实现流程](references/zh-CN/product/stitch-workflow.md)
+
+[google-labs-code/stitch-skills](https://github.com/google-labs-code/stitch-skills/tree/75f4696f162000fb69fca6a31489b5b21d47a506) · [Apache-2.0](third_party/licenses/google-labs-code--stitch-skills.txt)

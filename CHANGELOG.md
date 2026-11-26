@@ -2,6 +2,11 @@
 
 **English** | [简体中文](CHANGELOG.zh-CN.md) | [Standards index](references/translations.md)
 
+## 1.2.3 — 2026-11-26
+
+- Add a bilingual Google Stitch workflow for screen generation, design system extraction, multi-page iteration and frontend delivery.
+- Index all 16 upstream skills at a pinned revision and record Apache-2.0 attribution.
+
 ## 1.2.2 — 2026-11-26
 
 - Integrate Huashu Design methods for visual exploration, prototyping and deliverable review

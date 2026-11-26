@@ -92,6 +92,7 @@ Each topic applies the shared standards alongside the language's own tooling, ru
 
 - [UI/UX standards](references/product/ui-ux.md): information architecture, page hierarchy, color semantics, typography, spacing, navigation, forms, tables, feedback, accessibility, and responsive behavior
 - [Design systems](references/product/design-systems.md): Ant Design, TDesign, Arco/Semi, JetBrains Int UI, Google Material Design, Apple HIG, IBM Carbon, Oracle Redwood, and other public design resources
+- [Google Stitch design and implementation workflow](references/product/stitch-workflow.md) covers screen briefs, token extraction, multi-page prototyping and frontend implementation.
 - [Mobile and cross-platform standards](references/product/mobile.md): iOS, Android, native apps, hybrid apps, mini-programs, platform interaction, permissions, offline behavior, and lifecycle management
 
 Choose a coherent design system for the product. Adapt information density, interaction, and recovery flows to enterprise or consumer tasks and the target platform.
