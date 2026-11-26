@@ -26,6 +26,7 @@
 | 安全体系与隐私工程 | [English](../engineering/security.md) | [简体中文](engineering/security.md) |
 | 操作系统、内存与底层 I/O | [English](../engineering/systems.md) | [简体中文](engineering/systems.md) |
 | GitHub Skill 调研与取舍 | [English](../github-research.md) | [简体中文](github-research.md) |
+| 上游对齐记录 | [English](../upstream-alignment.md) | [简体中文](upstream-alignment.md) |
 | 模拟、混合信号与射频芯片设计 | [English](../hardware/analog-ic.md) | [简体中文](hardware/analog-ic.md) |
 | 数字芯片、RTL、FPGA 与验证 | [English](../hardware/chip-design.md) | [简体中文](hardware/chip-design.md) |
 | 通信工程、协议栈与信号算法 | [English](../hardware/communications.md) | [简体中文](hardware/communications.md) |
@@ -48,6 +49,7 @@
 | 设计语言、组件库与企业参考 | [English](../product/design-systems.md) | [简体中文](product/design-systems.md) |
 | iOS、Android、原生、混合与小程序 | [English](../product/mobile.md) | [简体中文](product/mobile.md) |
 | UI、交互、页面与视觉设计 | [English](../product/ui-ux.md) | [简体中文](product/ui-ux.md) |
+| 视觉方向探索与原型设计 | [English](../product/visual-design.md) | [简体中文](product/visual-design.md) |
 | 个人编码习惯与默认约定 | [English](../profile.md) | [简体中文](profile.md) |
 | 用户需求与验收映射 | [English](../requirements-matrix.md) | [简体中文](requirements-matrix.md) |
 | 官方规范与权威资料 | [English](../sources.md) | [简体中文](sources.md) |

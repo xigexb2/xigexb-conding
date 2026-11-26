@@ -8,6 +8,7 @@ Each package/directory directly owns at most 20 same-family source files, includ
 - Use const for stable bindings, let for rebinding; avoid var scope pitfalls
 - Avoid implicit-conversion/truthiness confusion among 0, empty strings, null, undefined
 - Object/array spread is shallow copying rather than deep immutability
+- Evaluate structuredClone, non-mutating array methods and AbortSignal timeout/composition against target runtimes. Check supported types and data semantics before deep copies. Pass cancellation signals to the actual I/O.
 - Keep IDs/money within Number precision or explicitly define BigInt JSON/protocol conversion
 - Await, return, or supervise promises rather than unhandled fire-and-forget
 - Promise.all does not cancel sibling requests; define failure/cancellation/partial-success semantics

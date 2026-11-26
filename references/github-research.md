@@ -2,6 +2,8 @@
 
 **English** | [简体中文](zh-CN/github-research.md) | [Standards index](translations.md)
 
+[2026-11-26 upstream alignment](upstream-alignment.md)
+
 Research baseline: 2026-11-12. Stars are attention snapshots rather than installation counts, active users, or quality certification. No verifiable site-wide usage statistics establish a global most-used ranking.
 
 The research considered 21 repositories and downloaded/read 32 selected skill bodies/rule excerpts rather than auditing every skill. For some routers only the entry point was read; unread child documents were not considered reviewed.

@@ -3,7 +3,7 @@ name: xigexb-coding
 description: 按 xigexb 的编码习惯与语言官方约定设计、实现、重构和审查软件；覆盖 Java、Go、Rust、C、C++、Python、JavaScript、TypeScript、Vue，以及架构、算法、系统底层、数据库、协议、Web 与移动端体验、性能和交付验证。用于实际研发任务，按语言和任务加载参考规范
 license: MIT
 metadata:
-  version: "1.2.1"
+  version: "1.3.0"
 ---
 
 # xigexb Coding
@@ -58,6 +58,7 @@ metadata:
 | 身份、授权、外部输入、隐私 | [安全](references/zh-CN/engineering/security.md) |
 | Spring、Netty、Redis、MQ 等集成 | [框架与基础设施](references/zh-CN/engineering/frameworks.md) |
 | 页面、色调、交互、表单、动效 | [UI 与交互](references/zh-CN/product/ui-ux.md) |
+| 视觉方向、设计评审、原型和视觉交付 | [视觉方向探索与原型设计](references/zh-CN/product/visual-design.md) |
 | 大厂设计语言、组件库与主题 | [设计体系](references/zh-CN/product/design-systems.md) |
 | iOS、Android、跨端与小程序 | [移动端与平台设计](references/zh-CN/product/mobile.md) |
 | Java | [Java](references/zh-CN/languages/java.md) |

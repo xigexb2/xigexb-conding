@@ -33,6 +33,7 @@ See profile.md for personal conventions. Public company guides are engineering p
 
 ## Modern web research added 2026-11-14
 
+- Current Modern Web topic snapshot checked on 2026-11-26. [Catalog](web/catalog.md)
 - [GoogleChrome Modern Web Guidance](https://github.com/GoogleChrome/modern-web-guidance/tree/4dd968349e54ca45a05dd5c818fb035c9054b022): pinned research snapshot; guide catalog and adaptation scope are recorded locally
 - [Web Platform Baseline](https://web.dev/baseline/): verify current compatibility and project-specific browser targets
 

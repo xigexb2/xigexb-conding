@@ -2,6 +2,11 @@
 
 [English](CHANGELOG.md) | **简体中文** | [规范索引](references/zh-CN/translations.md)
 
+## 1.3.0 — 2026-11-26
+
+- 融入花叔设计的视觉探索与原型流程，并补充按媒介复验
+- 对齐已引用的上游入口与路径，更新现代 Web 专题目录
+
 ## 1.2.1 — 2026-11-20
 
 - 将 Google Rust Style Guide 融入中英文 Rust 规范，标明项目适用范围与来源许可

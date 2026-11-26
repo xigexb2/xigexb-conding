@@ -11,6 +11,8 @@
 - Design menus, tabs, tooltips, accordions, carousels, drawers and sortable tables with actual semantics, focus/keyboard interactions and non-pointer alternatives; do not apply one widget's key model to another
 - Do not trap focus in nonmodal popovers or rely exclusively on hover, gesture, drag, animation or color to convey functionality
 
+When a context menu contains necessary actions, provide a visible control or equivalent keyboard and touch access. Verify positioning, dismissal and focus restoration.
+
 ## WI02 Forms, IME, and error feedback
 
 - Give controls persistent labels and correct `type`, `inputmode`, `autocomplete`, names and units; preserve browser/password-manager autofill, including appropriate one-time-code metadata
@@ -25,6 +27,8 @@
 - Measure animation impact; avoid read/write layout thrashing and long work in scroll handlers. Use appropriate observers, scroll completion events or throttling only when they preserve semantics
 - Maintain focus, browser history, deep-link targets and state through same-document or cross-document transitions; avoid duplicate transition names and unbounded animations
 - Preserve accessible content, keyboard operation and usable fallbacks for hidden/revealed content, sticky headers, carousels and drag/reorder actions
+
+For a teaser, truncate protected content before sending it to the browser. A visual fade does not change what is available to assistive technology or what can be copied. Keep the action visible and outside the fade.
 
 ## WI04 Validation
 

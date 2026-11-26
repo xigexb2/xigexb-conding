@@ -37,6 +37,7 @@ Names belong to their owners. This project does not represent those companies or
 
 - Maintain semantic color, type, spacing, radius, hierarchy, motion, breakpoint tokens
 - Map base to semantic to component tokens with centralized theme switching
+- Where tools need to exchange design tokens, export DTCG JSON or CSS custom properties using the existing toolchain. Preview resolved theme values and preserve existing tokens.
 - Keep action names, position, colors, shortcuts consistent across pages
 - Preserve component accessibility/extension contracts when wrapping business behavior rather than reimplementing everything
 - Validate density, dark mode, focus, disabled, error, loading, selection as a state matrix

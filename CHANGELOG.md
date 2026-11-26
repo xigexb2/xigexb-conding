@@ -2,6 +2,11 @@
 
 **English** | [简体中文](CHANGELOG.zh-CN.md) | [Standards index](references/translations.md)
 
+## 1.3.0 — 2026-11-26
+
+- Integrate Huashu Design methods for visual exploration, prototyping and deliverable review
+- Review referenced upstream entries and paths, and refresh the Modern Web topic catalog
+
 ## 1.2.1 — 2026-11-20
 
 - Integrate Google Rust Style Guide into the bilingual Rust standards with project-specific scope and attribution

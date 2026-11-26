@@ -40,3 +40,9 @@ Upstream guide documentation under `guides/` is [CC BY 4.0](https://creativecomm
 ## Google Rust Style Guide
 
 The bilingual Rust standard adapts the [Google Rust Style Guide](https://github.com/google/styleguide/blob/cceb297e93677c31053e5e75de6b701a9204fc03/rustguide.md) by Google. Guide text is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/); this adaptation condenses and modifies it to fit this project’s conventions and target-specific scope. Upstream code examples use Apache-2.0; none are copied into this adaptation. See the [upstream licensing notice](https://github.com/google/styleguide/blob/cceb297e93677c31053e5e75de6b701a9204fc03/README.md).
+
+## Huashu Design
+
+Huashu Design is maintained by alchaincyf. This project adapts its direction exploration, deliverable checks and visual review, adjusting the number of concepts, selection conditions and review rounds. The upstream repository provides its source, scripts and assets.
+
+[Huashu Design](https://github.com/alchaincyf/huashu-design/tree/59065698ad63f87ea1532c126c87f488d4f93fd6) · [MIT](third_party/licenses/alchaincyf--huashu-design.txt)

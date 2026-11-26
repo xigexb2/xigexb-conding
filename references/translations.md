@@ -26,6 +26,7 @@ Read only the language and task references you need. Request Chinese when invoki
 | Security and privacy engineering | [English](engineering/security.md) | [简体中文](zh-CN/engineering/security.md) |
 | Operating systems, memory, and low-level I/O | [English](engineering/systems.md) | [简体中文](zh-CN/engineering/systems.md) |
 | GitHub skill research and adoption decisions | [English](github-research.md) | [简体中文](zh-CN/github-research.md) |
+| Upstream alignment | [English](upstream-alignment.md) | [简体中文](zh-CN/upstream-alignment.md) |
 | Analog, mixed-signal, and RF IC design | [English](hardware/analog-ic.md) | [简体中文](zh-CN/hardware/analog-ic.md) |
 | Digital chips, RTL, FPGA, and verification | [English](hardware/chip-design.md) | [简体中文](zh-CN/hardware/chip-design.md) |
 | Communication engineering, protocol stacks, and signal algorithms | [English](hardware/communications.md) | [简体中文](zh-CN/hardware/communications.md) |
@@ -48,6 +49,7 @@ Read only the language and task references you need. Request Chinese when invoki
 | Design languages, component libraries, and enterprise references | [English](product/design-systems.md) | [简体中文](zh-CN/product/design-systems.md) |
 | iOS, Android, native, hybrid, and mini-program apps | [English](product/mobile.md) | [简体中文](zh-CN/product/mobile.md) |
 | UI, interaction, page, and visual design | [English](product/ui-ux.md) | [简体中文](zh-CN/product/ui-ux.md) |
+| Visual design exploration and prototyping | [English](product/visual-design.md) | [简体中文](zh-CN/product/visual-design.md) |
 | Personal coding habits and default conventions | [English](profile.md) | [简体中文](zh-CN/profile.md) |
 | Requirements and acceptance mapping | [English](requirements-matrix.md) | [简体中文](zh-CN/requirements-matrix.md) |
 | Official standards and authoritative resources | [English](sources.md) | [简体中文](zh-CN/sources.md) |

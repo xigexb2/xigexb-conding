@@ -33,6 +33,7 @@
 
 ## 2026-11-14 补充的现代 Web 研究
 
+- [现代 Web 当前专题快照](web/catalog.md)核对于 2026-11-26
 - [GoogleChrome Modern Web Guidance](https://github.com/GoogleChrome/modern-web-guidance/tree/4dd968349e54ca45a05dd5c818fb035c9054b022)：固定提交的研究快照；专题索引和改编范围保存在本项目
 - [Web Platform Baseline](https://web.dev/baseline/)：核验当前兼容性及项目实际浏览器目标
 

@@ -40,3 +40,9 @@ Trail of Bits 的相关内容采用 CC-BY-SA-4.0，未复制纳入本项目。Ve
 ## Google Rust Style Guide
 
 中英文 Rust 规范参考并改编 Google 的 [Rust Style Guide](https://github.com/google/styleguide/blob/cceb297e93677c31053e5e75de6b701a9204fc03/rustguide.md)。上游规范文本采用 [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)；本项目结合个人约定与目标平台适用范围进行了归纳和修改。上游代码示例采用 Apache-2.0，本次改编未复制上游代码示例。详见[上游许可说明](https://github.com/google/styleguide/blob/cceb297e93677c31053e5e75de6b701a9204fc03/README.md)。
+
+## Huashu Design
+
+花叔设计由 alchaincyf 维护。本项目改编其方向探索、分媒介交付和渲染复验方法，调整了候选数量、确认条件和复验轮数。上游源文件、脚本与素材通过原仓库查阅。
+
+[Huashu Design](https://github.com/alchaincyf/huashu-design/tree/59065698ad63f87ea1532c126c87f488d4f93fd6) · [MIT](third_party/licenses/alchaincyf--huashu-design.txt)
