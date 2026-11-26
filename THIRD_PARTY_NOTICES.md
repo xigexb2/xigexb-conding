@@ -52,3 +52,9 @@ Huashu Design is maintained by alchaincyf. This project adapts its direction exp
 The bilingual workflow adapts Google Stitch design and implementation methods to the existing project stack and asset permissions. It indexes all 16 upstream skills at the reviewed revision. The upstream maintainers publish the original documentation, plugins and scripts. [Google Stitch design and implementation workflow](references/product/stitch-workflow.md)
 
 [google-labs-code/stitch-skills](https://github.com/google-labs-code/stitch-skills/tree/75f4696f162000fb69fca6a31489b5b21d47a506) · [Apache-2.0](third_party/licenses/google-labs-code--stitch-skills.txt)
+
+## Google DESIGN.md
+
+The bilingual guide adapts Google's DESIGN.md format for project handoffs and the Stitch workflow. The example was written for this project. [Google DESIGN.md format](references/product/design-md.md)
+
+[Upstream format](https://github.com/google-labs-code/design.md/blob/db977b3c1d1f309269f43d5d17ae828d54bd6ae3/docs/spec.md) · [Apache-2.0](third_party/licenses/google-labs-code--design-md.txt)

@@ -1,6 +1,6 @@
 # xigexb Coding
 
-[English](README.md) | **简体中文**
+[English](README.md) | **简体中文** | [Skill 入口](SKILL.zh-CN.md) | [规范索引](references/zh-CN/translations.md) | [更新日志](CHANGELOG.zh-CN.md)
 
 面向编码 Agent 的工程规范 Skill，覆盖软件与硬件项目中的架构、实现、UI/UX、性能、安全与交付。
 
@@ -14,7 +14,9 @@
 git clone https://github.com/xigexb2/xigexb-conding.git .agents/skills/xigexb-coding
 ```
 
-保持 `SKILL.md`、`references/`、`scripts/` 和 `agents/` 的相对位置。全局安装使用对应 Agent 支持的技能发现目录。
+此命令获取默认分支。需要固定版本时，在同一命令里为 `git clone` 添加 `--branch <tag>`，标签见 [GitHub Releases](https://github.com/xigexb2/xigexb-conding/releases)。
+
+安装时保留完整目录。Agent 从 `SKILL.md` 加载英文入口和按任务索引，用 `SKILL.zh-CN.md` 及 `references/zh-CN/` 提供简体中文内容。可在调用时指定回复语言。默认和备选 Agent 界面元数据的用法见[工具说明](references/zh-CN/tooling.md)。
 
 ## 使用
 
@@ -32,6 +34,11 @@ git clone https://github.com/xigexb2/xigexb-conding.git .agents/skills/xigexb-co
 ```text
 使用 $xigexb-coding，审查 Java + Netty 服务的缓冲区所有权、
 线程安全、接口契约和失败恢复
+```
+
+```text
+使用 $xigexb-coding，从现有 Vue 页面提取设计令牌，整理 DESIGN.md，
+并复验按钮状态、主题对比度和 Tailwind 导出结果。
 ```
 
 Skill 先加载核心约定，再按任务涉及的语言和工程领域选择参考规范。
@@ -89,16 +96,20 @@ Skill 先加载核心约定，再按任务涉及的语言和工程领域选择�
 
 ## UI、交互与应用设计
 
-- [UI/UX 规范](references/zh-CN/product/ui-ux.md)：信息架构、页面层级、配色语义、字体、间距、导航、表单、表格、反馈、无障碍与响应式行为
-- [设计体系](references/zh-CN/product/design-systems.md)：Ant Design、TDesign、Arco/Semi、JetBrains Int UI、Google Material Design、Apple HIG、IBM Carbon、Oracle Redwood 及其他公开设计资源
-- [Google Stitch 设计与实现流程](references/zh-CN/product/stitch-workflow.md)涵盖界面简报、令牌提取、多页原型交接与前端实现。
-- [移动与跨平台规范](references/zh-CN/product/mobile.md)：iOS、Android、原生、混合、小程序、平台交互、权限、离线行为与生命周期管理
+| 任务 | 项目指南 |
+| --- | --- |
+| 设计 ToB 或 ToC 界面，完善色彩、层级、导航、表单、表格、状态与无障碍 | [UI/UX 规范](references/zh-CN/product/ui-ux.md) |
+| 选择视觉方向、制作原型并按交付媒介复验，参考花叔设计 | [视觉方向探索与原型设计](references/zh-CN/product/visual-design.md) |
+| 在现有产品中选择并应用设计体系，参考 Ant Design、TDesign、Arco/Semi、JetBrains Int UI、Material 3、Apple HIG、IBM Carbon 和 Oracle Redwood | [设计体系](references/zh-CN/product/design-systems.md) |
+| 编写 `DESIGN.md`、记录 YAML 设计令牌，用 CLI 校验、比较并导出 DTCG JSON 或 Tailwind | [Google DESIGN.md 格式与双语示例](references/zh-CN/product/design-md.md) |
+| 从界面简报、设计体系提取和多页原型走到 Vue、React 或 React Native 实现与复验 | [Google Stitch 工作流与 16 项上游技能索引](references/zh-CN/product/stitch-workflow.md) |
+| 处理 iOS、Android、混合应用与小程序的导航、权限、离线和生命周期 | [移动与跨平台规范](references/zh-CN/product/mobile.md) |
 
-为产品选择一致的设计体系，并根据 ToB/ToC 任务与目标平台调整信息密度、交互和恢复流程。
+Stitch 工作流可用于本地原型。连接 Google Stitch 服务时，按其工具配置和项目权限执行。
 
 ## 现代 Web 规范
 
-双语规范覆盖浏览器兼容、HTML/CSS、表单、无障碍、Web 性能、隐私、PWA、新兴 API 和浏览器扩展。可从 [Web 基础](references/zh-CN/web/foundations.md)及[固定版本专题索引](references/zh-CN/web/catalog.md)进入相应规范。
+项目从 GoogleChrome Modern Web Guidance 提炼了六组双语规范，按任务可查 [Web 基础](references/zh-CN/web/foundations.md)、[表单与无障碍交互](references/zh-CN/web/interaction.md)、[性能](references/zh-CN/web/performance.md)、[安全与隐私](references/zh-CN/web/security.md)、[PWA 与新兴 API](references/zh-CN/web/advanced.md)及[浏览器扩展](references/zh-CN/web/extensions.md)。[固定版本专题索引](references/zh-CN/web/catalog.md)链接到上游原文。
 
 ## 嵌入式与硬件
 
@@ -120,26 +131,23 @@ Skill 先加载核心约定，再按任务涉及的语言和工程领域选择�
 
 ## 仓库检查
 
-使用 Python 3.11 或更高版本，检查格式、源文件规模、目录上限和本地文档链接：
+在 Skill 根目录用 Python 3.11 或更高版本运行与 CI 对应的检查。首条命令只依赖 Python 标准库，完整 YAML 校验和测试使用开发依赖。
 
 ```bash
-python scripts/check_repo.py . --require-skill
+python -X utf8 scripts/check_repo.py . --require-skill
+python -m pip install -r requirements-dev.txt
+python -X utf8 scripts/validate_skill.py .
+python -X utf8 scripts/check_translations.py .
+python -X utf8 -m unittest discover -s tests -v
 ```
 
-元数据验证与检查器测试见[贡献指南](CONTRIBUTING.zh-CN.md)。
+项目检查覆盖文本格式、文件与目录上限、本地链接、Skill 和 Agent 元数据、双语导航与检查器回归。检查业务仓库时，将业务仓库根目录传给已安装 Skill 的脚本。参数和用法见[工具说明](references/zh-CN/tooling.md)。
 
 ## 文档
 
-- [双语规范索引](references/zh-CN/translations.md)
-- [检查器用法与 Agent 元数据](references/zh-CN/tooling.md)
-- [Skill 入口](SKILL.zh-CN.md)
-- [默认编码约定](references/zh-CN/profile.md)
-- [规范覆盖索引](references/zh-CN/coverage.md)
-- [官方规范与权威来源](references/zh-CN/sources.md)
-- [开源技术引入](references/zh-CN/open-source.md)
-- [第三方许可说明](THIRD_PARTY_NOTICES.zh-CN.md)
-
-完整规范提供英文与简体中文版本，每篇文档均可切换到对应译文。
+- [规范覆盖与需求映射](references/zh-CN/coverage.md) · [需求验收矩阵](references/zh-CN/requirements-matrix.md)
+- [官方规范与来源](references/zh-CN/sources.md) · [开源技术引入](references/zh-CN/open-source.md) · [上游对齐记录](references/zh-CN/upstream-alignment.md)
+- [贡献指南](CONTRIBUTING.zh-CN.md) · [安全问题报告](SECURITY.zh-CN.md) · [第三方许可说明](THIRD_PARTY_NOTICES.zh-CN.md)
 
 ## 许可
 

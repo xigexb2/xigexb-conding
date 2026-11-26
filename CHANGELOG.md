@@ -2,6 +2,11 @@
 
 **English** | [简体中文](CHANGELOG.zh-CN.md) | [Standards index](references/translations.md)
 
+## 1.2.4 — 2026-11-26
+
+- Integrate the Google DESIGN.md format with bilingual token guidance, an example, CLI validation and export, and routing from the Stitch workflow.
+- Update both READMEs with task-based design navigation, pinned installation instructions, and CI validation commands.
+
 ## 1.2.3 — 2026-11-26
 
 - Add a bilingual Google Stitch workflow for screen generation, design system extraction, multi-page iteration and frontend delivery.

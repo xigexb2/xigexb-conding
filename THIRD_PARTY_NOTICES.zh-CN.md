@@ -52,3 +52,9 @@ Trail of Bits 的相关内容采用 CC-BY-SA-4.0，未复制纳入本项目。Ve
 本文档按现有项目技术栈和素材授权范围改写 Google Stitch 的设计与实现流程，并按固定版本索引 16 项上游技能。上游文档、插件与脚本由其维护者发布。 [Google Stitch 设计与实现流程](references/zh-CN/product/stitch-workflow.md)
 
 [google-labs-code/stitch-skills](https://github.com/google-labs-code/stitch-skills/tree/75f4696f162000fb69fca6a31489b5b21d47a506) · [Apache-2.0](third_party/licenses/google-labs-code--stitch-skills.txt)
+
+## Google DESIGN.md
+
+双语指南在项目设计交接与 Stitch 工作流中采用 Google 的 DESIGN.md 格式约定。示例为本项目编写。 [Google DESIGN.md 格式](references/zh-CN/product/design-md.md)
+
+[上游格式](https://github.com/google-labs-code/design.md/blob/db977b3c1d1f309269f43d5d17ae828d54bd6ae3/docs/spec.md) · [Apache-2.0](third_party/licenses/google-labs-code--design-md.txt)

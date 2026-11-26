@@ -50,6 +50,7 @@
 | iOS、Android、原生、混合与小程序 | [English](../product/mobile.md) | [简体中文](product/mobile.md) |
 | UI、交互、页面与视觉设计 | [English](../product/ui-ux.md) | [简体中文](product/ui-ux.md) |
 | 视觉方向探索与原型设计 | [English](../product/visual-design.md) | [简体中文](product/visual-design.md) |
+| Google DESIGN.md 格式 | [English](../product/design-md.md) | [简体中文](product/design-md.md) |
 | Google Stitch 设计与实现流程 | [English](../product/stitch-workflow.md) | [简体中文](product/stitch-workflow.md) |
 | 个人编码习惯与默认约定 | [English](../profile.md) | [简体中文](profile.md) |
 | 用户需求与验收映射 | [English](../requirements-matrix.md) | [简体中文](requirements-matrix.md) |

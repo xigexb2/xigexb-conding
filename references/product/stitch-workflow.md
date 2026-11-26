@@ -16,6 +16,8 @@ Use this workflow for AI-assisted screen design, design system extraction, multi
 - For extraction from code, inspect available routes, shared layouts, CSS variables, framework theme configuration and computed styles. For extraction from a preview, record the sampled route, viewport, theme and UI state. Distinguish observed values from proposals. Verify representative components across any supported themes.
 - Use the project token source to resolve drift. Update that source and the handoff together when an approved change affects both. See [design system contracts](design-systems.md).
 
+When handing the document to Stitch or another format consumer, use the [Google DESIGN.md format](design-md.md) to check token syntax, section order and CLI validation.
+
 ## ST03 Iterate and hand off
 
 - For multi-page work, record the sitemap, shared navigation and backlog in `SITE.md` or the project's existing planning document. Use one page or flow per iteration with a defined target and an acceptance check.

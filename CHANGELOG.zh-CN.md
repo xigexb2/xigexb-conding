@@ -2,6 +2,11 @@
 
 [English](CHANGELOG.md) | **简体中文** | [规范索引](references/zh-CN/translations.md)
 
+## 1.2.4 — 2026-11-26
+
+- 合入 Google DESIGN.md 格式，提供双语设计令牌、示例、CLI 校验与导出规范，并接入 Stitch 工作流。
+- 更新中英文 README，补齐按任务导航的设计入口、固定版本安装方式和 CI 验证命令。
+
 ## 1.2.3 — 2026-11-26
 
 - 合入 Google Stitch 的双语设计与实现流程，覆盖界面生成、设计体系提取、多页迭代与前端交付。

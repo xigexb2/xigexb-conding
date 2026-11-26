@@ -50,6 +50,7 @@ Read only the language and task references you need. Request Chinese when invoki
 | iOS, Android, native, hybrid, and mini-program apps | [English](product/mobile.md) | [简体中文](zh-CN/product/mobile.md) |
 | UI, interaction, page, and visual design | [English](product/ui-ux.md) | [简体中文](zh-CN/product/ui-ux.md) |
 | Visual design exploration and prototyping | [English](product/visual-design.md) | [简体中文](zh-CN/product/visual-design.md) |
+| Google DESIGN.md format | [English](product/design-md.md) | [简体中文](zh-CN/product/design-md.md) |
 | Google Stitch design and implementation workflow | [English](product/stitch-workflow.md) | [简体中文](zh-CN/product/stitch-workflow.md) |
 | Personal coding habits and default conventions | [English](profile.md) | [简体中文](zh-CN/profile.md) |
 | Requirements and acceptance mapping | [English](requirements-matrix.md) | [简体中文](zh-CN/requirements-matrix.md) |

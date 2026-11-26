@@ -44,7 +44,7 @@
 - 设计变更记录迁移范围与视觉回归，组件库升级核对 API、样式和读屏行为
 - 不把某仓库“必须深色”“禁止汉堡菜单”“每段占一屏”等审美偏好提升为全平台硬规则
 
-需要从代码提取令牌、编写 `DESIGN.md` 或将原型交付到前端时，参见 [Google Stitch 设计与实现流程](stitch-workflow.md)。
+编写或校验设计交接文档时，参见 [Google DESIGN.md 格式](design-md.md)。从代码提取设计或将原型交付到前端时，参见 [Google Stitch 工作流](stitch-workflow.md)。
 
 ## DS04 AI 产品与对话式工具
 

@@ -44,7 +44,7 @@ Names belong to their owners. This project does not represent those companies or
 - Record migration scope/visual regressions and check upgraded APIs, styles, screen-reader behavior
 - Do not turn repository preferences such as mandatory dark themes, banned hamburger menus, full-screen sections into universal rules
 
-For token extraction, `DESIGN.md`, and prototype-to-code handoff, see the [Google Stitch workflow](stitch-workflow.md).
+For authoring and validating a design handoff, see the [Google DESIGN.md format](design-md.md). For extraction and prototype-to-code handoff, see the [Google Stitch workflow](stitch-workflow.md).
 
 ## DS04 AI products and conversational tools
 

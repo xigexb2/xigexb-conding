@@ -1,6 +1,6 @@
 # xigexb Coding
 
-**English** | [简体中文](README.zh-CN.md)
+**English** | [简体中文](README.zh-CN.md) | [Skill entry](SKILL.md) | [Standards index](references/translations.md) | [Changelog](CHANGELOG.md)
 
 An engineering standards skill for coding agents, covering architecture, implementation, UI/UX, performance, security, and delivery across software and hardware projects.
 
@@ -14,7 +14,9 @@ Clone the repository into a skill directory supported by your coding agent. For 
 git clone https://github.com/xigexb2/xigexb-conding.git .agents/skills/xigexb-coding
 ```
 
-Keep `SKILL.md`, `references/`, `scripts/`, and `agents/` together. Use the agent's supported discovery directory for global installation.
+This command installs the default branch. To pin a version, add `--branch <tag>` to `git clone` and choose a tag from [GitHub Releases](https://github.com/xigexb2/xigexb-conding/releases).
+
+Keep the complete directory when installing. The agent discovers the English entry and task index through `SKILL.md`. For Simplified Chinese, request Chinese when invoking the skill, or open `SKILL.zh-CN.md` and its `references/zh-CN/` tree. See the [tooling guide](references/tooling.md) for the default and alternate agent UI metadata.
 
 ## Usage
 
@@ -33,6 +35,11 @@ including bulk actions, permission states, and weak-network recovery.
 ```text
 Use $xigexb-coding to review a Java + Netty service for buffer ownership,
 thread safety, API contracts, and failure recovery.
+```
+
+```text
+Use $xigexb-coding to extract tokens from an existing Vue app, prepare DESIGN.md,
+and verify button states, theme contrast, and Tailwind export.
 ```
 
 The skill loads the core conventions first, then selects references for the task's languages and engineering domains.
@@ -90,16 +97,20 @@ Each topic applies the shared standards alongside the language's own tooling, ru
 
 ## UI, UX, and application design
 
-- [UI/UX standards](references/product/ui-ux.md): information architecture, page hierarchy, color semantics, typography, spacing, navigation, forms, tables, feedback, accessibility, and responsive behavior
-- [Design systems](references/product/design-systems.md): Ant Design, TDesign, Arco/Semi, JetBrains Int UI, Google Material Design, Apple HIG, IBM Carbon, Oracle Redwood, and other public design resources
-- [Google Stitch design and implementation workflow](references/product/stitch-workflow.md) covers screen briefs, token extraction, multi-page prototyping and frontend implementation.
-- [Mobile and cross-platform standards](references/product/mobile.md): iOS, Android, native apps, hybrid apps, mini-programs, platform interaction, permissions, offline behavior, and lifecycle management
+| Task | Project guide |
+| --- | --- |
+| Design enterprise or consumer screens with accessible color, hierarchy, navigation, forms, tables, and state feedback | [UI/UX standards](references/product/ui-ux.md) |
+| Explore visual directions, prototype, and review each delivery medium using methods adapted from Huashu Design | [Visual design exploration and prototyping](references/product/visual-design.md) |
+| Choose and apply a design system in an existing product using Ant Design, TDesign, Arco/Semi, JetBrains Int UI, Material 3, Apple HIG, IBM Carbon, or Oracle Redwood as references | [Design systems](references/product/design-systems.md) |
+| Write `DESIGN.md` with YAML design tokens, then lint, diff, and export DTCG JSON or Tailwind with the CLI | [Google DESIGN.md format and bilingual example](references/product/design-md.md) |
+| Go from a screen brief, extracted design system, and multi-page prototype to implementation and verification in Vue, React, or React Native | [Google Stitch workflow and index of 16 upstream skills](references/product/stitch-workflow.md) |
+| Handle navigation, permissions, offline behavior, and lifecycle on iOS, Android, hybrid apps, and mini-programs | [Mobile and cross-platform standards](references/product/mobile.md) |
 
-Choose a coherent design system for the product. Adapt information density, interaction, and recovery flows to enterprise or consumer tasks and the target platform.
+The Stitch workflow supports local prototyping. When using the Google Stitch service, follow its tool setup and project permissions.
 
 ## Modern web standards
 
-The bilingual standards cover browser support, HTML/CSS, forms, accessibility, Web performance, privacy, PWA, emerging APIs and browser extensions. [Web foundations](references/web/foundations.md) and the [pinned topic catalog](references/web/catalog.md) route to the relevant guidance.
+The project adapts GoogleChrome Modern Web Guidance into six bilingual references for [Web foundations](references/web/foundations.md), [forms and accessible interaction](references/web/interaction.md), [performance](references/web/performance.md), [security and privacy](references/web/security.md), [PWA and emerging APIs](references/web/advanced.md), and [browser extensions](references/web/extensions.md). The [pinned topic catalog](references/web/catalog.md) links to the upstream originals.
 
 ## Embedded systems and hardware
 
@@ -121,26 +132,23 @@ See [verification standards](references/verification.md) for software, UI, distr
 
 ## Repository checks
 
-With Python 3.11 or later, check formatting, source size, directory limits, and local documentation links:
+Run these checks from the skill root with Python 3.11 or later. The first command uses the standard library. Install the development dependency for full YAML validation and the test suite.
 
 ```bash
-python scripts/check_repo.py . --require-skill
+python -X utf8 scripts/check_repo.py . --require-skill
+python -m pip install -r requirements-dev.txt
+python -X utf8 scripts/validate_skill.py .
+python -X utf8 scripts/check_translations.py .
+python -X utf8 -m unittest discover -s tests -v
 ```
 
-See [contribution guidelines](CONTRIBUTING.md) for metadata validation and checker tests.
+The checks cover text format, source file and directory limits, local links, Skill and agent metadata, bilingual navigation, and checker regressions. To check an application repository, pass its root to the installed skill's checker. See the [tooling guide](references/tooling.md) for options.
 
 ## Documentation
 
-- [Bilingual standards index](references/translations.md)
-- [Checker usage and agent metadata](references/tooling.md)
-- [Skill entry point](SKILL.md)
-- [Default coding conventions](references/profile.md)
-- [Coverage index](references/coverage.md)
-- [Official standards and sources](references/sources.md)
-- [Open-source adoption](references/open-source.md)
-- [Third-party notices](THIRD_PARTY_NOTICES.md)
-
-The complete standards are available in English and Simplified Chinese, with a language switch on every document.
+- [Standards coverage](references/coverage.md) · [Requirements and acceptance matrix](references/requirements-matrix.md)
+- [Official standards and sources](references/sources.md) · [Open-source adoption](references/open-source.md) · [Upstream alignment record](references/upstream-alignment.md)
+- [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md) · [Third-party notices](THIRD_PARTY_NOTICES.md)
 
 ## License
 
