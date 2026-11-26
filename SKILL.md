@@ -3,7 +3,7 @@ name: xigexb-coding
 description: Design, implement, refactor, and review software using xigexb conventions and official language contracts. Apply task-specific references for architecture, concurrency, performance, security, databases, protocols, UI, mobile, systems, embedded, and hardware engineering.
 license: MIT
 metadata:
-  version: "1.3.0"
+  version: "1.2.2"
 ---
 
 # xigexb Coding

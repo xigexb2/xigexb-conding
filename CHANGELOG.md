@@ -2,7 +2,7 @@
 
 **English** | [简体中文](CHANGELOG.zh-CN.md) | [Standards index](references/translations.md)
 
-## 1.3.0 — 2026-11-26
+## 1.2.2 — 2026-11-26
 
 - Integrate Huashu Design methods for visual exploration, prototyping and deliverable review
 - Review referenced upstream entries and paths, and refresh the Modern Web topic catalog

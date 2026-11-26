@@ -3,7 +3,7 @@ name: xigexb-coding
 description: 按 xigexb 的编码习惯与语言官方约定设计、实现、重构和审查软件；覆盖 Java、Go、Rust、C、C++、Python、JavaScript、TypeScript、Vue，以及架构、算法、系统底层、数据库、协议、Web 与移动端体验、性能和交付验证。用于实际研发任务，按语言和任务加载参考规范
 license: MIT
 metadata:
-  version: "1.3.0"
+  version: "1.2.2"
 ---
 
 # xigexb Coding
